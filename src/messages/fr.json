@@ -1,0 +1,445 @@
+{
+  "meta": {
+    "title": "Lovelyhop | Meubles de jeu en bois conçus au Québec",
+    "description": "Tables sensorielles, meubles d'art et rangements en contreplaqué pour les enfants de 1 à 6 ans, à la maison comme au CPE. Conçus au Québec."
+  },
+  "common": {
+    "price": "[prix]",
+    "from": "À partir de",
+    "seeAll": "Tout voir",
+    "soon": "Bientôt",
+    "skip": "Aller au contenu",
+    "demo": "Catalogue de démonstration",
+    "close": "Fermer",
+    "add": "Ajouter",
+    "addToCart": "Ajouter au panier",
+    "favorite": "Ajouter aux favoris : {name}",
+    "badge": {
+      "phare": "Produit phare",
+      "nouveau": "Nouveauté",
+      "bientot": "Bientôt"
+    }
+  },
+  "announce": "Conçus au Québec · Livraison partout au Canada",
+  "nav": {
+    "label": "Principale",
+    "home": "Lovelyhop, accueil",
+    "univers": {
+      "creer": "Créer et découvrir",
+      "imaginer": "Imaginer",
+      "ranger": "Ranger et lire",
+      "bouger": "Bouger",
+      "cpe": "Garderies et CPE"
+    },
+    "langSwitch": "English version",
+    "langShort": "EN",
+    "langName": "English",
+    "search": "Rechercher",
+    "cart": "Panier",
+    "cartLabel": "Panier, {count, plural, =0 {aucun article} one {# article} other {# articles}}",
+    "menu": "Menu",
+    "closeMenu": "Fermer le menu",
+    "account": "Mon compte",
+    "featured": "Produit phare",
+    "featuredName": "Table sensorielle évolutive",
+    "featuredLink": "Voir la table",
+    "megaFootTitle": "Vous équipez un CPE ou une garderie ?",
+    "megaFootText": "Prix par lot, plateaux choisis pour vos groupes, pièces de rechange.",
+    "megaFootLink": "Demander une soumission",
+    "proTitle": "Garderies et CPE",
+    "proText": "Soumission par lot, pièces de rechange",
+    "sub": {
+      "creer": [
+        "Tables sensorielles",
+        "Tables lumineuses",
+        "Panneaux d'activités",
+        "Tables d'art",
+        "Chevalets"
+      ],
+      "imaginer": [
+        "Maisons de poupée",
+        "Cuisines de jeu",
+        "Établis",
+        "Épiceries"
+      ],
+      "ranger": [
+        "Bibliothèques Montessori",
+        "Rangements à jouets",
+        "Coffres-bancs",
+        "Penderies"
+      ]
+    }
+  },
+  "search": {
+    "label": "Recherche",
+    "input": "Rechercher dans la boutique",
+    "placeholder": "Table sensorielle, bibliothèque…",
+    "close": "Fermer la recherche",
+    "popular": "Recherches populaires",
+    "popularTerms": [
+      "Table sensorielle",
+      "Table lumineuse",
+      "Busy board",
+      "Bibliothèque Montessori",
+      "Mobilier CPE"
+    ],
+    "guides": "Guides",
+    "guide": "Que mettre dans une table sensorielle : 20 idées",
+    "products": "Produits",
+    "empty": "Aucun produit pour « {q} ». Essayez « table » ou « bibliothèque ».",
+    "seeAll": "Voir tous les résultats",
+    "pageTitle": "Recherche",
+    "resultsFor": "{count, plural, =0 {Aucun résultat} one {# résultat} other {# résultats}} pour « {q} »",
+    "prompt": "Que cherchez-vous ?"
+  },
+  "hero": {
+    "eyebrow": "Meubles de jeu en bois · Conçus au Québec",
+    "title1": "Des meubles",
+    "title2": "de jeu qui",
+    "title3": "évoluent.",
+    "lead": "Tables sensorielles, meubles d'art et rangements en contreplaqué pour bouger, créer, imaginer et ranger. Un même châssis, des plateaux qui changent : pour les 1 à 6 ans, à la maison comme au CPE.",
+    "cta": "Découvrir la table sensorielle",
+    "ctaPro": "Vous êtes un CPE ?",
+    "shopBy": "Magasiner par univers",
+    "note1": "un châssis,",
+    "note2": "trois plateaux",
+    "ring": "Conçu au Québec · Pensé pour durer · ",
+    "tagKicker": "Produit phare",
+    "tagName": "Table sensorielle évolutive",
+    "tagMeta": "3 plateaux",
+    "tagMaterial": "Contreplaqué",
+    "strip": [
+      "Conçus au Québec",
+      "Assez robustes pour les CPE",
+      "Plateaux et pièces remplaçables",
+      "Livraison partout au Canada"
+    ]
+  },
+  "home": {
+    "universEyebrow": "Nos univers",
+    "universTitle": "Quatre façons de",
+    "universEm": "jouer.",
+    "universLink": "Tout le catalogue",
+    "tiles": {
+      "creer": "Sensoriel, art, lumière",
+      "imaginer": "Maisons, cuisines, établis",
+      "ranger": "Bibliothèques et rangements",
+      "bouger": "Pikler et motricité"
+    },
+    "phareEyebrow": "Notre produit phare",
+    "phareTitle": "La table sensorielle",
+    "phareEm": "évolutive.",
+    "phareLead": "Un seul châssis en contreplaqué, des plateaux qui changent selon l'âge et l'envie du jour. Elle passe du bac à sable au coin d'art sans racheter de meuble.",
+    "phareNote": "on change le jeu, pas le meuble",
+    "phareTry": "Essayer un plateau",
+    "phareLink": "Voir la fiche complète",
+    "feats": [
+      [
+        "Un châssis, plusieurs plateaux.",
+        "On change le jeu, pas le meuble."
+      ],
+      [
+        "Assez robuste pour un CPE.",
+        "Pensée pour l'usage quotidien en groupe."
+      ],
+      [
+        "Pièces remplaçables.",
+        "Une pièce brisée se remplace, le meuble reste."
+      ],
+      [
+        "Conçue au Québec.",
+        "Dessinée ici, pour les familles et les éducatrices d'ici."
+      ]
+    ],
+    "gridEyebrow": "Créer et découvrir",
+    "gridTitle": "Pour créer et",
+    "gridEm": "découvrir.",
+    "gridLink": "Voir l'univers",
+    "proEyebrow": "Garderies et CPE",
+    "proTitle": "Du mobilier assez robuste pour",
+    "proEm": "le quotidien d'un CPE.",
+    "proText": "Tables, casiers et range-matelas conçus au Québec, avec des pièces remplaçables et des soumissions par lot pour votre installation.",
+    "proCta": "Demander une soumission",
+    "proLink": "Voir tout le mobilier CPE",
+    "perks": [
+      "Prix par lot",
+      "Pièces remplaçables",
+      "Conçu au Québec"
+    ],
+    "approachEyebrow": "Un système, pas un meuble",
+    "approachTitle": "Un châssis. Des plateaux.",
+    "approachEm": "Des années de jeu.",
+    "approachLead": "Nos meubles partagent les mêmes plateformes : on ajoute un plateau ou un accessoire au lieu de racheter. Le catalogue grandit, le meuble reste.",
+    "pillars": [
+      [
+        "Un châssis commun",
+        "Une même structure en contreplaqué sert de base à plusieurs meubles. Solide, simple à monter, pensée pour durer."
+      ],
+      [
+        "Des plateaux qui changent",
+        "Bacs sensoriels, plateau d'art, surface lumineuse : le jeu change avec l'âge et la saison, le meuble reste."
+      ],
+      [
+        "Des pièces remplaçables",
+        "Une pièce brisée ou usée se commande seule. Moins de déchets, et un meuble qui passe d'un enfant à l'autre."
+      ]
+    ],
+    "guidesEyebrow": "Guides d'usage",
+    "guidesTitle": "Bien jouer,",
+    "guidesEm": "simplement.",
+    "guidesLink": "Tous les guides",
+    "guides": [
+      [
+        "Guide · 5 min",
+        "Préparer un bac sensoriel sans dégât",
+        "Les bons contenants, les bonnes quantités et trois règles qui gardent le plancher propre."
+      ],
+      [
+        "Idées · 1 à 3 ans",
+        "12 activités sensorielles pour les 1 à 3 ans",
+        "Des idées simples avec ce qu'on a déjà dans la cuisine, classées par âge et par niveau de dégât."
+      ],
+      [
+        "Aménagement · Montessori",
+        "Aménager un coin Montessori dans un petit espace",
+        "Comment choisir et placer les meubles pour que l'enfant puisse faire seul, même dans un condo."
+      ]
+    ]
+  },
+  "news": {
+    "note": "promis, pas de pourriel",
+    "title": "Une idée de jeu",
+    "em": "par mois.",
+    "text": "Activités sensorielles à faire à la maison ou au CPE, nouveaux plateaux en primeur et 10 % sur votre première commande.",
+    "label": "Courriel",
+    "placeholder": "votre@courriel.com",
+    "submit": "Je m'inscris",
+    "legal": "Un courriel par mois. Désabonnement en un clic."
+  },
+  "footer": {
+    "brand": "Des meubles de jeu en bois pour bouger, créer, imaginer et ranger. Conçus au Québec pour les enfants de 1 à 6 ans.",
+    "univers": "Univers",
+    "pro": "Garderies et CPE",
+    "help": "Aide",
+    "guides": "Guides d'usage",
+    "proFurniture": "Mobilier CPE",
+    "quote": "Demander une soumission",
+    "parts": "Pièces de remplacement",
+    "contact": "Nous joindre",
+    "shipping": "Livraison et retours",
+    "faq": "Questions fréquentes",
+    "approach": "Notre approche",
+    "privacy": "Confidentialité",
+    "terms": "Conditions",
+    "cookies": "Gérer les témoins",
+    "made": "Conçu avec",
+    "madeEnd": "au Québec",
+    "love": "amour"
+  },
+  "product": {
+    "crumbsHome": "Accueil",
+    "tryPlateau": "Essayer un plateau",
+    "plateaux": {
+      "bacs": "Bacs sensoriels",
+      "art": "Plateau d'art",
+      "lumiere": "Plateau lumineux"
+    },
+    "with": {
+      "bacs": "les bacs sensoriels",
+      "art": "le plateau d'art",
+      "lumiere": "le plateau lumineux"
+    },
+    "views": "Vues du produit",
+    "viewNames": {
+      "jeu": "En jeu",
+      "fermee": "Table de jeu",
+      "detail": "Détails",
+      "plat": "Livrée à plat"
+    },
+    "caps": {
+      "jeu": "Avec {with}",
+      "fermee": "Couvercles retournés : une table de jeu",
+      "detail": "Les détails qui la font durer",
+      "plat": "Livrée à plat, prête à monter"
+    },
+    "labels": {
+      "jeu": "Table sensorielle avec {with}",
+      "fermee": "La table avec les couvercles fermés, des blocs et une petite voiture dessus",
+      "detail": "Gros plan sur un coin : chants arrondis, tenon captif et épaisseur du contreplaqué",
+      "plat": "La boîte d'expédition à plat, les panneaux et les bacs"
+    },
+    "legend": [
+      "Chants arrondis partout",
+      "Tenons captifs, quincaillerie minimale",
+      "Contreplaqué de 15 à 18 mm"
+    ],
+    "note": "on change le jeu, pas le meuble",
+    "seal": "usages",
+    "inStock": "En stock, expédiée à plat",
+    "soldOut": "Épuisé",
+    "set": "Ensemble",
+    "addons": "Accessoires",
+    "optional": "Facultatif",
+    "addonsCount": "{count, plural, one {# accessoire ajouté} other {# accessoires ajoutés}}",
+    "qty": "Quantité",
+    "minus": "Retirer un",
+    "plus": "Ajouter un",
+    "proBoxTitle": "Vous équipez un CPE ou une garderie ?",
+    "proBoxText": "Prix par lot et plateaux choisis pour vos groupes.",
+    "proBoxLink": "Soumission",
+    "assure": [
+      [
+        "Livrée partout au Canada",
+        "Expédiée à plat, en une boîte"
+      ],
+      [
+        "Montage simple",
+        "Tenons captifs, quincaillerie minimale"
+      ],
+      [
+        "Pièces remplaçables",
+        "Chaque pièce se commande seule"
+      ],
+      [
+        "Conçue au Québec",
+        "Pour la maison comme pour le CPE"
+      ]
+    ],
+    "usesEyebrow": "Un meuble, trois usages",
+    "usesTitle": "Les mêmes panneaux,",
+    "usesEm": "trois tables.",
+    "usesText": "On retourne les couvercles, on change la hauteur, et la table suit le jeu du moment. Aucune pièce de plus à acheter pour passer de l'une à l'autre.",
+    "growEyebrow": "Elle grandit avec l'enfant",
+    "growTitle": "De 1 à 6 ans,",
+    "growEm": "on monte d'un cran.",
+    "growHand": "3 hauteurs, un seul meuble",
+    "detailEyebrow": "Dans le détail",
+    "detailTitle": "Pensée pour",
+    "detailEm": "durer.",
+    "dimsLabel": "Dimensions : largeur {w}, hauteur {h}",
+    "notches": "3 crans",
+    "extrasEyebrow": "Plateaux et accessoires",
+    "extrasTitle": "Compléter",
+    "extrasEm": "la table.",
+    "extrasLink": "Tous les accessoires",
+    "addLabel": "Ajouter : {name}",
+    "faqEyebrow": "Questions fréquentes",
+    "faqTitle": "Avant de",
+    "faqEm": "commander.",
+    "faqText": "Une autre question ? On vous répond en un jour ouvrable.",
+    "faqCta": "Nous écrire",
+    "proEyebrow": "Garderies et CPE",
+    "proTitle": "La table sensorielle de garderie,",
+    "proEm": "par lot.",
+    "proText": "Vous équipez plusieurs locaux ? On prépare une soumission avec un prix par lot, les plateaux qu'il vous faut et des pièces de rechange prêtes à commander.",
+    "proSteps": [
+      [
+        "Parlez-nous de vos groupes",
+        "Nombre de locaux, âge des enfants, espace disponible."
+      ],
+      [
+        "On propose la configuration",
+        "Ensembles, plateaux et accessoires, avec un prix par lot."
+      ],
+      [
+        "Livraison à votre installation",
+        "Expédiée à plat, avec la liste des pièces de rechange."
+      ]
+    ],
+    "guidesEyebrow": "Idées de jeu",
+    "guidesTitle": "Quoi mettre",
+    "guidesEm": "dedans ?",
+    "relatedEyebrow": "Dans le même univers",
+    "relatedTitle": "Dans le même",
+    "relatedEm": "univers.",
+    "buyBar": "Achat rapide",
+    "added": "Ajouté au panier"
+  },
+  "collection": {
+    "eyebrow": "Univers",
+    "count": "{count, plural, =0 {Aucun produit} one {# produit} other {# produits}}",
+    "empty": "Cet univers arrive bientôt. Inscrivez-vous à l'infolettre pour être averti.",
+    "sort": "Trier par",
+    "sortOptions": {
+      "default": "Pertinence",
+      "az": "Nom (A à Z)"
+    }
+  },
+  "cart": {
+    "title": "Votre panier",
+    "close": "Fermer le panier",
+    "empty": "Votre panier est vide",
+    "emptyText": "Commencez par la table sensorielle, notre meuble phare, ou faites le tour des univers.",
+    "emptyCta": "Découvrir la table sensorielle",
+    "subtotal": "Sous-total",
+    "checkout": "Passer à la caisse",
+    "taxes": "Taxes et livraison calculées à l'étape suivante.",
+    "remove": "Retirer",
+    "added": "Ajouté au panier",
+    "view": "Voir",
+    "demo": "Mode démonstration : la caisse s'active dès que la boutique Shopify est branchée.",
+    "error": "Le panier n'a pas pu être mis à jour. Réessayez."
+  },
+  "consent": {
+    "title": "Vos choix de témoins",
+    "text": "On utilise des témoins pour faire fonctionner la boutique et, avec votre accord, pour mesurer l'audience et nos publicités. Vous pouvez changer d'avis en tout temps dans le pied de page.",
+    "policy": "Politique de confidentialité",
+    "refuse": "Tout refuser",
+    "accept": "Tout accepter",
+    "customize": "Personnaliser",
+    "prefsTitle": "Personnaliser",
+    "essential": "Essentiels",
+    "essentialHelp": "Panier, paiement, sécurité. Toujours actifs.",
+    "analytics": "Mesure d'audience",
+    "analyticsHelp": "Comprendre les pages consultées.",
+    "marketing": "Publicité",
+    "marketingHelp": "Mesurer nos annonces Meta et Google.",
+    "save": "Enregistrer mes choix",
+    "region": "Témoins"
+  },
+  "daycares": {
+    "metaTitle": "Mobilier en bois pour garderies et CPE au Québec | Lovelyhop",
+    "metaDescription": "Tables, casiers et range-matelas en contreplaqué conçus au Québec. Pièces remplaçables et soumissions par lot pour votre CPE ou garderie.",
+    "eyebrow": "Garderies et CPE",
+    "title": "Du mobilier pensé pour",
+    "em": "les groupes.",
+    "lead": "Tables, casiers, range-matelas et tables sensorielles en contreplaqué, conçus au Québec. On prépare une soumission par lot, avec les pièces de rechange.",
+    "formTitle": "Demander une soumission",
+    "furniture": "Le mobilier",
+    "s1": "Votre installation",
+    "s2": "Pour vous joindre",
+    "org": "Nom du CPE ou de la garderie",
+    "city": "Ville",
+    "rooms": "Nombre de locaux à équiper",
+    "ages": "Âge des enfants",
+    "agesOptions": [
+      "Poupons",
+      "18 mois à 3 ans",
+      "3 à 5 ans"
+    ],
+    "products": "Mobilier qui vous intéresse",
+    "productsOptions": [
+      "Table sensorielle",
+      "Table de garderie",
+      "Casiers",
+      "Range-matelas",
+      "Panneaux muraux"
+    ],
+    "optional": "(facultatif)",
+    "name": "Votre nom",
+    "email": "Courriel",
+    "phone": "Téléphone",
+    "message": "Votre projet",
+    "messagePh": "Nombre de groupes, échéancier, contraintes d'espace…",
+    "submit": "Envoyer la demande",
+    "sending": "Envoi…",
+    "note": "Réponse en un jour ouvrable. Vos coordonnées servent seulement à cette soumission.",
+    "okTitle": "Demande envoyée",
+    "okText": "Merci. On vous répond en un jour ouvrable avec une première proposition."
+  },
+  "notFound": {
+    "title": "Cette page s'est égarée",
+    "text": "Elle a peut-être changé d'adresse. Le catalogue, lui, est toujours là.",
+    "cta": "Retour à l'accueil"
+  }
+}

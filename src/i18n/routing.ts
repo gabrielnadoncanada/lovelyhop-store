@@ -1,0 +1,25 @@
+import { defineRouting } from "next-intl/routing";
+
+/**
+ * Français par défaut, sans préfixe (/table-sensorielle-evolutive) ; anglais sous /en.
+ * Les adresses suivent l'arborescence SEO : les fiches produits sont à la racine,
+ * avec le handle traduit dans Shopify (Translate & Adapt).
+ */
+export const routing = defineRouting({
+  locales: ["fr", "en"],
+  defaultLocale: "fr",
+  localePrefix: "as-needed",
+  localeDetection: false,
+  // hreflang : déclarés page par page (les handles produits sont traduits), et pas de cookie de langue (pages en cache)
+  alternateLinks: false,
+  localeCookie: false,
+  pathnames: {
+    "/": "/",
+    "/[handle]": "/[handle]",
+    "/collections/[handle]": { fr: "/univers/[handle]", en: "/collections/[handle]" },
+    "/daycares": { fr: "/garderies-cpe", en: "/daycares" },
+    "/search": { fr: "/recherche", en: "/search" },
+  },
+});
+
+export type AppPathname = keyof typeof routing.pathnames;

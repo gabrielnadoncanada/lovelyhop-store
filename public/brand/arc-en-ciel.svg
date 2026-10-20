@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 170" aria-hidden="true"><defs><filter id="grainbow1" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.32" numOctaves="2" seed="7" result="t"/><feColorMatrix in="t" type="saturate" values="0" result="g"/><feComponentTransfer in="g" result="g2"><feFuncR type="linear" slope="0.45" intercept="0.68"/><feFuncG type="linear" slope="0.45" intercept="0.68"/><feFuncB type="linear" slope="0.45" intercept="0.68"/><feFuncA type="table" tableValues="1 1"/></feComponentTransfer><feBlend in="SourceGraphic" in2="g2" mode="multiply" result="b"/><feComposite in="b" in2="SourceGraphic" operator="in"/></filter></defs><ellipse fill="#2b2019" opacity=".14" cx="160" cy="167" rx="156" ry="3.5"/><g transform="translate(-70 -262)">
+          <g filter="url(#grainbow1)">
+            <g>
+              <path fill="#a8492f" d="M80 428A150 150 0 0 1 380 428H359A129 129 0 0 0 101 428Z"/>
+              <path fill="none" stroke="#f5eee3" stroke-width="2" opacity=".3" d="M83 428A147 147 0 0 1 377 428"/>
+              <path fill="none" stroke="#2b2019" stroke-width="2.5" opacity=".14" d="M99 428A131 131 0 0 1 361 428"/>
+            </g>
+            <g>
+              <path fill="#d49a3c" d="M102 428A128 128 0 0 1 358 428H337A107 107 0 0 0 123 428Z"/>
+              <path fill="none" stroke="#f5eee3" stroke-width="2" opacity=".3" d="M105 428A125 125 0 0 1 355 428"/>
+              <path fill="none" stroke="#2b2019" stroke-width="2.5" opacity=".14" d="M121 428A109 109 0 0 1 339 428"/>
+            </g>
+            <g>
+              <path fill="#7f8a5e" d="M124 428A106 106 0 0 1 336 428H315A85 85 0 0 0 145 428Z"/>
+              <path fill="none" stroke="#f5eee3" stroke-width="2" opacity=".3" d="M127 428A103 103 0 0 1 333 428"/>
+              <path fill="none" stroke="#2b2019" stroke-width="2.5" opacity=".14" d="M143 428A87 87 0 0 1 317 428"/>
+            </g>
+            <g>
+              <path fill="#ebc7b1" d="M146 428A84 84 0 0 1 314 428H293A63 63 0 0 0 167 428Z"/>
+              <path fill="none" stroke="#f5eee3" stroke-width="2" opacity=".3" d="M149 428A81 81 0 0 1 311 428"/>
+              <path fill="none" stroke="#2b2019" stroke-width="2.5" opacity=".14" d="M165 428A65 65 0 0 1 295 428"/>
+            </g>
+            <g>
+              <path fill="#94653f" d="M168 428A62 62 0 0 1 292 428H271A41 41 0 0 0 189 428Z"/>
+              <path fill="none" stroke="#f5eee3" stroke-width="2" opacity=".3" d="M171 428A59 59 0 0 1 289 428"/>
+              <path fill="none" stroke="#2b2019" stroke-width="2.5" opacity=".14" d="M187 428A43 43 0 0 1 273 428"/>
+            </g>
+            <g>
+              <path fill="#cfa577" d="M190 428A40 40 0 0 1 270 428H249A19 19 0 0 0 211 428Z"/>
+              <path fill="none" stroke="#f5eee3" stroke-width="2" opacity=".3" d="M193 428A37 37 0 0 1 267 428"/>
+              <path fill="none" stroke="#2b2019" stroke-width="2.5" opacity=".14" d="M209 428A21 21 0 0 1 251 428"/>
+            </g>
+          </g>
+
+          </g></svg>

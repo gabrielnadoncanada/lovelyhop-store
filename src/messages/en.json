@@ -1,0 +1,445 @@
+{
+  "meta": {
+    "title": "Lovelyhop | Wooden play furniture designed in Quebec",
+    "description": "Plywood sensory tables, art furniture and storage for children ages 1 to 6, at home and in daycare. Designed in Quebec."
+  },
+  "common": {
+    "price": "[price]",
+    "from": "From",
+    "seeAll": "See all",
+    "soon": "Soon",
+    "skip": "Skip to content",
+    "demo": "Demo catalogue",
+    "close": "Close",
+    "add": "Add",
+    "addToCart": "Add to cart",
+    "favorite": "Add to favourites: {name}",
+    "badge": {
+      "phare": "Bestseller",
+      "nouveau": "New",
+      "bientot": "Soon"
+    }
+  },
+  "announce": "Designed in Quebec · Shipping across Canada",
+  "nav": {
+    "label": "Main",
+    "home": "Lovelyhop, home",
+    "univers": {
+      "creer": "Create & discover",
+      "imaginer": "Imagine",
+      "ranger": "Organize & read",
+      "bouger": "Move",
+      "cpe": "Daycares"
+    },
+    "langSwitch": "Version française",
+    "langShort": "FR",
+    "langName": "Français",
+    "search": "Search",
+    "cart": "Cart",
+    "cartLabel": "Cart, {count, plural, =0 {no items} one {# item} other {# items}}",
+    "menu": "Menu",
+    "closeMenu": "Close menu",
+    "account": "My account",
+    "featured": "Bestseller",
+    "featuredName": "Expandable sensory table",
+    "featuredLink": "See the table",
+    "megaFootTitle": "Furnishing a daycare?",
+    "megaFootText": "Volume pricing, trays chosen for your groups, spare parts.",
+    "megaFootLink": "Request a quote",
+    "proTitle": "Daycares",
+    "proText": "Volume quotes, spare parts",
+    "sub": {
+      "creer": [
+        "Sensory tables",
+        "Light tables",
+        "Activity boards",
+        "Art tables",
+        "Easels"
+      ],
+      "imaginer": [
+        "Dollhouses",
+        "Play kitchens",
+        "Workbenches",
+        "Play markets"
+      ],
+      "ranger": [
+        "Montessori bookshelves",
+        "Toy storage",
+        "Toy benches",
+        "Wardrobes"
+      ]
+    }
+  },
+  "search": {
+    "label": "Search",
+    "input": "Search the shop",
+    "placeholder": "Sensory table, bookshelf…",
+    "close": "Close search",
+    "popular": "Popular searches",
+    "popularTerms": [
+      "Sensory table",
+      "Light table",
+      "Busy board",
+      "Montessori bookshelf",
+      "Daycare furniture"
+    ],
+    "guides": "Guides",
+    "guide": "What to put in a sensory table: 20 ideas",
+    "products": "Products",
+    "empty": "No products for “{q}”. Try “table” or “bookshelf”.",
+    "seeAll": "See all results",
+    "pageTitle": "Search",
+    "resultsFor": "{count, plural, =0 {No results} one {# result} other {# results}} for “{q}”",
+    "prompt": "What are you looking for?"
+  },
+  "hero": {
+    "eyebrow": "Wooden play furniture · Designed in Quebec",
+    "title1": "Play",
+    "title2": "furniture that",
+    "title3": "grows.",
+    "lead": "Plywood sensory tables, art furniture and storage to move, create, imagine and tidy up. One frame, changing trays: for ages 1 to 6, at home and in daycare.",
+    "cta": "Discover the sensory table",
+    "ctaPro": "Run a daycare?",
+    "shopBy": "Shop by world",
+    "note1": "one frame,",
+    "note2": "three trays",
+    "ring": "Designed in Quebec · Built to last · ",
+    "tagKicker": "Bestseller",
+    "tagName": "Expandable sensory table",
+    "tagMeta": "3 trays",
+    "tagMaterial": "Plywood",
+    "strip": [
+      "Designed in Quebec",
+      "Sturdy enough for daycares",
+      "Replaceable trays and parts",
+      "Shipping across Canada"
+    ]
+  },
+  "home": {
+    "universEyebrow": "Our worlds",
+    "universTitle": "Four ways to",
+    "universEm": "play.",
+    "universLink": "Full catalogue",
+    "tiles": {
+      "creer": "Sensory, art, light",
+      "imaginer": "Dollhouses, kitchens, workbenches",
+      "ranger": "Bookshelves and storage",
+      "bouger": "Pikler and movement"
+    },
+    "phareEyebrow": "Our bestseller",
+    "phareTitle": "The expandable",
+    "phareEm": "sensory table.",
+    "phareLead": "One plywood frame, trays that change with age and the mood of the day. It goes from sandbox to art corner without buying new furniture.",
+    "phareNote": "change the play, not the furniture",
+    "phareTry": "Try a tray",
+    "phareLink": "See full details",
+    "feats": [
+      [
+        "One frame, several trays.",
+        "Change the play, not the furniture."
+      ],
+      [
+        "Sturdy enough for daycares.",
+        "Built for daily group use."
+      ],
+      [
+        "Replaceable parts.",
+        "A broken part is replaced, the furniture stays."
+      ],
+      [
+        "Designed in Quebec.",
+        "Drawn here, for local families and educators."
+      ]
+    ],
+    "gridEyebrow": "Create & discover",
+    "gridTitle": "To create and",
+    "gridEm": "discover.",
+    "gridLink": "See the world",
+    "proEyebrow": "Daycares",
+    "proTitle": "Furniture sturdy enough for",
+    "proEm": "daily daycare life.",
+    "proText": "Tables, cubbies and nap mat storage designed in Quebec, with replaceable parts and volume quotes for your centre.",
+    "proCta": "Request a quote",
+    "proLink": "See all daycare furniture",
+    "perks": [
+      "Volume pricing",
+      "Replaceable parts",
+      "Designed in Quebec"
+    ],
+    "approachEyebrow": "A system, not a piece of furniture",
+    "approachTitle": "One frame. Trays.",
+    "approachEm": "Years of play.",
+    "approachLead": "Our furniture shares the same platforms: you add a tray or an accessory instead of buying again. The catalogue grows, the furniture stays.",
+    "pillars": [
+      [
+        "A shared frame",
+        "One plywood structure is the base for several pieces. Solid, easy to assemble, built to last."
+      ],
+      [
+        "Trays that change",
+        "Sensory bins, art tray, light surface: play changes with age and season, the furniture stays."
+      ],
+      [
+        "Replaceable parts",
+        "A broken or worn part is ordered on its own. Less waste, and furniture that goes from one child to the next."
+      ]
+    ],
+    "guidesEyebrow": "Play guides",
+    "guidesTitle": "Play well,",
+    "guidesEm": "simply.",
+    "guidesLink": "All guides",
+    "guides": [
+      [
+        "Guide · 5 min",
+        "Set up a sensory bin without the mess",
+        "The right containers, the right amounts and three rules that keep the floor clean."
+      ],
+      [
+        "Ideas · 1 to 3 years",
+        "12 sensory activities for 1 to 3 year olds",
+        "Simple ideas with what's already in the kitchen, sorted by age and mess level."
+      ],
+      [
+        "Setup · Montessori",
+        "Set up a Montessori corner in a small space",
+        "How to choose and place furniture so the child can do it alone, even in a condo."
+      ]
+    ]
+  },
+  "news": {
+    "note": "no spam, promise",
+    "title": "One play idea",
+    "em": "a month.",
+    "text": "Sensory activities for home or daycare, new trays first and 10% off your first order.",
+    "label": "Email",
+    "placeholder": "you@email.com",
+    "submit": "Subscribe",
+    "legal": "One email a month. Unsubscribe in one click."
+  },
+  "footer": {
+    "brand": "Wooden play furniture to move, create, imagine and tidy up. Designed in Quebec for children ages 1 to 6.",
+    "univers": "Worlds",
+    "pro": "Daycares",
+    "help": "Help",
+    "guides": "Play guides",
+    "proFurniture": "Daycare furniture",
+    "quote": "Request a quote",
+    "parts": "Spare parts",
+    "contact": "Contact us",
+    "shipping": "Shipping and returns",
+    "faq": "FAQ",
+    "approach": "Our approach",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "cookies": "Cookie settings",
+    "made": "Made with",
+    "madeEnd": "in Quebec",
+    "love": "love"
+  },
+  "product": {
+    "crumbsHome": "Home",
+    "tryPlateau": "Try a tray",
+    "plateaux": {
+      "bacs": "Sensory bins",
+      "art": "Art tray",
+      "lumiere": "Light tray"
+    },
+    "with": {
+      "bacs": "the sensory bins",
+      "art": "the art tray",
+      "lumiere": "the light tray"
+    },
+    "views": "Product views",
+    "viewNames": {
+      "jeu": "In play",
+      "fermee": "Play table",
+      "detail": "Details",
+      "plat": "Ships flat"
+    },
+    "caps": {
+      "jeu": "With {with}",
+      "fermee": "Lids flipped: a play table",
+      "detail": "The details that make it last",
+      "plat": "Ships flat, ready to assemble"
+    },
+    "labels": {
+      "jeu": "Sensory table with {with}",
+      "fermee": "The table with lids closed, blocks and a small car on top",
+      "detail": "Close-up of a corner: rounded edges, captive tenon and plywood thickness",
+      "plat": "The flat-pack shipping box, the panels and the bins"
+    },
+    "legend": [
+      "Rounded edges everywhere",
+      "Captive tenons, minimal hardware",
+      "15 to 18 mm plywood"
+    ],
+    "note": "change the play, not the furniture",
+    "seal": "uses",
+    "inStock": "In stock, ships flat",
+    "soldOut": "Sold out",
+    "set": "Set",
+    "addons": "Accessories",
+    "optional": "Optional",
+    "addonsCount": "{count, plural, one {# accessory added} other {# accessories added}}",
+    "qty": "Quantity",
+    "minus": "Remove one",
+    "plus": "Add one",
+    "proBoxTitle": "Furnishing a daycare?",
+    "proBoxText": "Volume pricing and trays chosen for your groups.",
+    "proBoxLink": "Quote",
+    "assure": [
+      [
+        "Ships across Canada",
+        "Flat-packed, in one box"
+      ],
+      [
+        "Easy assembly",
+        "Captive tenons, minimal hardware"
+      ],
+      [
+        "Replaceable parts",
+        "Every part can be ordered on its own"
+      ],
+      [
+        "Designed in Quebec",
+        "For home and daycare"
+      ]
+    ],
+    "usesEyebrow": "One piece, three uses",
+    "usesTitle": "The same panels,",
+    "usesEm": "three tables.",
+    "usesText": "Flip the lids, change the height, and the table follows the play of the moment. No extra part to buy to go from one to the other.",
+    "growEyebrow": "It grows with the child",
+    "growTitle": "From 1 to 6,",
+    "growEm": "one notch at a time.",
+    "growHand": "3 heights, one piece",
+    "detailEyebrow": "In detail",
+    "detailTitle": "Built to",
+    "detailEm": "last.",
+    "dimsLabel": "Dimensions: width {w}, height {h}",
+    "notches": "3 heights",
+    "extrasEyebrow": "Trays and accessories",
+    "extrasTitle": "Complete",
+    "extrasEm": "the table.",
+    "extrasLink": "All accessories",
+    "addLabel": "Add: {name}",
+    "faqEyebrow": "FAQ",
+    "faqTitle": "Before you",
+    "faqEm": "order.",
+    "faqText": "Another question? We reply within one business day.",
+    "faqCta": "Write to us",
+    "proEyebrow": "Daycares",
+    "proTitle": "The daycare sensory table,",
+    "proEm": "by volume.",
+    "proText": "Furnishing several rooms? We prepare a quote with volume pricing, the trays you need and spare parts ready to order.",
+    "proSteps": [
+      [
+        "Tell us about your groups",
+        "Number of rooms, children's ages, available space."
+      ],
+      [
+        "We suggest a configuration",
+        "Sets, trays and accessories, with volume pricing."
+      ],
+      [
+        "Delivered to your centre",
+        "Flat-packed, with the list of spare parts."
+      ]
+    ],
+    "guidesEyebrow": "Play ideas",
+    "guidesTitle": "What to put",
+    "guidesEm": "inside?",
+    "relatedEyebrow": "Same world",
+    "relatedTitle": "In the same",
+    "relatedEm": "world.",
+    "buyBar": "Quick buy",
+    "added": "Added to cart"
+  },
+  "collection": {
+    "eyebrow": "World",
+    "count": "{count, plural, =0 {No products} one {# product} other {# products}}",
+    "empty": "This world is coming soon. Subscribe to the newsletter to hear first.",
+    "sort": "Sort by",
+    "sortOptions": {
+      "default": "Relevance",
+      "az": "Name (A to Z)"
+    }
+  },
+  "cart": {
+    "title": "Your cart",
+    "close": "Close cart",
+    "empty": "Your cart is empty",
+    "emptyText": "Start with the sensory table, our bestseller, or browse our worlds.",
+    "emptyCta": "Discover the sensory table",
+    "subtotal": "Subtotal",
+    "checkout": "Checkout",
+    "taxes": "Taxes and shipping calculated at the next step.",
+    "remove": "Remove",
+    "added": "Added to cart",
+    "view": "View",
+    "demo": "Demo mode: checkout turns on as soon as the Shopify store is connected.",
+    "error": "The cart could not be updated. Please try again."
+  },
+  "consent": {
+    "title": "Your cookie choices",
+    "text": "We use cookies to run the shop and, with your consent, to measure traffic and our ads. You can change your mind anytime from the footer.",
+    "policy": "Privacy policy",
+    "refuse": "Refuse all",
+    "accept": "Accept all",
+    "customize": "Customize",
+    "prefsTitle": "Customize",
+    "essential": "Essential",
+    "essentialHelp": "Cart, payment, security. Always on.",
+    "analytics": "Analytics",
+    "analyticsHelp": "Understand which pages are viewed.",
+    "marketing": "Advertising",
+    "marketingHelp": "Measure our Meta and Google ads.",
+    "save": "Save my choices",
+    "region": "Cookies"
+  },
+  "daycares": {
+    "metaTitle": "Wooden daycare furniture designed in Quebec | Lovelyhop",
+    "metaDescription": "Plywood tables, cubbies and nap mat storage designed in Quebec. Replaceable parts and volume quotes for your daycare.",
+    "eyebrow": "Daycares",
+    "title": "Furniture designed for",
+    "em": "groups.",
+    "lead": "Plywood tables, cubbies, nap mat storage and sensory tables, designed in Quebec. We prepare a volume quote, with spare parts.",
+    "formTitle": "Request a quote",
+    "furniture": "The furniture",
+    "s1": "Your centre",
+    "s2": "How to reach you",
+    "org": "Daycare name",
+    "city": "City",
+    "rooms": "Rooms to furnish",
+    "ages": "Children's ages",
+    "agesOptions": [
+      "Infants",
+      "18 months to 3",
+      "3 to 5"
+    ],
+    "products": "Furniture you're interested in",
+    "productsOptions": [
+      "Sensory table",
+      "Daycare table",
+      "Cubbies",
+      "Nap mat storage",
+      "Wall panels"
+    ],
+    "optional": "(optional)",
+    "name": "Your name",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Your project",
+    "messagePh": "Number of groups, timeline, space constraints…",
+    "submit": "Send the request",
+    "sending": "Sending…",
+    "note": "Reply within one business day. Your details are only used for this quote.",
+    "okTitle": "Request sent",
+    "okText": "Thank you. We'll reply within one business day with a first proposal."
+  },
+  "notFound": {
+    "title": "This page wandered off",
+    "text": "It may have moved. The catalogue is still here.",
+    "cta": "Back to home"
+  }
+}

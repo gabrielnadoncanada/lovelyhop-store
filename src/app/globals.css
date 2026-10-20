@@ -1,0 +1,56 @@
+/* Tailwind sans sa remise à zéro (preflight) : le design system LovelyHop définit déjà ses bases.
+   Préfixe « tw: » obligatoire (ex. tw:flex) : les dessins utilisent des classes comme « ring », « outline »
+   ou « shadow » qui entreraient en collision avec les utilitaires Tailwind. */
+@import "tailwindcss/theme.css" layer(theme) prefix(tw);
+@import "tailwindcss/utilities.css" layer(utilities) prefix(tw);
+
+/* Polices auto-hébergées (aucune requête vers Google : plus rapide, et rien à déclarer pour la Loi 25) */
+@import "@fontsource-variable/fraunces/full.css";
+@import "@fontsource-variable/fraunces/full-italic.css";
+@import "@fontsource/instrument-sans/400.css";
+@import "@fontsource/instrument-sans/500.css";
+@import "@fontsource/instrument-sans/600.css";
+@import "@fontsource/caveat/500.css";
+@import "@fontsource/caveat/600.css";
+
+/* Design system : jetons (couche lh-defaults) et composants lh-* */
+@import "../styles/lovelyhop.css";
+
+:root {
+  --font-display: "Fraunces Variable", "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Instrument Sans", "Helvetica Neue", system-ui, sans-serif;
+  --font-hand: "Caveat", "Bradley Hand", cursive;
+}
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body { margin: 0; background: var(--lin); color: var(--ink); }
+img, svg { max-width: 100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* ---------- compléments propres au site (états ouverts des panneaux) ---------- */
+.lh-overlay { position: fixed; inset: 0; z-index: 60; }
+.lh-overlay > .lh-scrim { position: absolute; inset: 0; animation: lh-fade .3s ease both; }
+@keyframes lh-fade { from { opacity: 0; } to { opacity: 1; } }
+.lh-overlay--right { display: flex; justify-content: flex-end; }
+.lh-overlay--right > .lh-drawer, .lh-overlay--right > .lh-mnav { position: relative; height: 100%; animation: lh-slide-in .45s cubic-bezier(.22, 1, .36, 1) both; }
+@keyframes lh-slide-in { from { transform: translateX(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+.lh-mega-wrap { position: absolute; left: 0; right: 0; top: 100%; z-index: 50; }
+.lh-site-header { position: relative; z-index: 40; }
+.lh-search-wrap { position: absolute; left: 0; right: 0; top: 100%; z-index: 55; }
+.lh-toast-dock { z-index: 70; }
+.lh-consent-dock { position: fixed; left: max(16px, env(safe-area-inset-left)); bottom: max(16px, env(safe-area-inset-bottom)); right: 16px; z-index: 65; display: flex; pointer-events: none; }
+.lh-consent-dock > * { pointer-events: auto; }
+.lh-demo-flag { position: fixed; left: 12px; bottom: 12px; z-index: 30; padding: 6px 10px; border-radius: 999px; background: var(--surface-inverse); color: var(--ink-inverse); font: 600 11px/1 var(--font-sans); letter-spacing: .06em; text-transform: uppercase; opacity: .85; }
+.lh-skip { position: absolute; left: 12px; top: -60px; z-index: 100; padding: 10px 16px; border-radius: 999px; background: var(--ink); color: var(--lin); font: 600 14px/1 var(--font-sans); }
+.lh-skip:focus { top: 12px; }
+:where(button.lh-nav__cart) { background: transparent; font: inherit; color: inherit; cursor: pointer; }
+.lh-nav__count.is-bump { animation: lh-bump .6s cubic-bezier(.22, 1, .36, 1); }
+:where(.lh-nav__links button) { border: 0; background: none; font: inherit; color: inherit; cursor: pointer; padding: 6px 0; }
+
+/* Les chevrons du méga menu élargissent les liens : on replie la navigation plus tôt que la fiche Header (1023px). */
+.lh-nav__links a { white-space: nowrap; }
+@media (max-width: 1200px) {
+  .lh-nav__links { display: none; }
+  .lh-nav__menu { display: grid; }
+  .lh-nav__tools { gap: 6px; }
+}
