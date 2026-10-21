@@ -40,14 +40,14 @@ export async function SiteFooter() {
           <h3>{t("help")}</h3>
           <ul>
             <li><Link href="/blog">{t("guides")}</Link></li>
-            <li><a href="#">{t("shipping")}</a></li>
-            <li><a href="#">{t("faq")}</a></li>
+            <li><Link href="/shipping">{t("shipping")}</Link></li>
+            <li><Link href="/faq">{t("faq")}</Link></li>
             <li><ConsentLink>{t("cookies")}</ConsentLink></li>
           </ul>
         </div>
       </div>
       <div className="lh-footer__bottom">
-        <span>© 2026 Lovelyhop · <a href="#">{t("privacy")}</a> · <a href="#">{t("terms")}</a></span>
+        <span>© 2026 Lovelyhop · <Link href="/privacy">{t("privacy")}</Link> · <Link href="/terms">{t("terms")}</Link></span>
         <span className="lh-footer__made">{t("made")} <svg viewBox="0 0 34 30" role="img" aria-label={t("love")}><path d={HEART_PATH} /></svg> {t("madeEnd")}</span>
       </div>
     </footer>

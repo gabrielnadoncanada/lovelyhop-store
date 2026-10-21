@@ -7,6 +7,7 @@
  */
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { parse } from "yaml";
 
 const DIR = join("content", "blog");
 const LOCALES = ["fr", "en"];
@@ -47,8 +48,29 @@ for (const { locale, file, src } of bodies) {
   }
 }
 
+// En-têtes YAML : une erreur de syntaxe (ex. « : » non protégé par des guillemets) fait disparaître
+// le fichier du site sans arrêter le build. On la bloque ici.
+for (const dir of [DIR, join("content", "pages")]) {
+  for (const l of LOCALES) {
+    const d = join(dir, l);
+    if (!existsSync(d)) continue;
+    for (const f of readdirSync(d).filter((x) => x.endsWith(".mdx"))) {
+      const fm = readFileSync(join(d, f), "utf8").match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1];
+      if (!fm) { problems.push(`${d}/${f} : en-tête YAML manquant`); continue; }
+      try { parse(fm); } catch (e) { problems.push(`${d}/${f} : en-tête YAML invalide (${String(e.message).split("\n")[0]})`); }
+    }
+  }
+}
+
+// Pages d'information : chaque clé (nom de fichier) doit exister dans les deux langues.
+const PAGES = join("content", "pages");
+if (existsSync(PAGES)) {
+  const keys = Object.fromEntries(LOCALES.map((l) => [l, existsSync(join(PAGES, l)) ? readdirSync(join(PAGES, l)).filter((f) => f.endsWith(".mdx")) : []]));
+  for (const l of LOCALES) for (const f of keys[l]) for (const o of LOCALES) if (!keys[o].includes(f)) problems.push(`content/pages/${l}/${f} n'existe pas en ${o}`);
+}
+
 if (problems.length) {
   console.error("Guides à corriger :\n- " + problems.join("\n- "));
   process.exit(1);
 }
-console.log(`Guides OK : ${byKey.size} guides × ${LOCALES.length} langues.`);
+console.log(`Contenu OK : ${byKey.size} guides × ${LOCALES.length} langues, pages d'information comprises.`);

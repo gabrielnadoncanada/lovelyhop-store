@@ -24,6 +24,10 @@ Sans `SHOPIFY_STORE_DOMAIN` et `SHOPIFY_STOREFRONT_ACCESS_TOKEN`, tout fonctionn
 | Guides | `/guides` | `/en/guides` |
 | Un guide | `/guides/preparer-un-bac-sensoriel-sans-degat` | `/en/guides/mess-free-sensory-bin` |
 | Garderies et CPE | `/garderies-cpe` | `/en/daycares` |
+| Confidentialité | `/confidentialite` | `/en/privacy` |
+| Conditions de vente | `/conditions` | `/en/terms` |
+| Livraison et retours | `/livraison-retours` | `/en/shipping-returns` |
+| Questions fréquentes | `/faq` | `/en/faq` |
 | Recherche | `/recherche?q=…` | `/en/search?q=…` |
 
 Les fiches sont à la racine, comme dans l'arborescence SEO. Le handle anglais vient de la traduction du produit dans Shopify (Translate & Adapt) ; le lien FR/EN et les balises hreflang l'utilisent.
@@ -58,6 +62,15 @@ Les guides sont des fichiers MDX compilés par **content-collections** : `conten
 - En-tête : `title`, `excerpt`, `theme` (filtre), `age`, `publishedAt`, `updatedAt`, `author` (« Lovelyhop » = l'équipe ; un nom seulement avec l'accord de la personne), `art` + `tone` (dessin de couverture tant qu'il n'y a pas de photo), `image`, `products` (handles dans la langue du guide : bloc « Le mobilier de ce guide » et guides affichés sur ces fiches), `faq`, `seoTitle`, `seoDescription`, `pin`, `draft`.
 - Encadré dans le texte : `<Callout title="Sécurité">…</Callout>`.
 - Les quatre guides fournis sont un **premier jet à relire** avant la mise en ligne.
+
+## Pages d'information
+
+Confidentialité, conditions de vente, livraison et retours, FAQ : `content/pages/<fr|en>/<privacy|terms|shipping|faq>.mdx` (MDX, même collection que les guides). Les questions de la FAQ sont dans l'en-tête (`faq:`) et publiées en `FAQPage`.
+
+- **Ce sont des gabarits à compléter et à faire valider** (je ne suis pas juriste). Ils décrivent ce que le site fait réellement (témoins `lh_cart` 30 jours et `lh_consent` 6 mois, Shopify pour le paiement, formulaire de soumission, infolettre) et laissent **entre crochets** tout ce qui doit venir de vous : raison sociale, adresse, NEQ, numéros de taxes, responsable de la protection des renseignements (obligatoire, Loi 25), délais et frais de livraison, politique de retour, garantie, durées de conservation, fournisseurs.
+- Les valeurs entre crochets sont **surlignées** dans la page.
+- `review: true` dans l'en-tête : la page affiche l'avis « Texte à valider », est en `noindex` et reste hors du sitemap et de llms.txt. Retirer la ligne une fois le texte validé.
+- `pnpm check:articles` vérifie aussi que chaque page existe dans les deux langues et que les en-têtes YAML sont valides (un `:` non protégé fait sinon disparaître la page sans erreur).
 
 ## SEO
 
@@ -105,5 +118,5 @@ src/
 - **Infolettre** : `subscribeNewsletter` (dans `src/app/actions.ts`) valide le courriel mais ne l'envoie nulle part ; à relier à Shopify Email, Klaviyo ou autre.
 - **Mesure d'audience** : le bandeau de témoins (Loi 25) émet l'événement `lh:consent` ; charger PostHog ou les pixels seulement quand `analytics` / `marketing` est vrai.
 - **Valeurs entre crochets** (`[prix]`, `[L] cm`, `[politique de retour]`…) : à remplacer dans Shopify, jamais à inventer.
-- **Pages légales** (politique de confidentialité, conditions, livraison et retours) : obligatoires avant la mise en ligne (la Loi 25 exige une politique de confidentialité). Les liens du pied de page pointent encore vers `#`.
+- **Pages légales** : compléter les valeurs entre crochets, faire valider, puis retirer `review: true` (voir « Pages d'information »).
 - Courriel public et réseaux sociaux de la marque (`src/lib/seo/site.ts`) pour compléter le JSON-LD `Organization`.

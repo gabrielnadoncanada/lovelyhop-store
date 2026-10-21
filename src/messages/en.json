@@ -478,5 +478,12 @@
     "products": "Furniture in this guide",
     "featured": "Featured",
     "read": "Read the guide"
+  },
+  "info": {
+    "updated": "Updated {date}",
+    "reviewTitle": "Text to approve",
+    "reviewText": "{count, plural, =0 {Review needed} one {# bracketed value to fill in} other {# bracketed values to fill in}} before launch. The page is not indexed while “review: true” remains in its file.",
+    "related": "Also useful",
+    "faqTitle": "Frequently asked questions"
   }
 }

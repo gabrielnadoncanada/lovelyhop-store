@@ -3,6 +3,7 @@ import { getCatalogIndex } from "@/lib/catalog";
 import { allPublishedArticles, articleHref, articleHrefs } from "@/lib/blog";
 import { absoluteUrl, localizedUrls, sameRoute, type LocalizedHref } from "@/lib/seo/urls";
 import type { Locale } from "@/lib/types";
+import { getPage, INFO_PAGES, type InfoKey } from "@/lib/pages";
 
 type Entry = MetadataRoute.Sitemap[number];
 
@@ -49,5 +50,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return { ...own, lastModified: a.updatedAt ?? a.publishedAt };
   });
 
-  return [...pages, ...univers, ...fiches, ...guides];
+  // Pages d'information : seulement une fois validées (« review: true » = brouillon, en noindex).
+  const info = (Object.keys(INFO_PAGES) as InfoKey[]).flatMap((k) => {
+    const fr = getPage(k, "fr"), en = getPage(k, "en");
+    if (!fr || !en || fr.review || en.review) return [];
+    return entries(sameRoute(INFO_PAGES[k]), { lastModified: fr.updatedAt > en.updatedAt ? fr.updatedAt : en.updatedAt });
+  });
+
+  return [...pages, ...univers, ...fiches, ...guides, ...info];
 }

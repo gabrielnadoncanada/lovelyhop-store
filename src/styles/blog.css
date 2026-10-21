@@ -63,7 +63,9 @@
 .lh-prose__table:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .lh-prose table { width: 100%; border-collapse: collapse; font: 400 15px/22px var(--font-sans); }
 .lh-prose th { text-align: left; font-weight: 600; background: var(--lin-deep); }
-.lh-prose th, .lh-prose td { padding: 12px var(--space-4); border-bottom: 1px solid var(--hairline); white-space: nowrap; }
+.lh-prose th, .lh-prose td { padding: 12px var(--space-4); border-bottom: 1px solid var(--hairline); vertical-align: top; }
+.lh-prose th { white-space: nowrap; }
+.lh-prose td { min-width: 9em; }
 .lh-prose tr:last-child td { border-bottom: 0; }
 
 .lh-article__faq { margin-top: var(--space-14); }
@@ -92,3 +94,17 @@
   .lh-prose h2, .lh-article__faq h2 { font-size: 28px; margin-top: var(--space-10); }
   .lh-guide--featured .lh-guide__title { font-size: 26px; }
 }
+
+/* ---------- Pages d'information (confidentialité, conditions, livraison, FAQ) ---------- */
+.lh-todo { padding: 0 4px; border-radius: 4px; background: var(--warning-soft); color: var(--warning); font-weight: 600; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.lh-info__review { max-width: 760px; margin: var(--space-8) auto 0; }
+.lh-info { padding-bottom: var(--space-24); }
+.lh-info .lh-article__layout { margin-top: var(--space-10); }
+.lh-info__faq { margin-bottom: var(--space-10); }
+.lh-info__faq summary { font-size: 20px; }
+.lh-info__faq .lh-acc__body p { margin: 0 0 var(--space-5); font: 400 17px/28px var(--font-sans); color: var(--ink-muted); }
+.lh-info__related { margin-top: var(--space-14); padding-top: var(--space-8); border-top: 1px solid var(--hairline); }
+.lh-info__related ul { list-style: none; margin: var(--space-4) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-8); }
+.lh-info__related .lh-link { display: inline-flex; align-items: center; gap: var(--space-2); }
+.lh-info__related svg.i { width: 16px; height: 16px; }
+.lh-prose em { font-style: italic; }

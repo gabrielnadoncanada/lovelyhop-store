@@ -22,6 +22,10 @@ export const routing = defineRouting({
     "/blog/[handle]": "/guides/[handle]",
     "/daycares": { fr: "/garderies-cpe", en: "/daycares" },
     "/search": { fr: "/recherche", en: "/search" },
+    "/privacy": { fr: "/confidentialite", en: "/privacy" },
+    "/terms": { fr: "/conditions", en: "/terms" },
+    "/shipping": { fr: "/livraison-retours", en: "/shipping-returns" },
+    "/faq": "/faq",
   },
 });
 

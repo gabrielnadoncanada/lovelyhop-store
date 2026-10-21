@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { HEART_PATH } from "@/components/ui/icons";
 
@@ -48,7 +49,7 @@ export function Consent() {
         <h2 className="lh-consent__title">{heart}{prefs ? t("prefsTitle") : t("title")}</h2>
         {!prefs ? (
           <>
-            <p>{t("text")} <a href="#">{t("policy")}</a></p>
+            <p>{t("text")} <Link href="/privacy">{t("policy")}</Link></p>
             <div className="lh-consent__actions">
               <button className="lh-btn lh-btn--secondary" type="button" onClick={() => save({ analytics: false, marketing: false })}>{t("refuse")}</button>
               <button className="lh-btn lh-btn--secondary" type="button" onClick={() => save({ analytics: true, marketing: true })}>{t("accept")}</button>

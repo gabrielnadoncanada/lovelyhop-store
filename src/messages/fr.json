@@ -478,5 +478,12 @@
     "products": "Le mobilier de ce guide",
     "featured": "À la une",
     "read": "Lire le guide"
+  },
+  "info": {
+    "updated": "Mis à jour le {date}",
+    "reviewTitle": "Texte à valider",
+    "reviewText": "{count, plural, =0 {Relecture à faire} one {# valeur entre crochets à compléter} other {# valeurs entre crochets à compléter}} avant la mise en ligne. La page n'est pas indexée tant que « review: true » reste dans son fichier.",
+    "related": "Aussi utile",
+    "faqTitle": "Questions fréquentes"
   }
 }

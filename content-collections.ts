@@ -90,4 +90,69 @@ const articles = defineCollection({
   },
 });
 
-export default defineConfig({ content: [articles] });
+/**
+ * Surligne les valeurs encore entre crochets (« [délai] ») dans le texte rendu,
+ * pour qu'aucune ne passe inaperçue à la relecture.
+ */
+type HNode = { type: string; value?: string; tagName?: string; properties?: Record<string, unknown>; children?: HNode[] };
+function rehypeTodo() {
+  const RE = /\[[^\]\n]{2,140}\]/g;
+  const walk = (node: HNode) => {
+    if (!node.children) return;
+    node.children = node.children.flatMap((child): HNode[] => {
+      if (child.type === "element" && (child.tagName === "a" || child.tagName === "code")) return [child];
+      if (child.type !== "text" || !child.value || !RE.test(child.value)) { walk(child); return [child]; }
+      RE.lastIndex = 0;
+      const out: HNode[] = [];
+      let last = 0;
+      for (const m of child.value.matchAll(RE)) {
+        if (m.index! > last) out.push({ type: "text", value: child.value.slice(last, m.index) });
+        out.push({ type: "element", tagName: "mark", properties: { className: ["lh-todo"] }, children: [{ type: "text", value: m[0] }] });
+        last = m.index! + m[0].length;
+      }
+      if (last < child.value.length) out.push({ type: "text", value: child.value.slice(last) });
+      return out;
+    });
+  };
+  return (tree: HNode) => walk(tree);
+}
+
+/**
+ * Pages d'information (confidentialité, conditions, livraison et retours, FAQ).
+ * `content/pages/<fr|en>/<key>.mdx` : le nom du fichier est la clé de la page (identique dans les deux langues),
+ * l'adresse publique vient du routage (src/i18n/routing.ts).
+ * `review: true` tant que le texte n'a pas été validé : la page affiche un avis et n'est pas indexée.
+ */
+const pages = defineCollection({
+  name: "pages",
+  directory: "content/pages",
+  include: "**/*.mdx",
+  schema: z.object({
+    content: z.string(),
+    title: z.string(),
+    /** Surtitre affiché au-dessus du titre (« Aide », « Légal »). */
+    eyebrow: z.string(),
+    description: z.string(),
+    updatedAt: z.union([z.string(), z.date()]),
+    review: z.boolean().default(false),
+    /** Questions fréquentes de la page (rendues en accordéon et publiées en FAQPage). */
+    faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
+  }),
+  transform: async (doc, context) => {
+    const mdx = await compileMDX(context, doc, { remarkPlugins: [remarkGfm], rehypePlugins: [rehypeSlug, rehypeTodo] });
+    const [locale, ...rest] = doc._meta.path.split(/[\\/]/);
+    if (!["fr", "en"].includes(locale)) throw new Error(`La page « ${doc._meta.filePath} » doit être dans content/pages/<fr|en>/`);
+    return {
+      ...doc,
+      mdx,
+      locale: locale as "fr" | "en",
+      key: rest.join("/"),
+      updatedAt: new Date(doc.updatedAt).toISOString().slice(0, 10),
+      toc: toc(doc.content),
+      /** Valeurs encore entre crochets (« [raison sociale] ») : à remplacer avant la mise en ligne. */
+      todos: [...new Set([doc.content, ...doc.faq.flatMap((f) => [f.q, f.a])].join("\n").match(/\[[^\]\n]{2,140}\](?!\()/g) ?? [])],
+    };
+  },
+});
+
+export default defineConfig({ content: [articles, pages] });

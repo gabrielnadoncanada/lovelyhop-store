@@ -5,6 +5,7 @@ import { articleHref, articles } from "@/lib/blog";
 import type { Locale, UniversKey } from "@/lib/types";
 import fr from "@/messages/fr.json";
 import en from "@/messages/en.json";
+import { getPage, INFO_PAGES, type InfoKey } from "@/lib/pages";
 import { SITE } from "./site";
 import { absoluteUrl } from "./urls";
 
@@ -51,6 +52,11 @@ async function section(locale: Locale, full: boolean) {
   lines.push(`- [${m.blog.all}](${absoluteUrl("/blog", locale)}): ${clean(m.blog.metaDescription)}`);
   for (const a of articles(locale)) {
     lines.push(`- [${a.title}](${absoluteUrl(articleHref(a.handle), locale)}): ${clean(a.excerpt)}`);
+  }
+  const info = (Object.keys(INFO_PAGES) as InfoKey[]).map((k) => [k, getPage(k, locale)] as const).filter(([, p]) => p && !p.review);
+  if (info.length) {
+    lines.push("", `## ${isFr ? "Aide" : "Help"}`, "");
+    for (const [k, p] of info) lines.push(`- [${p!.title}](${absoluteUrl(INFO_PAGES[k], locale)}): ${clean(p!.description)}`);
   }
   if (full) {
     for (const a of articles(locale)) {
