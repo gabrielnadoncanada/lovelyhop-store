@@ -120,3 +120,8 @@ img, svg { max-width: 100%; }
    de barre de livraison : avec trois enfants, le pied tombait dans la rangée extensible et s'étirait.
    Si une barre .lh-ship est ajoutée un jour, remettre quatre rangées. */
 .lh-drawer { grid-template-rows: auto minmax(0, 1fr) auto; }
+
+/* Carte produit : le lien du titre s'étire sur toute la carte (::after), mais l'illustration (.lh-card__art, z-index 1)
+   passait au-dessus et avalait le clic. Le lien monte au niveau 1, le cœur et l'ajout rapide restent au-dessus. */
+.lh-card__name a::after { z-index: 1; }
+.lh-card__fav { z-index: 2; }
