@@ -33,7 +33,8 @@ export function startAnalytics(): Promise<PostHog | null> {
     });
     posthog.register({ site_env: window.location.hostname === "lovelyhop.com" ? "production" : "development", site_locale: document.documentElement.lang });
     client = posthog;
-    for (const q of queue.splice(0)) posthog.capture(q.event, q.properties);
+    // Après la page vue initiale, pour que les entonnoirs « visite → fiche produit » gardent l'ordre.
+    setTimeout(() => { for (const q of queue.splice(0)) posthog.capture(q.event, q.properties); }, 300);
     return posthog;
   });
   return loading;
