@@ -7,6 +7,7 @@ const MAP: Record<ArtKey, (p: { className?: string }) => React.ReactElement> = {
   "table-lumineuse": A.ArtTableLumineuse,
   "panneau-activites": A.ArtPanneauActivites,
   "table-art": A.ArtTableArt,
+  "table-activite": A.ArtTableDeJeu,
   "plateau-art": A.ArtPlateauArt,
   "plateau-lumineux": A.ArtPlateauLumineux,
   entonnoirs: A.ArtEntonnoirs,

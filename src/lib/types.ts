@@ -4,7 +4,7 @@ export type UniversKey = "creer" | "imaginer" | "ranger" | "bouger" | "cpe";
 
 /** Nom du dessin de marque utilisé quand le produit n'a pas encore de photo. */
 export type ArtKey =
-  | "table-sensorielle" | "table-lumineuse" | "panneau-activites" | "table-art"
+  | "table-sensorielle" | "table-lumineuse" | "panneau-activites" | "table-art" | "table-activite"
   | "plateau-art" | "plateau-lumineux" | "entonnoirs" | "tamis" | "bacs"
   | "table-garderie" | "casier-garderie" | "range-matelas" | "panneau-mural";
 

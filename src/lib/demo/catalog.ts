@@ -124,6 +124,13 @@ const D: DemoProduct[] = [
     age: { fr: "Art · 2 à 6 ans", en: "Art · 2 to 6 years" }, material: { fr: "Rouleau de papier et bacs", en: "Paper roll and bins" },
     variants: [{ id: "demo-art-v", title: { fr: "Naturel", en: "Natural" } }],
   },
+  {
+    id: "demo-table-activite", handles: { fr: "table-activite-transformable", en: "convertible-activity-table" }, univers: "creer", art: "table-activite", badge: "nouveau",
+    title: { fr: "Table d'activité transformable", en: "Convertible activity table" },
+    description: { fr: "Table d'activité transformable conçue au Québec pour les 1 à 6 ans. Quatre plateaux réversibles : lisse, dessin, construction et route.", en: "Convertible activity table designed in Quebec for ages 1 to 6. Four reversible tops: smooth, drawing, building and road." },
+    age: { fr: "Jeu · 1 à 6 ans", en: "Play · 1 to 6 years" }, material: { fr: "Contreplaqué · 4 plateaux réversibles", en: "Plywood · 4 reversible tops" },
+    variants: [{ id: "demo-activite-v", title: { fr: "Naturel", en: "Natural" } }],
+  },
   // accessoires
   ...([
     ["plateau-art", "art-tray", "plateau-art", "Plateau d'art", "Art tray", "Une surface lisse pour peindre et dessiner debout, qui se nettoie d'un coup de linge.", "A smooth surface for painting and drawing standing up, cleaned with one wipe."],
