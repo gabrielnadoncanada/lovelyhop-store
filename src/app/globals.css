@@ -322,3 +322,21 @@ img, svg { max-width: 100%; }
   .lh-buybar { animation: none; opacity: 0; visibility: hidden; transform: translateY(100%); transition: opacity .3s, transform .4s var(--ease), visibility .3s; }
   .lh-buybar.is-shown { opacity: 1; visibility: visible; transform: none; }
 }
+
+/* ---------- Peaufinage tactile et lisibilité (audit mobile) ---------- */
+/* Cibles tactiles d'au moins 44 px pour les liens texte des pieds de page, fils d'Ariane et liens en ligne. */
+@media (max-width: 1023px) {
+  .lh-footer li a { display: inline-block; padding: 10px 0; }
+  .lh-crumbs a, .lh-crumbs [aria-current] { display: inline-block; padding: 8px 0; }
+  .lh-link { padding-top: 6px; padding-bottom: 6px; }
+  .lh-nav__icon { width: 44px; height: 44px; }
+}
+/* Petits textes : jamais sous 12 px sur téléphone (surtitres, âges, badges, métadonnées des guides). */
+@media (max-width: 600px) {
+  .lh-eyebrow, .lh-card__age, .lh-tile__eyebrow, .lh-guide__meta, .lh-palette__group h3 { font-size: 12px; }
+  .lh-badge { font-size: 11px; }
+}
+/* Barre d'achat collante : le nom du produit se tronque, le bouton garde sa largeur et son texte. */
+.lh-buybar > div { min-width: 0; }
+.lh-buybar__name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lh-buybar .lh-btn { flex: none; white-space: nowrap; }

@@ -87,6 +87,18 @@ export function BuyBox({ crumbs }: { crumbs: ReactNode }) {
         </fieldset>
       )}
 
+      {/* Le bouton d'achat passe avant les accessoires : il reste visible sans défiler sur un écran de bureau. */}
+      <div className="lh-buy__cta">
+        <div className="lh-qty" role="group" aria-label={t("qty")}>
+          <button type="button" aria-label={t("minus")} aria-disabled={qty <= 1} onClick={() => setQty(Math.max(1, qty - 1))}><Icon name="minus" /></button>
+          <output aria-live="polite">{qty}</output>
+          <button type="button" aria-label={t("plus")} onClick={() => setQty(Math.min(10, qty + 1))}><Icon name="plus" /></button>
+        </div>
+        <button className="lh-btn lh-btn--primary lh-btn--lg lh-buy__add" type="button" onClick={buy} disabled={pending || !product.availableForSale}>
+          <Icon name="bag" />{tc("addToCart")}
+        </button>
+      </div>
+
       {addons.length > 0 && (
         <fieldset className="lh-opt">
           <legend className="lh-opt__head"><span className="lh-eyebrow">{t("addons")}</span><span className="lh-opt__value">{chosen.length ? t("addonsCount", { count: chosen.length }) : t("optional")}</span></legend>
@@ -101,17 +113,6 @@ export function BuyBox({ crumbs }: { crumbs: ReactNode }) {
           </div>
         </fieldset>
       )}
-
-      <div className="lh-buy__cta">
-        <div className="lh-qty" role="group" aria-label={t("qty")}>
-          <button type="button" aria-label={t("minus")} aria-disabled={qty <= 1} onClick={() => setQty(Math.max(1, qty - 1))}><Icon name="minus" /></button>
-          <output aria-live="polite">{qty}</output>
-          <button type="button" aria-label={t("plus")} onClick={() => setQty(Math.min(10, qty + 1))}><Icon name="plus" /></button>
-        </div>
-        <button className="lh-btn lh-btn--primary lh-btn--lg lh-buy__add" type="button" onClick={buy} disabled={pending || !product.availableForSale}>
-          <Icon name="bag" />{tc("addToCart")}
-        </button>
-      </div>
 
       <ul className="lh-assure">
         {assure.map(([b, s], i) => (
