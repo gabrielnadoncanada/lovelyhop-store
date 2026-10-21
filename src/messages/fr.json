@@ -68,7 +68,9 @@
         "Coffres-bancs",
         "Penderies"
       ]
-    }
+    },
+    "universIndex": "Univers",
+    "guides": "Guides"
   },
   "search": {
     "label": "Recherche",
@@ -441,5 +443,40 @@
     "title": "Cette page s'est égarée",
     "text": "Elle a peut-être changé d'adresse. Le catalogue, lui, est toujours là.",
     "cta": "Retour à l'accueil"
+  },
+  "collections": {
+    "metaTitle": "Tous les univers : meubles de jeu en bois pour enfants",
+    "metaDescription": "Tables sensorielles, meubles d'art, jeux d'imitation et rangements en contreplaqué pour les 1 à 6 ans. Conçus au Québec, livrés partout au Canada.",
+    "eyebrow": "Magasiner",
+    "title": "Tous nos",
+    "em": "univers.",
+    "lead": "Quatre façons de jouer, un même souci du détail. Choisissez un univers ou parcourez tout le mobilier, de la table sensorielle à la bibliothèque.",
+    "seeAll": "Voir l'univers",
+    "soonText": "Cet univers arrive bientôt.",
+    "proTitle": "Vous équipez une garderie ou un CPE ?",
+    "proText": "Le mobilier pour les groupes a sa propre page, avec les soumissions par lot.",
+    "proLink": "Voir le mobilier CPE"
+  },
+  "blog": {
+    "metaTitle": "Guides : jeu sensoriel, activités et aménagement pour les 1 à 6 ans",
+    "metaDescription": "Idées d'activités sensorielles, conseils pour préparer un bac sans dégât et aménager un coin de jeu. Des guides simples pour les parents et les éducatrices.",
+    "eyebrow": "Guides",
+    "title": "Jouer, préparer,",
+    "em": "aménager.",
+    "lead": "Des guides concrets pour tirer le meilleur des meubles de jeu : idées d'activités par âge, préparation des bacs et aménagement de l'espace.",
+    "all": "Tous les guides",
+    "filter": "Filtrer par thème",
+    "empty": "Aucun guide pour l'instant.",
+    "emptyTheme": "Aucun guide dans ce thème.",
+    "readingTime": "{minutes} min de lecture",
+    "by": "Par {author}",
+    "published": "Publié le {date}",
+    "updated": "Mis à jour le {date}",
+    "readNext": "À lire ensuite",
+    "back": "Tous les guides",
+    "toc": "Dans ce guide",
+    "products": "Le mobilier de ce guide",
+    "featured": "À la une",
+    "read": "Lire le guide"
   }
 }

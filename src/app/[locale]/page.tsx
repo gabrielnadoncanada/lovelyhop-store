@@ -4,7 +4,12 @@ import { getCollection, getProduct } from "@/lib/catalog";
 import { FEATURED_HANDLE, UNIVERS_HANDLES } from "@/lib/constants";
 import { formatMoney } from "@/lib/format";
 import type { Locale } from "@/lib/types";
-import { SetAlternates } from "@/components/layout/Alternates";
+import type { Metadata } from "next";
+import { PageAlternates } from "@/components/seo/PageAlternates";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { pageMetadata } from "@/lib/seo/metadata";
+import { graph, organization, webPage, website } from "@/lib/seo/schema";
+import { absoluteUrl, sameRoute } from "@/lib/seo/urls";
 import { Announce } from "@/components/layout/PageTop";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { HeroSection } from "@/components/home/HeroSection";
@@ -12,11 +17,21 @@ import { Spotlight } from "@/components/home/Spotlight";
 import { ProductCard } from "@/components/product/ProductCard";
 import { ProductArt } from "@/components/art/byKey";
 import { Newsletter } from "@/components/forms/Newsletter";
+import { UniversTiles } from "@/components/catalog/UniversTiles";
+import { ArticleCard } from "@/components/blog/ArticleCard";
+import { articles } from "@/lib/blog";
+import { toCard } from "@/lib/blog-cards";
 import { HEART_PATH, Icon } from "@/components/ui/icons";
 import {
-  ArtGuideBac, ArtGuideBibliotheque, ArtGuideLumiere, ArtPilierChassis, ArtPilierPieces, ArtPilierPlateaux,
-  ArtUniversBouger, ArtUniversCreer, ArtUniversImaginer, ArtUniversRanger, HeroScene,
+  ArtPilierChassis, ArtPilierPieces, ArtPilierPlateaux,
+  HeroScene,
 } from "@/components/art";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = (await getLocale()) as Locale;
+  const t = await getTranslations("meta");
+  return pageMetadata({ locale, title: { absolute: t("title") }, description: t("description"), hrefs: sameRoute("/") });
+}
 
 export default async function HomePage() {
   const locale = (await getLocale()) as Locale;
@@ -36,24 +51,17 @@ export default async function HomePage() {
     <svg key="d" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6.5h11v10H3zM14 10h4l3 3v3.5h-7" /><circle cx="7" cy="18" r="1.8" /><circle cx="17.5" cy="18" r="1.8" /></svg>,
   ];
   const sep = <svg viewBox="0 0 34 30"><path d={HEART_PATH} /></svg>;
-  const tiles = [
-    { u: "creer" as const, cls: "lh-tile lh-tile--sage", Art: ArtUniversCreer },
-    { u: "imaginer" as const, cls: "lh-tile lh-tile--blush", Art: ArtUniversImaginer },
-    { u: "ranger" as const, cls: "lh-tile", Art: ArtUniversRanger },
-    { u: "bouger" as const, cls: "lh-tile lh-tile--sand", Art: ArtUniversBouger },
-  ];
   const pillars = t.raw("home.pillars") as [string, string][];
-  const guides = t.raw("home.guides") as [string, string, string][];
-  const guideArt = [
-    { cls: "lh-guide__media lh-bg-sage", Art: ArtGuideBac },
-    { cls: "lh-guide__media lh-bg-sand", Art: ArtGuideLumiere },
-    { cls: "lh-guide__media lh-bg-blush", Art: ArtGuideBibliotheque },
-  ];
   const pillarArt = [ArtPilierChassis, ArtPilierPlateaux, ArtPilierPieces];
 
   return (
     <>
-      <SetAlternates fr="/" en="/en" />
+      <PageAlternates hrefs={sameRoute("/")} />
+      <JsonLd data={graph(
+        organization(t("footer.brand")),
+        website(locale, t("meta.description")),
+        webPage({ url: absoluteUrl("/", locale), name: t("meta.title"), description: t("meta.description"), locale }),
+      )} />
       <Announce />
       <HeroSection label={t("nav.home")}>
         <SiteHeader />
@@ -111,20 +119,9 @@ export default async function HomePage() {
         <section className="lh-sec" id="univers">
           <div className="lh-section__head">
             <div><span className="lh-eyebrow">{t("home.universEyebrow")}</span><h2 className="lh-title">{t("home.universTitle")} <em>{t("home.universEm")}</em></h2></div>
-            <Link className="lh-link" href={col("creer")}>{t("home.universLink")}<Icon name="arrow" /></Link>
+            <Link className="lh-link" href="/collections">{t("home.universLink")}<Icon name="arrow" /></Link>
           </div>
-          <div className="lh-tiles">
-            {tiles.map(({ u, cls, Art }) => (
-              <Link key={u} className={cls} href={col(u)}>
-                {u === "bouger" && <span className="lh-badge lh-tile__soon">{t("common.soon")}</span>}
-                <div className="lh-tile__art"><Art /></div>
-                <div className="lh-tile__foot">
-                  <div><span className="lh-tile__eyebrow">{t(`home.tiles.${u}`)}</span><h3 className="lh-tile__title">{t(`nav.univers.${u}`)}</h3></div>
-                  <span className="lh-tile__go"><Icon name="arrow" /></span>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <UniversTiles />
         </section>
 
         <Spotlight product={featured} />
@@ -189,20 +186,10 @@ export default async function HomePage() {
         <section className="lh-sec" id="guides">
           <div className="lh-section__head">
             <div><span className="lh-eyebrow">{t("home.guidesEyebrow")}</span><h2 className="lh-title">{t("home.guidesTitle")} <em>{t("home.guidesEm")}</em></h2></div>
-            <span className="lh-link" aria-disabled="true">{t("home.guidesLink")}<Icon name="arrow" /></span>
+            <Link className="lh-link" href="/blog">{t("home.guidesLink")}<Icon name="arrow" /></Link>
           </div>
           <div className="lh-guides">
-            {guides.map(([meta, title, text], i) => {
-              const { cls, Art } = guideArt[i];
-              return (
-                <article className="lh-guide" key={title}>
-                  <div className={cls}><Art /></div>
-                  <span className="lh-guide__meta">{meta}</span>
-                  <h3 className="lh-guide__title">{title}</h3>
-                  <p>{text}</p>
-                </article>
-              );
-            })}
+            {articles(locale).slice(0, 3).map((g) => <ArticleCard key={g.handle} a={toCard(g, (n) => t("blog.readingTime", { minutes: n }))} />)}
           </div>
         </section>
 

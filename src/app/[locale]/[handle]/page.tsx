@@ -3,27 +3,38 @@ import { notFound } from "next/navigation";
 import * as rootParams from "next/root-params";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { getCollection, getProduct, getProducts, getSitemapEntries } from "@/lib/catalog";
-import { SITE_URL, UNIVERS_HANDLES } from "@/lib/constants";
+import { getCollection, getProduct, getProducts, getCatalogIndex } from "@/lib/catalog";
+import { UNIVERS_HANDLES } from "@/lib/constants";
 import { formatMoney } from "@/lib/format";
 import type { Locale, Product } from "@/lib/types";
-import { SetAlternates } from "@/components/layout/Alternates";
+import { PageAlternates } from "@/components/seo/PageAlternates";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { Crumbs, crumbsForSchema, type CrumbItem } from "@/components/seo/Crumbs";
+import { pageMetadata } from "@/lib/seo/metadata";
+import { breadcrumb, faq, graph, product as productNode, webPage } from "@/lib/seo/schema";
+import { absoluteUrl, type LocalizedHref } from "@/lib/seo/urls";
 import { PageTop } from "@/components/layout/PageTop";
 import { Gallery } from "@/components/product/Gallery";
 import { BuyBar, BuyBox, PurchaseProvider } from "@/components/product/Purchase";
 import { ProductCard } from "@/components/product/ProductCard";
 import { AddToCartButton } from "@/components/product/AddToCartButton";
 import { ProductArt } from "@/components/art/byKey";
-import { ArtBols, ArtCroissance, ArtDimensions, ArtGuideBac, ArtGuideLumiere, ArtPetiteTable, ArtTableDeJeu, TablePlateaux } from "@/components/art";
+import { ArtCroissance, ArtDimensions, ArtPetiteTable, ArtTableDeJeu, TablePlateaux } from "@/components/art";
 import { Icon } from "@/components/ui/icons";
+import { ArticleCard } from "@/components/blog/ArticleCard";
+import { articlesForProduct } from "@/lib/blog";
+import { toCard } from "@/lib/blog-cards";
 
 export async function generateStaticParams() {
   const locale = (await rootParams.locale()) as Locale;
-  const { products } = await getSitemapEntries();
-  return (products[locale] ?? []).map((handle) => ({ handle }));
+  const { products } = await getCatalogIndex();
+  return products.flatMap((p) => (p.handles[locale] ? [{ handle: p.handles[locale]! }] : []));
 }
 
-const productPath = (locale: Locale, handle?: string) => (handle ? (locale === "fr" ? `/${handle}` : `/en/${handle}`) : undefined);
+const productHrefs = (p: Product): LocalizedHref => ({
+  fr: p.handles.fr ? { pathname: "/[handle]", params: { handle: p.handles.fr } } : undefined,
+  en: p.handles.en ? { pathname: "/[handle]", params: { handle: p.handles.en } } : undefined,
+});
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/[handle]">): Promise<Metadata> {
   const { handle } = await params;
@@ -31,15 +42,14 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/[handle]
   const product = await getProduct(handle, locale);
   if (!product) return {};
   const suffix = locale === "fr" ? " en contreplaqué" : " in plywood";
-  return {
+  const img = product.images[0];
+  return pageMetadata({
+    locale,
     title: product.seo.title ?? product.title + suffix,
     description: product.seo.description ?? product.description,
-    alternates: {
-      canonical: productPath(locale, product.handle),
-      languages: { "fr-CA": productPath("fr", product.handles.fr), "en-CA": productPath("en", product.handles.en) },
-    },
-    openGraph: { title: product.title, description: product.description, images: product.images[0] ? [{ url: product.images[0].url }] : undefined },
-  };
+    hrefs: productHrefs(product),
+    image: img ? { url: img.url, width: img.width, height: img.height, alt: img.altText ?? product.title } : null,
+  });
 }
 
 export default async function ProductPage({ params }: PageProps<"/[locale]/[handle]">) {
@@ -59,25 +69,34 @@ export default async function ProductPage({ params }: PageProps<"/[locale]/[hand
     getProducts(d?.extras ?? [], locale),
     univers ? getCollection(UNIVERS_HANDLES[univers][locale], locale) : Promise.resolve(null),
   ]);
+  const guides = articlesForProduct(product.handle, locale).slice(0, 3);
+  const tb = await getTranslations("blog");
   const related = (collection?.products ?? []).filter((p) => p.handle !== product.handle).slice(0, 3);
   const eyebrow = [univers ? tn(`univers.${univers}`) : null, product.age.split("·").pop()?.trim()].filter(Boolean).join(" · ");
   const colHref = univers ? { pathname: "/collections/[handle]" as const, params: { handle: UNIVERS_HANDLES[univers][locale] } } : null;
 
-  const jsonLd = buildJsonLd(product, locale, collection?.title ?? null);
+  const hrefs = productHrefs(product);
+  const url = absoluteUrl({ pathname: "/[handle]", params: { handle: product.handle } }, locale);
+  const crumbs: CrumbItem[] = [
+    { name: t("crumbsHome"), href: "/" },
+    { name: tn("universIndex"), href: "/collections" },
+    ...(colHref && collection ? [{ name: collection.title, href: colHref }] : []),
+    { name: product.title },
+  ];
+  const jsonLd = graph(
+    webPage({ url, name: product.title, description: product.seo.description ?? product.description, locale, type: "ItemPage", breadcrumb: true, primaryImage: product.images[0]?.url }),
+    breadcrumb(url, crumbsForSchema(crumbs, locale)),
+    productNode(product, url, { locale, category: collection?.title }),
+    faq(url, d?.faq ?? []),
+  );
 
   return (
     <>
-      <SetAlternates fr={productPath("fr", product.handles.fr)} en={productPath("en", product.handles.en)} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
+      <PageAlternates hrefs={hrefs} />
+      <JsonLd data={jsonLd} />
       <PageTop />
       <main id="contenu" className="lh-pdp">
-        <nav className="lh-crumbs-bar" aria-label={locale === "fr" ? "Fil d'Ariane" : "Breadcrumb"}>
-          <ol className="lh-crumbs">
-            <li><Link href="/">{t("crumbsHome")}</Link><Icon name="chevRight" /></li>
-            {colHref && collection && <li><Link href={colHref}>{collection.title}</Link><Icon name="chevRight" /></li>}
-            <li><span aria-current="page">{product.title}</span></li>
-          </ol>
-        </nav>
+        <Crumbs items={crumbs} />
 
         <PurchaseProvider product={product} addons={addons}>
           <section className="lh-pdp__main" aria-label={product.title}>
@@ -215,23 +234,14 @@ export default async function ProductPage({ params }: PageProps<"/[locale]/[hand
             </ol>
           </section>
 
-          {d?.plateaux && (
+          {guides.length > 0 && (
             <section className="lh-sec" id="guides">
               <div className="lh-section__head">
                 <div><span className="lh-eyebrow">{t("guidesEyebrow")}</span><h2 className="lh-title">{t("guidesTitle")} <em>{t("guidesEm")}</em></h2></div>
+                <Link className="lh-link" href="/blog">{tb("all")}<Icon name="arrow" /></Link>
               </div>
               <div className="lh-guides">
-                {[
-                  { cls: "lh-guide__media lh-bg-blush", Art: ArtBols, meta: locale === "fr" ? "Idées · 1 à 6 ans" : "Ideas · 1 to 6 years", title: locale === "fr" ? "Que mettre dans une table sensorielle : 20 idées" : "What to put in a sensory table: 20 ideas", text: locale === "fr" ? "Des matières pour chaque saison, de la neige d'hiver aux pétales de l'été, avec l'âge conseillé pour chacune." : "Materials for every season, from winter snow to summer petals, with the recommended age for each." },
-                  ...((tg.raw("guides") as [string, string, string][]).slice(0, 2).map(([meta, title, text], i) => ({ cls: ["lh-guide__media lh-bg-sage", "lh-guide__media lh-bg-sand"][i], Art: [ArtGuideBac, ArtGuideLumiere][i], meta, title, text }))),
-                ].map(({ cls, Art, meta, title, text }) => (
-                  <article className="lh-guide" key={title}>
-                    <div className={cls}><Art /></div>
-                    <span className="lh-guide__meta">{meta}</span>
-                    <h3 className="lh-guide__title">{title}</h3>
-                    <p>{text}</p>
-                  </article>
-                ))}
+                {guides.map((g) => <ArticleCard key={g.handle} a={toCard(g, (n) => tb("readingTime", { minutes: n }))} />)}
               </div>
             </section>
           )}
@@ -254,27 +264,3 @@ export default async function ProductPage({ params }: PageProps<"/[locale]/[hand
   );
 }
 
-function buildJsonLd(p: Product, locale: Locale, collectionTitle: string | null) {
-  const url = `${SITE_URL}${productPath(locale, p.handle)}`;
-  const priced = p.variants.filter((v) => v.price);
-  const graph: Record<string, unknown>[] = [
-    {
-      "@type": "Product", name: p.title, description: p.description, url, brand: { "@type": "Brand", name: "Lovelyhop" },
-      image: p.images.map((i) => i.url),
-      ...(priced.length ? {
-        offers: priced.map((v) => ({ "@type": "Offer", name: v.title, price: v.price!.amount, priceCurrency: v.price!.currencyCode, availability: v.availableForSale ? "https://schema.org/InStock" : "https://schema.org/OutOfStock", url })),
-      } : {}),
-    },
-    {
-      "@type": "BreadcrumbList", itemListElement: [
-        { "@type": "ListItem", position: 1, name: locale === "fr" ? "Accueil" : "Home", item: `${SITE_URL}${locale === "fr" ? "/" : "/en"}` },
-        ...(collectionTitle ? [{ "@type": "ListItem", position: 2, name: collectionTitle }] : []),
-        { "@type": "ListItem", position: collectionTitle ? 3 : 2, name: p.title, item: url },
-      ],
-    },
-  ];
-  if (p.details?.faq?.length) {
-    graph.push({ "@type": "FAQPage", mainEntity: p.details.faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) });
-  }
-  return { "@context": "https://schema.org", "@graph": graph };
-}

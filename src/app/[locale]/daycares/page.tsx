@@ -4,15 +4,21 @@ import { Link } from "@/i18n/navigation";
 import { getCollection } from "@/lib/catalog";
 import { UNIVERS_HANDLES } from "@/lib/constants";
 import type { Locale } from "@/lib/types";
-import { SetAlternates } from "@/components/layout/Alternates";
+import { PageAlternates } from "@/components/seo/PageAlternates";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { Crumbs, crumbsForSchema, type CrumbItem } from "@/components/seo/Crumbs";
+import { pageMetadata } from "@/lib/seo/metadata";
+import { breadcrumb, graph, itemList, webPage } from "@/lib/seo/schema";
+import { absoluteUrl, sameRoute } from "@/lib/seo/urls";
 import { PageTop } from "@/components/layout/PageTop";
 import { QuoteForm } from "@/components/forms/QuoteForm";
 import { ProductArt } from "@/components/art/byKey";
 import { Icon } from "@/components/ui/icons";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = (await getLocale()) as Locale;
   const t = await getTranslations("daycares");
-  return { title: { absolute: t("metaTitle") }, description: t("metaDescription"), alternates: { canonical: "/garderies-cpe", languages: { "fr-CA": "/garderies-cpe", "en-CA": "/en/daycares" } } };
+  return pageMetadata({ locale, title: { absolute: t("metaTitle") }, description: t("metaDescription"), hrefs: sameRoute("/daycares") });
 }
 
 /** Garderies et CPE : mobilier et demande de soumission. */
@@ -22,14 +28,22 @@ export default async function DaycaresPage() {
   const th = await getTranslations("home");
   const tp = await getTranslations("product");
   const cpe = await getCollection(UNIVERS_HANDLES.cpe[locale], locale);
+  const url = absoluteUrl("/daycares", locale);
+  const crumbs: CrumbItem[] = [{ name: tp("crumbsHome"), href: "/" }, { name: t("eyebrow") }];
+  const jsonLd = graph(
+    webPage({ url, name: t("metaTitle"), description: t("metaDescription"), locale, breadcrumb: true }),
+    breadcrumb(url, crumbsForSchema(crumbs, locale)),
+    cpe?.products.length
+      ? itemList(url, cpe.title, cpe.products.map((p) => ({ url: absoluteUrl({ pathname: "/[handle]", params: { handle: p.handle } }, locale), name: p.title, image: p.images[0]?.url })))
+      : null,
+  );
   return (
     <>
-      <SetAlternates fr="/garderies-cpe" en="/en/daycares" />
+      <PageAlternates hrefs={sameRoute("/daycares")} />
+      <JsonLd data={jsonLd} />
       <PageTop />
       <main id="contenu">
-        <nav className="lh-crumbs-bar" aria-label={locale === "fr" ? "Fil d'Ariane" : "Breadcrumb"}>
-          <ol className="lh-crumbs"><li><Link href="/">{tp("crumbsHome")}</Link><Icon name="chevRight" /></li><li><span aria-current="page">{t("eyebrow")}</span></li></ol>
-        </nav>
+        <Crumbs items={crumbs} />
         <section className="lh-pro" aria-labelledby="cpe-titre" style={{ marginTop: 32 }}>
           <div>
             <span className="lh-eyebrow">{t("eyebrow")}</span>

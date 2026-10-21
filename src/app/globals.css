@@ -54,3 +54,6 @@ img, svg { max-width: 100%; }
   .lh-nav__menu { display: grid; }
   .lh-nav__tools { gap: 6px; }
 }
+
+/* Pied du menu mobile : univers, guides, langue, compte ; passe à la ligne sur les petits écrans. */
+.lh-mnav__foot { flex-wrap: wrap; justify-content: flex-start; column-gap: var(--space-5); row-gap: 0; }

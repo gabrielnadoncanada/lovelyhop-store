@@ -177,6 +177,8 @@ function MobileNav({ locale, altHref, other, onClose }: { locale: Locale; altHre
           </Link>
         </div>
         <div className="lh-mnav__foot">
+          <Link href="/collections" onClick={onClose}><Icon name="layers" />{t("universIndex")}</Link>
+          <Link href="/blog" onClick={onClose}><Icon name="heart" />{t("guides")}</Link>
           <a href={altHref} lang={other} hrefLang={other}><Icon name="globe" />{t("langName")}</a>
           {process.env.NEXT_PUBLIC_ACCOUNT_URL && <a href={process.env.NEXT_PUBLIC_ACCOUNT_URL}><Icon name="user" />{t("account")}</a>}
         </div>

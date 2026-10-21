@@ -68,7 +68,9 @@
         "Toy benches",
         "Wardrobes"
       ]
-    }
+    },
+    "universIndex": "Worlds",
+    "guides": "Guides"
   },
   "search": {
     "label": "Search",
@@ -441,5 +443,40 @@
     "title": "This page wandered off",
     "text": "It may have moved. The catalogue is still here.",
     "cta": "Back to home"
+  },
+  "collections": {
+    "metaTitle": "All worlds: wooden play furniture for kids",
+    "metaDescription": "Sensory tables, art furniture, pretend play and storage in plywood for ages 1 to 6, sorted by world. Designed in Quebec, shipped across Canada.",
+    "eyebrow": "Shop",
+    "title": "All our",
+    "em": "worlds.",
+    "lead": "Four ways to play, the same care for detail. Pick a world or browse all the furniture, from the sensory table to the bookshelf.",
+    "seeAll": "See the world",
+    "soonText": "This world is coming soon.",
+    "proTitle": "Furnishing a daycare?",
+    "proText": "Furniture for groups has its own page, with volume quotes.",
+    "proLink": "See daycare furniture"
+  },
+  "blog": {
+    "metaTitle": "Guides: sensory play, activities and room setup for ages 1 to 6",
+    "metaDescription": "Sensory activity ideas, tips to set up a mess-free bin and arrange a play corner. Simple guides for parents and educators.",
+    "eyebrow": "Guides",
+    "title": "Play, prepare,",
+    "em": "arrange.",
+    "lead": "Hands-on guides to get the most out of play furniture: activity ideas by age, bin preparation and room setup.",
+    "all": "All guides",
+    "filter": "Filter by topic",
+    "empty": "No guides yet.",
+    "emptyTheme": "No guides on this topic.",
+    "readingTime": "{minutes} min read",
+    "by": "By {author}",
+    "published": "Published {date}",
+    "updated": "Updated {date}",
+    "readNext": "Read next",
+    "back": "All guides",
+    "toc": "In this guide",
+    "products": "Furniture in this guide",
+    "featured": "Featured",
+    "read": "Read the guide"
   }
 }

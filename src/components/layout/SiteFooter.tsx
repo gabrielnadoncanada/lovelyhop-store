@@ -25,6 +25,7 @@ export async function SiteFooter() {
             <li><Link href={col("imaginer")}>{tn("univers.imaginer")}</Link></li>
             <li><Link href={col("ranger")}>{tn("univers.ranger")}</Link></li>
             <li><Link href={col("bouger")}>{tn("univers.bouger")} ({locale === "fr" ? "bientôt" : "soon"})</Link></li>
+            <li><Link href="/collections">{locale === "fr" ? "Tous les univers" : "All worlds"}</Link></li>
           </ul>
         </div>
         <div>
@@ -38,6 +39,7 @@ export async function SiteFooter() {
         <div>
           <h3>{t("help")}</h3>
           <ul>
+            <li><Link href="/blog">{t("guides")}</Link></li>
             <li><a href="#">{t("shipping")}</a></li>
             <li><a href="#">{t("faq")}</a></li>
             <li><ConsentLink>{t("cookies")}</ConsentLink></li>

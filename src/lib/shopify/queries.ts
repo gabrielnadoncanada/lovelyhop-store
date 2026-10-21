@@ -40,7 +40,7 @@ export const PRODUCTS_BY_HANDLES_QUERY = `
 
 export const ALL_PRODUCTS_QUERY = `
   query AllProducts($language: LanguageCode, $country: CountryCode, $cursor: String) @inContext(language: $language, country: $country) {
-    products(first: 100, after: $cursor) { nodes { handle updatedAt } pageInfo { hasNextPage endCursor } }
+    products(first: 100, after: $cursor) { nodes { id handle title description updatedAt featuredImage { url } univers: metafield(namespace: "lovelyhop", key: "univers") { value } } pageInfo { hasNextPage endCursor } }
   }`;
 
 export const COLLECTION_QUERY = `

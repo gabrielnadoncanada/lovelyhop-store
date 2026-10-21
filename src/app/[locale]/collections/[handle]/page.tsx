@@ -2,33 +2,36 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import * as rootParams from "next/root-params";
 import { getLocale, getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
 import { getCollection } from "@/lib/catalog";
 import { UNIVERS_HANDLES } from "@/lib/constants";
-import type { Locale } from "@/lib/types";
-import { SetAlternates } from "@/components/layout/Alternates";
+import type { Collection, Locale } from "@/lib/types";
 import { PageTop } from "@/components/layout/PageTop";
 import { ProductCard } from "@/components/product/ProductCard";
 import { Newsletter } from "@/components/forms/Newsletter";
-import { Icon } from "@/components/ui/icons";
+import { PageAlternates } from "@/components/seo/PageAlternates";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { Crumbs, crumbsForSchema, type CrumbItem } from "@/components/seo/Crumbs";
+import { pageMetadata } from "@/lib/seo/metadata";
+import { breadcrumb, graph, itemList, webPage } from "@/lib/seo/schema";
+import { absoluteUrl, type LocalizedHref } from "@/lib/seo/urls";
 
 export async function generateStaticParams() {
   const locale = (await rootParams.locale()) as Locale;
   return Object.values(UNIVERS_HANDLES).map((h) => ({ handle: h[locale] }));
 }
 
-const path = (locale: Locale, handle?: string) => (handle ? (locale === "fr" ? `/univers/${handle}` : `/en/collections/${handle}`) : undefined);
+const collectionHrefs = (c: Collection): LocalizedHref => ({
+  fr: c.handles.fr ? { pathname: "/collections/[handle]", params: { handle: c.handles.fr } } : undefined,
+  en: c.handles.en ? { pathname: "/collections/[handle]", params: { handle: c.handles.en } } : undefined,
+});
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/collections/[handle]">): Promise<Metadata> {
   const { handle } = await params;
   const locale = (await getLocale()) as Locale;
   const c = await getCollection(handle, locale);
   if (!c) return {};
-  return {
-    title: c.title,
-    description: c.description,
-    alternates: { canonical: path(locale, c.handle), languages: { "fr-CA": path("fr", c.handles.fr), "en-CA": path("en", c.handles.en) } },
-  };
+  const suffix = locale === "fr" ? " : meubles de jeu en bois" : ": wooden play furniture";
+  return pageMetadata({ locale, title: c.title + suffix, description: c.description, hrefs: collectionHrefs(c) });
 }
 
 /** Page d'univers (collection Shopify). */
@@ -39,15 +42,26 @@ export default async function CollectionPage({ params }: PageProps<"/[locale]/co
   if (!c) notFound();
   const t = await getTranslations("collection");
   const tp = await getTranslations("product");
+  const tn = await getTranslations("nav");
   const i = c.title.lastIndexOf(" ");
+
+  const url = absoluteUrl({ pathname: "/collections/[handle]", params: { handle: c.handle } }, locale);
+  const crumbs: CrumbItem[] = [{ name: tp("crumbsHome"), href: "/" }, { name: tn("universIndex"), href: "/collections" }, { name: c.title }];
+  const jsonLd = graph(
+    webPage({ url, name: c.title, description: c.description, locale, type: "CollectionPage", breadcrumb: true }),
+    breadcrumb(url, crumbsForSchema(crumbs, locale)),
+    c.products.length
+      ? itemList(url, c.title, c.products.map((p) => ({ url: absoluteUrl({ pathname: "/[handle]", params: { handle: p.handle } }, locale), name: p.title, image: p.images[0]?.url })))
+      : null,
+  );
+
   return (
     <>
-      <SetAlternates fr={path("fr", c.handles.fr)} en={path("en", c.handles.en)} />
+      <PageAlternates hrefs={collectionHrefs(c)} />
+      <JsonLd data={jsonLd} />
       <PageTop />
       <main id="contenu">
-        <nav className="lh-crumbs-bar" aria-label={locale === "fr" ? "Fil d'Ariane" : "Breadcrumb"}>
-          <ol className="lh-crumbs"><li><Link href="/">{tp("crumbsHome")}</Link><Icon name="chevRight" /></li><li><span aria-current="page">{c.title}</span></li></ol>
-        </nav>
+        <Crumbs items={crumbs} />
         <section className="lh-sec" style={{ paddingTop: 32 }}>
           <div className="lh-head">
             <span className="lh-eyebrow">{t("eyebrow")}</span>

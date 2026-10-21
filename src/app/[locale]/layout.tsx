@@ -11,6 +11,7 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 import { isShopifyConfigured } from "@/lib/shopify/client";
 import { SITE_URL } from "@/lib/constants";
 import "../globals.css";
+import "@/styles/blog.css";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));

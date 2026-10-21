@@ -16,7 +16,10 @@ export const routing = defineRouting({
   pathnames: {
     "/": "/",
     "/[handle]": "/[handle]",
+    "/collections": { fr: "/univers", en: "/collections" },
     "/collections/[handle]": { fr: "/univers/[handle]", en: "/collections/[handle]" },
+    "/blog": "/guides",
+    "/blog/[handle]": "/guides/[handle]",
     "/daycares": { fr: "/garderies-cpe", en: "/daycares" },
     "/search": { fr: "/recherche", en: "/search" },
   },

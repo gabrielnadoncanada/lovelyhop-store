@@ -4,6 +4,7 @@ import { routing } from "./i18n/routing";
 export default createMiddleware(routing);
 
 export const config = {
-  // Tout sauf l'API, les fichiers internes de Next et les fichiers statiques
-  matcher: "/((?!api|_next|_vercel|.*\\..*).*)",
+  // Tout sauf l'API, les fichiers internes de Next, les fichiers statiques (llms.txt, sitemap.xml…)
+  // et les images Open Graph, que Next référence par leur chemin interne (/fr/blog/…/opengraph-image).
+  matcher: "/((?!api|_next|_vercel|.*opengraph-image|.*\\..*).*)",
 };

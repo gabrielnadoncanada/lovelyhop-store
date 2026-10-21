@@ -1,3 +1,4 @@
+import { withContentCollections } from "@content-collections/next";
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
@@ -19,4 +20,5 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withNextIntl(nextConfig);
+// content-collections compile les guides (content/blog) avant Next ; il doit envelopper la config en dernier.
+export default withContentCollections(withNextIntl(nextConfig));

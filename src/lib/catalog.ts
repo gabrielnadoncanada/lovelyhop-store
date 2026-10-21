@@ -73,29 +73,50 @@ export async function searchProducts(q: string, locale: Locale): Promise<Product
 }
 
 /** Pour le plan du site : handles de tous les produits et collections, dans chaque langue. */
-export async function getSitemapEntries(): Promise<{ products: Record<Locale, string[]>; collections: Partial<Record<Locale, string>>[] }> {
+/** Un produit du catalogue dans les deux langues, pour le sitemap, llms.txt et le prérendu des fiches. */
+export type CatalogEntry = {
+  id: string;
+  handles: Partial<Record<Locale, string>>;
+  titles: Partial<Record<Locale, string>>;
+  descriptions: Partial<Record<Locale, string>>;
+  univers: string | null;
+  image: string | null;
+  updatedAt: string | null;
+};
+
+/** Index complet du catalogue (toutes les pages de produits, les deux langues, reliées par l'identifiant Shopify). */
+export async function getCatalogIndex(): Promise<{ products: CatalogEntry[]; collections: Partial<Record<Locale, string>>[] }> {
   "use cache";
   cacheTag("catalog");
   cacheLife("hours");
   if (!isShopifyConfigured) {
+    const fr = demo.allProducts("fr"), en = demo.allProducts("en");
     return {
-      products: { fr: demo.allProducts("fr").map((p) => p.handle), en: demo.allProducts("en").map((p) => p.handle) },
+      products: fr.map((p, i) => ({
+        id: p.id, handles: p.handles, titles: { fr: p.title, en: en[i]?.title }, descriptions: { fr: p.description, en: en[i]?.description },
+        univers: p.univers, image: p.images[0]?.url ?? null, updatedAt: null,
+      })),
       collections: demo.collectionHandles(),
     };
   }
-  const products = {} as Record<Locale, string[]>;
+  const byId = new Map<string, CatalogEntry>();
   for (const locale of routing.locales) {
-    const handles: string[] = [];
     let cursor: string | null = null;
     do {
-      type Page = { products: { nodes: { handle: string }[]; pageInfo: { hasNextPage: boolean; endCursor: string | null } } };
+      type Node = { id: string; handle: string; title: string; description: string; updatedAt: string; featuredImage: { url: string } | null; univers: { value: string } | null };
+      type Page = { products: { nodes: Node[]; pageInfo: { hasNextPage: boolean; endCursor: string | null } } };
       const data: Page = await storefront<Page>(ALL_PRODUCTS_QUERY, { language: shopifyLanguage(locale), cursor });
-      handles.push(...data.products.nodes.map((n) => n.handle));
+      for (const n of data.products.nodes) {
+        const e = byId.get(n.id) ?? { id: n.id, handles: {}, titles: {}, descriptions: {}, univers: n.univers?.value ?? null, image: n.featuredImage?.url ?? null, updatedAt: n.updatedAt };
+        e.handles[locale] = n.handle;
+        e.titles[locale] = n.title;
+        e.descriptions[locale] = n.description;
+        byId.set(n.id, e);
+      }
       cursor = data.products.pageInfo.hasNextPage ? data.products.pageInfo.endCursor : null;
     } while (cursor);
-    products[locale] = handles;
   }
-  return { products, collections: demo.collectionHandles() };
+  return { products: [...byId.values()], collections: demo.collectionHandles() };
 }
 
 export { UNIVERS_HANDLES, FEATURED_HANDLE } from "@/lib/constants";

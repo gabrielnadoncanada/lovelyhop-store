@@ -3,14 +3,17 @@ import { Suspense } from "react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { searchProducts } from "@/lib/catalog";
 import type { Locale } from "@/lib/types";
-import { SetAlternates } from "@/components/layout/Alternates";
+import { PageAlternates } from "@/components/seo/PageAlternates";
+import { pageMetadata } from "@/lib/seo/metadata";
+import { sameRoute } from "@/lib/seo/urls";
 import { PageTop } from "@/components/layout/PageTop";
 import { ProductCard } from "@/components/product/ProductCard";
 import { Icon } from "@/components/ui/icons";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = (await getLocale()) as Locale;
   const t = await getTranslations("search");
-  return { title: t("pageTitle"), robots: { index: false } };
+  return pageMetadata({ locale, title: t("pageTitle"), description: t("prompt"), hrefs: sameRoute("/search"), noindex: true });
 }
 
 export default async function SearchPage({ searchParams }: PageProps<"/[locale]/search">) {
@@ -18,7 +21,7 @@ export default async function SearchPage({ searchParams }: PageProps<"/[locale]/
   const locale = (await getLocale()) as Locale;
   return (
     <>
-      <SetAlternates fr="/recherche" en="/en/search" />
+      <PageAlternates hrefs={sameRoute("/search")} />
       <PageTop />
       <main id="contenu">
         <section className="lh-sec" style={{ paddingTop: 40 }}>
