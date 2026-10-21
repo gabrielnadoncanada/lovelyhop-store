@@ -64,7 +64,7 @@ export async function submitQuote(_prev: FormState, form: FormData): Promise<For
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ from: process.env.QUOTE_FROM_EMAIL ?? "Lovelyhop <soumissions@lovelyhop.ca>", to: [to], reply_to: get("email"), subject: `Soumission CPE — ${get("org")}`, text: lines }),
+      body: JSON.stringify({ from: process.env.QUOTE_FROM_EMAIL ?? "Lovelyhop <soumissions@lovelyhop.com>", to: [to], reply_to: get("email"), subject: `Soumission CPE — ${get("org")}`, text: lines }),
     });
     if (!res.ok) return { status: "error", message: fr ? "L'envoi n'a pas fonctionné. Réessayez ou écrivez-nous directement." : "Sending failed. Try again or email us directly." };
   } else {
