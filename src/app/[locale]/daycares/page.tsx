@@ -36,10 +36,9 @@ export default async function DaycaresPage() {
       <JsonLd data={jsonLd} />
       <PageTop />
       <main id="contenu">
-        <Crumbs items={crumbs} />
         <section className="lh-pro" aria-labelledby="cpe-titre" style={{ marginTop: 32 }}>
           <div>
-            <span className="lh-eyebrow">{t("eyebrow")}</span>
+            <Crumbs items={crumbs} />
             <h1 className="lh-pro__title" id="cpe-titre">{t("title")} <em>{t("em")}</em></h1>
             <p>{t("lead")}</p>
             <div className="lh-pro__perks">{(th.raw("perks") as string[]).map((p) => <span key={p}><Icon name="check" />{p}</span>)}</div>

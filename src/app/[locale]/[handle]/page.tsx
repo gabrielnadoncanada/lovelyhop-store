@@ -73,7 +73,6 @@ export default async function ProductPage({ params }: PageProps<"/[locale]/[hand
   const guides = articlesForProduct(product.handle, locale).slice(0, 3);
   const tb = await getTranslations("blog");
   const related = (collection?.products ?? []).filter((p) => p.handle !== product.handle).slice(0, 4);
-  const eyebrow = [univers ? tn(`univers.${univers}`) : null, product.age.split("·").pop()?.trim()].filter(Boolean).join(" · ");
   const colHref = univers ? { pathname: "/collections/[handle]" as const, params: { handle: UNIVERS_HANDLES[univers][locale] } } : null;
 
   const hrefs = productHrefs(product);
@@ -97,13 +96,12 @@ export default async function ProductPage({ params }: PageProps<"/[locale]/[hand
       <JsonLd data={jsonLd} />
       <PageTop />
       <main id="contenu" className="lh-pdp">
-        <Crumbs items={crumbs} />
         <TrackProductView handle={product.handle} title={product.title} univers={product.univers} price={product.minPrice?.amount ?? null} />
 
         <PurchaseProvider product={product} addons={addons}>
           <section className="lh-pdp__main" aria-label={product.title}>
             <Gallery product={product} />
-            <BuyBox eyebrow={eyebrow} />
+            <BuyBox crumbs={<Crumbs items={crumbs} />} />
           </section>
 
           {d?.uses && (

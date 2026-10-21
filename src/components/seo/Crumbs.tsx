@@ -8,11 +8,11 @@ import type { Locale } from "@/lib/types";
 
 export type CrumbItem = { name: string; href?: Href };
 
-/** Fil d'Ariane visible (composant Breadcrumbs du design system). Le dernier élément est la page courante. */
+/** Fil d'Ariane visible (composant Breadcrumbs du design system), placé dans le bloc titre à la place du surtitre. Le dernier élément est la page courante. */
 export async function Crumbs({ items }: { items: CrumbItem[] }) {
   const locale = (await getLocale()) as Locale;
   return (
-    <nav className="lh-crumbs-bar" aria-label={locale === "fr" ? "Fil d'Ariane" : "Breadcrumb"}>
+    <nav className="lh-crumbs-head" aria-label={locale === "fr" ? "Fil d'Ariane" : "Breadcrumb"}>
       <ol className="lh-crumbs">
         {items.map((c, i) =>
           i < items.length - 1 && c.href ? (

@@ -100,3 +100,23 @@ img, svg { max-width: 100%; }
   .lh-related .lh-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .lh-related .lh-card:nth-child(n + 3) { display: none; }
 }
+
+/* Fil d'Ariane dans le bloc titre, à la place du surtitre : une ligne au-dessus du h1, tronquée au besoin.
+   Sur mobile, seuls le premier et le dernier élément restent. */
+.lh-crumbs-head { display: block; margin-bottom: var(--space-3); }
+.lh-crumbs-head .lh-crumbs { flex-wrap: nowrap; overflow: hidden; }
+.lh-crumbs-head .lh-crumbs li:last-child { min-width: 0; }
+.lh-crumbs-head .lh-crumbs li:last-child span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lh-pro .lh-crumbs { color: var(--ink-inverse-muted); }
+.lh-pro .lh-crumbs [aria-current] { color: var(--ink-inverse); }
+.lh-pro .lh-crumbs a:hover { color: var(--ink-inverse); }
+.lh-buy > .lh-crumbs-head { margin-bottom: var(--space-4); }
+.lh-pdp > .lh-pdp__main { padding-top: var(--space-10); }
+@media (max-width: 600px) {
+  .lh-crumbs-head .lh-crumbs li:not(:first-child):not(:last-child) { display: none; }
+}
+
+/* Tiroir panier : la fiche prévoit quatre rangées (titre, barre de livraison, lignes, pied), mais le tiroir n'a pas
+   de barre de livraison : avec trois enfants, le pied tombait dans la rangée extensible et s'étirait.
+   Si une barre .lh-ship est ajoutée un jour, remettre quatre rangées. */
+.lh-drawer { grid-template-rows: auto minmax(0, 1fr) auto; }

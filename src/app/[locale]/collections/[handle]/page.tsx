@@ -61,10 +61,9 @@ export default async function CollectionPage({ params }: PageProps<"/[locale]/co
       <JsonLd data={jsonLd} />
       <PageTop />
       <main id="contenu">
-        <Crumbs items={crumbs} />
-        <section className="lh-sec" style={{ paddingTop: 32 }}>
+        <section className="lh-sec" style={{ paddingTop: 40 }}>
           <div className="lh-head">
-            <span className="lh-eyebrow">{t("eyebrow")}</span>
+            <Crumbs items={crumbs} />
             <h1 className="lh-title">{i > 0 ? <>{c.title.slice(0, i)} <em>{c.title.slice(i + 1)}</em></> : <em>{c.title}</em>}</h1>
             <p>{c.description}</p>
           </div>

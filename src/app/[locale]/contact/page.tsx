@@ -36,11 +36,10 @@ export default async function ContactPage() {
       <JsonLd data={jsonLd} />
       <PageTop />
       <main id="contenu">
-        <Crumbs items={crumbs} />
         <section className="lh-contact" id="contact">
           <div className="lh-contact__intro">
             <div className="lh-head">
-              <span className="lh-eyebrow">{t("eyebrow")}</span>
+              <Crumbs items={crumbs} />
               <h1 className="lh-title">{t("title")} <em>{t("em")}</em></h1>
             </div>
             <p>{t("lead")}</p>

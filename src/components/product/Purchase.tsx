@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { useCart } from "@/components/cart/CartProvider";
@@ -52,7 +52,7 @@ function Title({ text }: { text: string }) {
 }
 
 /** Bloc d'achat (composant ProductBuy) : ensemble, accessoires, quantité, ajout au panier. */
-export function BuyBox({ eyebrow }: { eyebrow: string }) {
+export function BuyBox({ crumbs }: { crumbs: ReactNode }) {
   const t = useTranslations("product");
   const tc = useTranslations("common");
   const locale = useLocale() as Locale;
@@ -62,7 +62,7 @@ export function BuyBox({ eyebrow }: { eyebrow: string }) {
   const assureIcons = ["truck", "tool", "cycle", "heart"] as const;
   return (
     <div className="lh-buy">
-      <span className="lh-eyebrow">{eyebrow}</span>
+      {crumbs}
       <h1 className="lh-buy__title"><Title text={product.title} /></h1>
       <p className="lh-buy__lead">{product.details?.lead ?? product.description}</p>
       <div className="lh-buy__pricing">

@@ -88,10 +88,9 @@ export default async function ArticlePage({ params }: PageProps<"/[locale]/blog/
       <JsonLd data={jsonLd} />
       <PageTop />
       <main id="contenu">
-        <Crumbs items={crumbs} />
         <article className="lh-article">
           <header className="lh-article__head">
-            <span className="lh-eyebrow">{[a.theme, a.age].filter(Boolean).join(" · ")}</span>
+            <Crumbs items={crumbs} />
             <h1 className="lh-title">{a.title}</h1>
             <p className="lh-article__lead">{a.excerpt}</p>
             <p className="lh-article__meta">
@@ -103,6 +102,7 @@ export default async function ArticlePage({ params }: PageProps<"/[locale]/blog/
               )}
               <span aria-hidden="true">·</span>
               <span>{minutes(a.readingMinutes)}</span>
+              {(a.theme || a.age) && <><span aria-hidden="true">·</span><span>{[a.theme, a.age].filter(Boolean).join(" · ")}</span></>}
             </p>
           </header>
 

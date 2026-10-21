@@ -50,10 +50,9 @@ export async function InfoPage({ pageKey }: { pageKey: InfoKey }) {
       <JsonLd data={jsonLd} />
       <PageTop />
       <main id="contenu">
-        <Crumbs items={crumbs} />
         <article className="lh-article lh-info">
           <header className="lh-article__head">
-            <span className="lh-eyebrow">{p.eyebrow}</span>
+            <Crumbs items={crumbs} />
             <h1 className="lh-title">{p.title}</h1>
             <p className="lh-article__lead">{p.description}</p>
             <p className="lh-article__meta"><span>{t("updated", { date: format.dateTime(new Date(p.updatedAt), { dateStyle: "long", timeZone: "UTC" }) })}</span></p>
