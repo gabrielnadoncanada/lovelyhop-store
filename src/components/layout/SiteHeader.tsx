@@ -7,7 +7,7 @@ import { Link } from "@/i18n/navigation";
 import { useCart } from "@/components/cart/CartProvider";
 import { useAlternates } from "@/components/layout/Alternates";
 import { Icon, UniversIcon } from "@/components/ui/icons";
-import { SearchPanel } from "@/components/layout/SearchPanel";
+import { SearchPalette } from "@/components/layout/SearchPalette";
 import { NAV_PRODUCTS, UNIVERS_HANDLES } from "@/lib/constants";
 import type { Locale } from "@/lib/types";
 
@@ -34,7 +34,10 @@ export function SiteHeader() {
   const count = cart?.totalQuantity ?? 0;
 
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") { setMega(null); setSearch(false); setMnav(false); } };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { setMega(null); setSearch(false); setMnav(false); }
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") { e.preventDefault(); setMega(null); setMnav(false); setSearch((v) => !v); }
+    };
     const onClick = (e: MouseEvent) => { if (root.current && !root.current.contains(e.target as Node)) { setMega(null); setSearch(false); } };
     document.addEventListener("keydown", onKey);
     document.addEventListener("mousedown", onClick);
@@ -102,11 +105,7 @@ export function SiteHeader() {
           <MegaMenu locale={locale} onNavigate={close} />
         </div>
       )}
-      {search && (
-        <div className="lh-search-wrap">
-          <SearchPanel onClose={() => setSearch(false)} />
-        </div>
-      )}
+      {search && <SearchPalette onClose={() => setSearch(false)} />}
       {mnav && <MobileNav locale={locale} altHref={altHref} other={other} onClose={() => setMnav(false)} />}
     </div>
   );

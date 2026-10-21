@@ -92,7 +92,12 @@
     "seeAll": "See all results",
     "pageTitle": "Search",
     "resultsFor": "{count, plural, =0 {No results} one {# result} other {# results}} for “{q}”",
-    "prompt": "What are you looking for?"
+    "prompt": "What are you looking for?",
+    "quickLinks": "Go to",
+    "searching": "Searching…",
+    "hintNav": "navigate",
+    "hintOpen": "open",
+    "hintClose": "close"
   },
   "hero": {
     "eyebrow": "Wooden play furniture · Designed in Quebec",

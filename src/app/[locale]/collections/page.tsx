@@ -7,6 +7,7 @@ import type { Locale, UniversKey } from "@/lib/types";
 import { PageTop } from "@/components/layout/PageTop";
 import { UniversTiles } from "@/components/catalog/UniversTiles";
 import { ProductCard } from "@/components/product/ProductCard";
+import { ProductCarousel } from "@/components/product/ProductCarousel";
 import { Newsletter } from "@/components/forms/Newsletter";
 import { Icon } from "@/components/ui/icons";
 import { PageAlternates } from "@/components/seo/PageAlternates";
@@ -63,7 +64,7 @@ export default async function CollectionsIndexPage() {
 
         {ORDER.map((u, i) => {
           const c = collections[i];
-          if (!c) return null;
+          if (!c || c.products.length === 0) return null;
           return (
             <section className="lh-sec" key={u} aria-labelledby={`univers-${u}`}>
               <div className="lh-section__head">
@@ -73,11 +74,7 @@ export default async function CollectionsIndexPage() {
                 </div>
                 <Link className="lh-link" href={colHref(u)}>{t("seeAll")}<Icon name="arrow" /></Link>
               </div>
-              {c.products.length ? (
-                <div className="lh-grid">{c.products.slice(0, 4).map((p) => <ProductCard key={p.id} product={p} />)}</div>
-              ) : (
-                <p className="lh-search__empty">{t("soonText")}</p>
-              )}
+              <ProductCarousel label={c.title}>{c.products.map((p) => <ProductCard key={p.id} product={p} />)}</ProductCarousel>
             </section>
           );
         })}

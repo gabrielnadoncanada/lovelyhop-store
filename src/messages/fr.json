@@ -92,7 +92,12 @@
     "seeAll": "Voir tous les résultats",
     "pageTitle": "Recherche",
     "resultsFor": "{count, plural, =0 {Aucun résultat} one {# résultat} other {# résultats}} pour « {q} »",
-    "prompt": "Que cherchez-vous ?"
+    "prompt": "Que cherchez-vous ?",
+    "quickLinks": "Aller à",
+    "searching": "Recherche…",
+    "hintNav": "naviguer",
+    "hintOpen": "ouvrir",
+    "hintClose": "fermer"
   },
   "hero": {
     "eyebrow": "Meubles de jeu en bois · Conçus au Québec",
