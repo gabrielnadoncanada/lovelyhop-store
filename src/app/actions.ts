@@ -3,6 +3,7 @@
 import { addLines, getCart, updateLine } from "@/lib/cart";
 import { searchProducts } from "@/lib/catalog";
 import { formatMoney } from "@/lib/format";
+import { isAdminConfigured, upsertQuoteLead } from "@/lib/shopify/admin";
 import type { ArtKey } from "@/lib/types";
 import type { Cart, Locale } from "@/lib/types";
 import { routing } from "@/i18n/routing";
@@ -37,7 +38,11 @@ export type FormState = { status: "idle" | "ok" | "error"; errors?: Record<strin
 
 const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
 
-/** Demande de soumission CPE : envoyée par courriel (Resend) si RESEND_API_KEY est défini, sinon journalisée. */
+/**
+ * Demande de soumission CPE. Enregistrée comme client Shopify (étiquette « soumission-cpe », demande
+ * dans la note) si SHOPIFY_ADMIN_ACCESS_TOKEN est défini : un workflow Shopify Flow envoie alors le
+ * courriel interne. Envoyée aussi par Resend si RESEND_API_KEY est défini. Sans l'un ni l'autre, journalisée.
+ */
 export async function submitQuote(_prev: FormState, form: FormData): Promise<FormState> {
   const locale = safeLocale(String(form.get("locale") ?? "fr"));
   const fr = locale === "fr";
@@ -58,6 +63,18 @@ export async function submitQuote(_prev: FormState, form: FormData): Promise<For
     `Projet : ${get("message") || "—"}`,
   ].join("\n");
 
+  const failed = { status: "error" as const, message: fr ? "L'envoi n'a pas fonctionné. Réessayez ou écrivez-nous directement." : "Sending failed. Try again or email us directly." };
+  let delivered = false;
+
+  if (isAdminConfigured) {
+    try {
+      await upsertQuoteLead({ email: get("email"), name: get("name"), locale, note: lines });
+      delivered = true;
+    } catch (e) {
+      console.error("[soumission CPE] client Shopify :", e);
+    }
+  }
+
   const key = process.env.RESEND_API_KEY;
   const to = process.env.QUOTE_TO_EMAIL;
   if (key && to) {
@@ -66,8 +83,12 @@ export async function submitQuote(_prev: FormState, form: FormData): Promise<For
       headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
       body: JSON.stringify({ from: process.env.QUOTE_FROM_EMAIL ?? "Lovelyhop <soumissions@lovelyhop.com>", to: [to], reply_to: get("email"), subject: `Soumission CPE — ${get("org")}`, text: lines }),
     });
-    if (!res.ok) return { status: "error", message: fr ? "L'envoi n'a pas fonctionné. Réessayez ou écrivez-nous directement." : "Sending failed. Try again or email us directly." };
-  } else {
+    if (res.ok) delivered = true;
+    else console.error("[soumission CPE] Resend :", res.status, await res.text());
+  }
+
+  if (!delivered) {
+    if (isAdminConfigured || (key && to)) return failed;
     console.info("[soumission CPE]\n" + lines);
   }
   return { status: "ok" };
