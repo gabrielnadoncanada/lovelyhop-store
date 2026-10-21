@@ -1,0 +1,7 @@
+LOVELYHOP — DOSSIER DE RECHERCHE CONCURRENTS ET PRODUITS
+
+Publicites : un dossier par concurrent avec les captures du registre Google, de la bibliothèque Meta et une description des angles observés.
+Inspiration_produits : un dossier par brief recommandé avec une image, la page source et la règle d'usage interne.
+INDEX_publicites.csv et INDEX_inspiration_produits.csv permettent de filtrer rapidement tous les fichiers.
+
+Instantané publicitaire vérifié le 20 octobre 2026. Les images et annonces restent la propriété de leurs détenteurs; elles servent uniquement à la recherche interne.

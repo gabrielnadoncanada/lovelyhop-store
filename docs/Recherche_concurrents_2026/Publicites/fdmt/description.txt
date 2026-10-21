@@ -1,0 +1,13 @@
+Concurrent : FDMT
+Domaine : fdmt.ca
+Marché observé : Canada
+Google — créations visibles du 20 septembre au 20 octobre 2026 : 26
+Annonceur exemple : 9112-0592 QUÉBEC INC.
+Format exemple : Texte
+Lecture Google : Besoins éducatifs, sensoriels et produits spécialisés.
+Registre Google : https://adstransparency.google.com/?domain=fdmt.ca&region=CA&start-date=2026-09-20&end-date=2026-10-20
+Annonce exemple : https://adstransparency.google.com/advertiser/AR06790757570341502977/creative/CR08116306154310598657?region=CA&start-date=2026-09-20&end-date=2026-10-20
+Meta — annonces actives visibles le 20 octobre 2026 : 110
+Lecture Meta : « Vos alliés scolaires du quotidien », produits Jellyzen et outils sensoriels.
+Registre Meta : https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=CA&q=fdmt.ca&search_type=keyword_unordered
+Important : les registres publics ne donnent pas le budget, les impressions complètes, les ventes ni la rentabilité. Les nombres peuvent inclure des variantes et plusieurs comptes dirigeant vers le même domaine.

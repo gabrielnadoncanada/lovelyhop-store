@@ -1,0 +1,13 @@
+Concurrent : Camoli
+Domaine : camoli.ca
+Marché observé : Canada
+Google — créations visibles du 20 septembre au 20 octobre 2026 : 36
+Annonceur exemple : Camoli Distribution
+Format exemple : Texte
+Lecture Google : Requêtes B2B garderie/CPE et produits précis.
+Registre Google : https://adstransparency.google.com/?domain=camoli.ca&region=CA&start-date=2026-09-20&end-date=2026-10-20
+Annonce exemple : https://adstransparency.google.com/advertiser/AR04614419163815870465/creative/CR00476583916354928641?region=CA&start-date=2026-09-20&end-date=2026-10-20
+Meta — annonces actives visibles le 20 octobre 2026 : 10
+Lecture Meta : Meubles spécialisés, notamment range-matelas pour CPE et garderie.
+Registre Meta : https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=CA&q=camoli.ca&search_type=keyword_unordered
+Important : les registres publics ne donnent pas le budget, les impressions complètes, les ventes ni la rentabilité. Les nombres peuvent inclure des variantes et plusieurs comptes dirigeant vers le même domaine.

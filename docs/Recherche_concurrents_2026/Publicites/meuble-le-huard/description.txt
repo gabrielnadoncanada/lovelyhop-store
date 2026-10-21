@@ -1,0 +1,13 @@
+Concurrent : Meuble Le Huard
+Domaine : meublelehuard.ca
+Marché observé : Canada
+Google — créations visibles du 20 septembre au 20 octobre 2026 : 1
+Annonceur exemple : Meuble Le Huard Inc.
+Format exemple : Texte
+Lecture Google : Présence Search limitée autour du mobilier et de l'offre CPE.
+Registre Google : https://adstransparency.google.com/?domain=meublelehuard.ca&region=CA&start-date=2026-09-20&end-date=2026-10-20
+Annonce exemple : https://adstransparency.google.com/advertiser/AR04336530699545739265/creative/CR16365302256624467969?region=CA&start-date=2026-09-20&end-date=2026-10-20
+Meta — annonces actives visibles le 20 octobre 2026 : 0
+Lecture Meta : Aucune annonce active exacte trouvée.
+Registre Meta : https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=CA&q=meublelehuard.ca&search_type=keyword_unordered
+Important : les registres publics ne donnent pas le budget, les impressions complètes, les ventes ni la rentabilité. Les nombres peuvent inclure des variantes et plusieurs comptes dirigeant vers le même domaine.

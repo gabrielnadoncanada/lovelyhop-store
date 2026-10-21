@@ -1,0 +1,4 @@
+Semaine du 19 oct : premier ebauche site
+Semaine du 26 oct : boutique fonctionnelle avec 10 produits
+Semaine du 2 nov : Ajout posthog, pixel, tracking, conversion + Début des pubs
+Seamine du 9 nov : Peaufinement des pubs

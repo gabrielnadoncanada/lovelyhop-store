@@ -1,0 +1,13 @@
+Concurrent : KAOS
+Domaine : itskaos.com
+Marché observé : Norvège
+Google — créations visibles du 20 septembre au 20 octobre 2026 : 38
+Annonceur exemple : KAOS Norge AS
+Format exemple : Texte
+Lecture Google : Livraison rapide, gratuité dès 2 000 kr et produits pour petits espaces.
+Registre Google : https://adstransparency.google.com/?domain=itskaos.com&region=NO&start-date=2026-09-20&end-date=2026-10-20
+Annonce exemple : https://adstransparency.google.com/advertiser/AR12598059988875739137/creative/CR09640638744000200705?region=NO&start-date=2026-09-20&end-date=2026-10-20
+Meta — annonces actives visibles le 20 octobre 2026 : 13
+Lecture Meta : « La vie avec de jeunes enfants est mouvementée »; livraison rapide et seuil gratuit.
+Registre Meta : https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=NO&q=itskaos.com&search_type=keyword_unordered
+Important : les registres publics ne donnent pas le budget, les impressions complètes, les ventes ni la rentabilité. Les nombres peuvent inclure des variantes et plusieurs comptes dirigeant vers le même domaine.
