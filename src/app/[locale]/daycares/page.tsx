@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/lib/types";
 import { PageAlternates } from "@/components/seo/PageAlternates";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -48,11 +49,18 @@ export default async function DaycaresPage() {
           </ol>
         </section>
 
-        <section className="lh-sec" id="soumission">
-          <div className="lh-detail">
-            <div>
-              <div className="lh-head"><span className="lh-eyebrow">{t("furniture")}</span><h2 className="lh-title">{t("formTitle")}</h2></div>
-            </div>
+        <section className="lh-contact" id="soumission" style={{ paddingTop: 72 }}>
+          <div className="lh-contact__intro">
+            <div className="lh-head"><span className="lh-eyebrow">{t("formEyebrow")}</span><h2 className="lh-title">{t("formTitle")}</h2></div>
+            <p>{t("formLead")}</p>
+            <ul className="lh-contact__facts">
+              {(t.raw("facts") as [string, string][]).map(([s, x], i) => (
+                <li key={s}><span><Icon name={(["check", "layers", "tool"] as const)[i]} /></span><p><strong>{s}</strong>{x}</p></li>
+              ))}
+            </ul>
+            <p style={{ marginTop: "var(--space-6)" }}>{t("askText")} <Link className="lh-link" href="/contact">{t("askLink")}</Link></p>
+          </div>
+          <div className="lh-contact__card">
             <QuoteForm />
           </div>
         </section>

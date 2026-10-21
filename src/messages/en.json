@@ -410,7 +410,12 @@
     "name": "Your name",
     "email": "Email",
     "subject": "Subject",
-    "subjects": ["Question about a product", "Order or delivery", "Replacement part", "Other"],
+    "subjects": [
+      "Question about a product",
+      "Order or delivery",
+      "Replacement part",
+      "Other"
+    ],
     "message": "Your message",
     "messagePh": "Tell us what we can do for you…",
     "submit": "Send",
@@ -457,7 +462,25 @@
     "sending": "Sending…",
     "note": "Reply within one business day. Your details are only used for this quote.",
     "okTitle": "Request sent",
-    "okText": "Thank you. We'll reply within one business day with a first proposal."
+    "okText": "Thank you. We'll reply within one business day with a first proposal.",
+    "formEyebrow": "Bulk quote",
+    "formLead": "Tell us how many rooms you are furnishing and for which ages: we get back to you within one business day with a configuration and a bulk price.",
+    "facts": [
+      [
+        "Reply within one business day",
+        "A first proposal, with no commitment."
+      ],
+      [
+        "One bulk price",
+        "Sets, trays and accessories quoted together."
+      ],
+      [
+        "Spare parts",
+        "Every piece ships with its list of replaceable parts."
+      ]
+    ],
+    "askText": "Just a quick question?",
+    "askLink": "Write to us instead"
   },
   "notFound": {
     "title": "This page wandered off",

@@ -66,3 +66,37 @@ img, svg { max-width: 100%; }
 @media (min-width: 961px) {
   .lh-hero .stage { width: min(100%, 700px); }
 }
+
+/* Nous joindre et Demander une soumission : intro collante à gauche, formulaire dans une carte à droite.
+   Moins d'espace au-dessus que .lh-sec, puisque la page commence déjà par le fil d'Ariane. */
+.lh-contact { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-10) 72px; align-items: start; padding: var(--space-10) var(--g) 0; }
+.lh-contact__intro { position: sticky; top: 112px; }
+.lh-contact__intro .lh-head { margin-bottom: var(--space-5); }
+.lh-contact__intro > p { margin: 0 0 var(--space-4); max-width: 30em; font: 400 17px/27px var(--font-sans); color: var(--ink-muted); }
+.lh-contact__facts { list-style: none; margin: var(--space-8) 0 0; padding: 0; display: grid; gap: var(--space-3); }
+.lh-contact__facts li { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: var(--space-4); align-items: center; padding: 14px 16px; border-radius: var(--radius-md); background: var(--lin-deep); }
+.lh-contact__facts li > span:first-child { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--surface-inverse); color: var(--ochre); }
+.lh-contact__facts svg.i { width: 18px; height: 18px; }
+.lh-contact__facts p { margin: 0; font: 400 14px/20px var(--font-sans); color: var(--ink-muted); }
+.lh-contact__facts p strong { display: block; font-weight: 600; font-size: 15px; color: var(--ink); }
+.lh-contact__facts p a { color: inherit; }
+.lh-contact__card { padding: var(--space-10); border-radius: var(--radius-lg); background: var(--lin-deep); }
+.lh-contact__card .lh-form__section { border-top-color: color-mix(in srgb, var(--ink) 14%, transparent); }
+@media (max-width: 960px) {
+  .lh-contact { grid-template-columns: minmax(0, 1fr); gap: var(--space-8); padding-top: var(--space-8); }
+  .lh-contact__intro { position: static; }
+  .lh-contact__card { padding: var(--space-6) var(--space-5); border-radius: var(--radius-md); }
+}
+
+/* Accessoires de la fiche produit : le texte de la carte lh-mini ne doit pas coller au bord. */
+.lh-mini__body { padding-top: var(--space-4); }
+
+/* Le formulaire commence par les champs cachés de l'action serveur : la première section n'est pas :first-child. */
+.lh-form > .lh-form__section:first-of-type { margin-top: 0; padding-top: 0; border-top: 0; }
+
+/* Produits liés de la fiche : quatre colonnes comme les univers, sinon trois cartes de 408 px deviennent très hautes. */
+.lh-related .lh-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 1023px) {
+  .lh-related .lh-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lh-related .lh-card:nth-child(n + 3) { display: none; }
+}

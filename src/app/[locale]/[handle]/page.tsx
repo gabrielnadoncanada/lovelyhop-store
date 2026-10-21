@@ -72,7 +72,7 @@ export default async function ProductPage({ params }: PageProps<"/[locale]/[hand
   ]);
   const guides = articlesForProduct(product.handle, locale).slice(0, 3);
   const tb = await getTranslations("blog");
-  const related = (collection?.products ?? []).filter((p) => p.handle !== product.handle).slice(0, 3);
+  const related = (collection?.products ?? []).filter((p) => p.handle !== product.handle).slice(0, 4);
   const eyebrow = [univers ? tn(`univers.${univers}`) : null, product.age.split("·").pop()?.trim()].filter(Boolean).join(" · ");
   const colHref = univers ? { pathname: "/collections/[handle]" as const, params: { handle: UNIVERS_HANDLES[univers][locale] } } : null;
 

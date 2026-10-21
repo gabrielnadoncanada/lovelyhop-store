@@ -8,7 +8,7 @@ import { useCart } from "@/components/cart/CartProvider";
 import { useAlternates } from "@/components/layout/Alternates";
 import { Icon, UniversIcon } from "@/components/ui/icons";
 import { SearchPanel } from "@/components/layout/SearchPanel";
-import { FEATURED_HANDLE, NAV_PRODUCTS, UNIVERS_HANDLES } from "@/lib/constants";
+import { NAV_PRODUCTS, UNIVERS_HANDLES } from "@/lib/constants";
 import type { Locale } from "@/lib/types";
 
 /** Univers annoncés dans le menu mais sans produit pour l'instant. */
@@ -17,8 +17,8 @@ const SOON = ["imaginer", "ranger", "bouger"] as const;
 type Panel = "shop" | "resources" | null;
 
 /**
- * En-tête du site (composant lh-nav du design system) : un seul méga menu « Boutique », un lien direct
- * vers le produit phare, les garderies et les guides, puis langue, recherche, panier et menu mobile.
+ * En-tête du site (composant lh-nav du design system) : un méga menu « Boutique », les garderies,
+ * un panneau « Ressources », puis langue, recherche, panier et menu mobile.
  */
 export function SiteHeader() {
   const t = useTranslations("nav");
@@ -67,17 +67,18 @@ export function SiteHeader() {
           >
             {t("shop")}<Icon name="chev" />
           </Link>
-          <Link href={{ pathname: "/[handle]", params: { handle: FEATURED_HANDLE[locale] } }} onMouseEnter={() => hover(null)} onClick={close}>{t("featuredNav")}</Link>
           <Link href="/daycares" onMouseEnter={() => hover(null)} onClick={close}>{t("univers.cpe")}</Link>
-          <Link
-            href="/blog"
-            aria-expanded={mega === "resources"}
-            aria-controls="mega-ressources"
-            onMouseEnter={() => hover("resources")}
-            onClick={(e) => { e.preventDefault(); setSearch(false); setMega("resources"); }}
-          >
-            {t("resources")}<Icon name="chev" />
-          </Link>
+          <span style={{ position: "relative" }} onMouseEnter={() => hover("resources")}>
+            <Link
+              href="/blog"
+              aria-expanded={mega === "resources"}
+              aria-controls="menu-ressources"
+              onClick={(e) => { e.preventDefault(); setSearch(false); setMega((m) => (m === "resources" ? null : "resources")); }}
+            >
+              {t("resources")}<Icon name="chev" />
+            </Link>
+            {mega === "resources" && <ResourcesMenu onNavigate={close} />}
+          </span>
         </nav>
         <div className="lh-nav__tools">
           <a className="lh-nav__lang" href={altHref} lang={other} hrefLang={other} aria-label={t("langSwitch")}>{t("langShort")}</a>
@@ -95,9 +96,9 @@ export function SiteHeader() {
         </div>
       </header>
 
-      {mega && (
-        <div className="lh-mega-wrap" onMouseEnter={() => hover(mega)}>
-          {mega === "shop" ? <MegaMenu locale={locale} onNavigate={close} /> : <ResourcesMenu onNavigate={close} />}
+      {mega === "shop" && (
+        <div className="lh-mega-wrap" onMouseEnter={() => hover("shop")}>
+          <MegaMenu locale={locale} onNavigate={close} />
         </div>
       )}
       {search && (
@@ -161,17 +162,12 @@ function MegaMenu({ locale, onNavigate }: { locale: Locale; onNavigate: () => vo
         <p style={teaser}>{t("teaser.bouger")}</p>
         <Link className="lh-link" href={univers("bouger")} onClick={onNavigate}>{t("seeUnivers")}</Link>
       </div>
-      <div className="lh-mega__foot">
-        <p><strong>{t("megaFootTitle")}</strong>{t("megaFootText")}</p>
-        <Link className="lh-link" href="/daycares" onClick={onNavigate}>{t("megaFootLink")}</Link>
-      </div>
     </div>
   );
 }
 
-/** Panneau « Ressources » : les mêmes liens que la colonne Ressources du pied de page. */
+/** Menu déroulant « Ressources », sous son lien : les mêmes liens que la colonne Ressources du pied de page. */
 function ResourcesMenu({ onNavigate }: { onNavigate: () => void }) {
-  const t = useTranslations("nav");
   const tf = useTranslations("footer");
   const links = [
     { href: "/blog" as const, label: tf("guides") },
@@ -180,13 +176,14 @@ function ResourcesMenu({ onNavigate }: { onNavigate: () => void }) {
     { href: "/contact" as const, label: tf("contact") },
   ];
   return (
-    <div className="lh-mega" id="mega-ressources" style={{ gridTemplateColumns: "minmax(0, 1fr)", maxWidth: 420 }}>
-      <div className="lh-mega__col">
-        <h3>{t("resources")}</h3>
-        <ul>
-          {links.map((l) => <li key={l.href}><Link href={l.href} onClick={onNavigate}>{l.label}</Link></li>)}
-        </ul>
-      </div>
+    <div
+      id="menu-ressources"
+      className="lh-mega__col"
+      style={{ position: "absolute", top: "calc(100% + 14px)", left: -14, zIndex: 40, minWidth: 240, padding: "10px 14px", borderRadius: "var(--radius-md)", background: "var(--lin)", border: "1px solid var(--hairline)", boxShadow: "var(--shadow-lift)", animation: "lh-mega-in .35s var(--ease) both" }}
+    >
+      <ul style={{ margin: 0 }}>
+        {links.map((l) => <li key={l.href}><Link href={l.href} onClick={onNavigate}>{l.label}</Link></li>)}
+      </ul>
     </div>
   );
 }

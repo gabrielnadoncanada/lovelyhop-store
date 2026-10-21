@@ -410,7 +410,12 @@
     "name": "Votre nom",
     "email": "Courriel",
     "subject": "Sujet",
-    "subjects": ["Question sur un meuble", "Commande ou livraison", "Pièce de remplacement", "Autre"],
+    "subjects": [
+      "Question sur un meuble",
+      "Commande ou livraison",
+      "Pièce de remplacement",
+      "Autre"
+    ],
     "message": "Votre message",
     "messagePh": "Dites-nous ce qu'on peut faire pour vous…",
     "submit": "Envoyer",
@@ -457,7 +462,25 @@
     "sending": "Envoi…",
     "note": "Réponse en un jour ouvrable. Vos coordonnées servent seulement à cette soumission.",
     "okTitle": "Demande envoyée",
-    "okText": "Merci. On vous répond en un jour ouvrable avec une première proposition."
+    "okText": "Merci. On vous répond en un jour ouvrable avec une première proposition.",
+    "formEyebrow": "Soumission par lot",
+    "formLead": "Dites-nous combien de locaux vous équipez et pour quel âge : on vous revient en un jour ouvrable avec une configuration et un prix par lot.",
+    "facts": [
+      [
+        "Réponse en un jour ouvrable",
+        "Une première proposition, sans engagement."
+      ],
+      [
+        "Un prix par lot",
+        "Ensembles, plateaux et accessoires chiffrés ensemble."
+      ],
+      [
+        "Pièces de rechange",
+        "Chaque meuble est livré avec sa liste de pièces remplaçables."
+      ]
+    ],
+    "askText": "Une simple question ?",
+    "askLink": "Écrivez-nous plutôt"
   },
   "notFound": {
     "title": "Cette page s'est égarée",

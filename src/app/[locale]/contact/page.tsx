@@ -11,6 +11,7 @@ import { breadcrumb, graph, webPage } from "@/lib/seo/schema";
 import { absoluteUrl, sameRoute } from "@/lib/seo/urls";
 import { PageTop } from "@/components/layout/PageTop";
 import { ContactForm } from "@/components/forms/ContactForm";
+import { Icon } from "@/components/ui/icons";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = (await getLocale()) as Locale;
@@ -36,17 +37,19 @@ export default async function ContactPage() {
       <PageTop />
       <main id="contenu">
         <Crumbs items={crumbs} />
-        <section className="lh-sec" id="contact" style={{ marginTop: 32 }}>
-          <div className="lh-detail">
-            <div>
-              <div className="lh-head">
-                <span className="lh-eyebrow">{t("eyebrow")}</span>
-                <h1 className="lh-title">{t("title")} <em>{t("em")}</em></h1>
-              </div>
-              <p>{t("lead")}</p>
-              <p>{t("emailAlt")} <a className="lh-link" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></p>
-              <p>{t("cpeText")} <Link className="lh-link" href="/daycares">{t("cpeLink")}</Link></p>
+        <section className="lh-contact" id="contact">
+          <div className="lh-contact__intro">
+            <div className="lh-head">
+              <span className="lh-eyebrow">{t("eyebrow")}</span>
+              <h1 className="lh-title">{t("title")} <em>{t("em")}</em></h1>
             </div>
+            <p>{t("lead")}</p>
+            <ul className="lh-contact__facts">
+              <li><span><Icon name="mail" /></span><p><strong>{t("emailAlt")}</strong><a className="lh-link" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></p></li>
+              <li><span><Icon name="layers" /></span><p><strong>{t("cpeText")}</strong><Link className="lh-link" href="/daycares">{t("cpeLink")}</Link></p></li>
+            </ul>
+          </div>
+          <div className="lh-contact__card">
             <ContactForm />
           </div>
         </section>
