@@ -77,12 +77,6 @@ export default async function HomePage() {
               <Link className="lh-btn lh-btn--primary lh-btn--lg" href={featuredHref}>{t("hero.cta")}<span className="lh-btn__arrow"><Icon name="arrow" /></span></Link>
               <Link className="lh-link" href="/daycares">{t("hero.ctaPro")}</Link>
             </div>
-            <div className="ages">
-              <span className="label">{t("hero.shopBy")}</span>
-              <Link className="lh-chip" href={col("creer")}><span className="lh-chip__icon"><svg viewBox="0 0 16 16" aria-hidden="true"><rect className="lh-ci-cube" x="1.5" y="5" width="13" height="7" rx="2" /><rect className="lh-ci-cube-in" x="3.5" y="6.5" width="4" height="3.5" rx="1" /><rect className="lh-ci-cube-in" x="8.5" y="6.5" width="4" height="3.5" rx="1" /></svg></span>{t("nav.univers.creer")}<i className="lh-chip__go">→</i></Link>
-              <Link className="lh-chip" href={col("imaginer")}><span className="lh-chip__icon"><svg viewBox="0 0 16 16" aria-hidden="true"><path className="lh-ci-arc1" d="M2.5 14V7L8 2.5 13.5 7v7Z" /></svg></span>{t("nav.univers.imaginer")}<i className="lh-chip__go">→</i></Link>
-              <Link className="lh-chip" href={col("ranger")}><span className="lh-chip__icon"><svg viewBox="0 0 16 16" aria-hidden="true"><path className="lh-ci-arc2" d="M3 2.5v11M13 2.5v11M3 6h10M3 10h10" /></svg></span>{t("nav.univers.ranger")}<i className="lh-chip__go">→</i></Link>
-            </div>
           </div>
           <div className="stage">
             <div className="sun" aria-hidden="true" />
