@@ -97,6 +97,19 @@ Tout passe par `src/lib/seo/` pour qu'aucune page n'oublie un morceau :
 
 `src/lib/analytics.ts` charge `posthog-js` **seulement après un accord « analytique »** dans le bandeau de témoins (témoin `lh_consent`), et le met en pause si l'accord est retiré. Projet PostHog « Lovelyhop » (us.posthog.com), jeton public dans `NEXT_PUBLIC_POSTHOG_KEY`. Les pages vues et l'autocapture sont automatiques ; les événements métier sont `product_viewed`, `add_to_cart`, `checkout_started`, `quote_submitted` et `newsletter_subscribed`. Chaque événement porte `site_env` (`production` ou `development`) et `site_locale`. La commande elle-même se passe sur le domaine Shopify : la conversion d'achat viendra des Customer Events de Shopify ou d'un webhook de commande.
 
+## Compte client (sur le site)
+
+Les pages `/compte` (aperçu, commandes, adresses, profil) sont rendues par le site avec la **Customer Account API** de Shopify.
+La connexion elle-même (courriel + code) reste sur la page Shopify, brandée avec l'éditeur de la caisse, puis l'utilisateur revient ici.
+
+- Shopify : canal Headless → boutique → *API de compte client* : client **public (application web)**, URI de rappel
+  `https://lovelyhop.com/api/auth/callback`, origine `https://lovelyhop.com`, URI de déconnexion `https://lovelyhop.com/api/auth/logged-out`.
+- Variables : `SHOPIFY_CUSTOMER_CLIENT_ID` (ID client du canal) et `AUTH_SECRET` (chiffre le cookie de session, `openssl rand -base64 48`).
+- Code : `src/lib/shopify/customer.ts` (découverte OAuth, PKCE, session chiffrée, appels GraphQL), `src/lib/shopify/customer-data.ts`
+  (requêtes et mutations), `src/app/api/auth/*` (login, callback, refresh, logout, logged-out), `src/app/[locale]/account/*` (pages),
+  `src/app/account-actions.ts` (adresses et profil).
+- Les URI de rappel doivent être en HTTPS : en local, la connexion renvoie vers la production. Tester sur un déploiement Vercel.
+
 ## Design system
 
 `src/styles/lovelyhop.css` est une **copie** de `components/bundle.css` du design system LovelyHop (artefact Claude). Ne pas la modifier ici : changer le design system, puis recopier le fichier.

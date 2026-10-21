@@ -90,16 +90,14 @@ img, svg { max-width: 100%; }
 
 /* Accessoires de la fiche produit : le texte de la carte lh-mini ne doit pas coller au bord. */
 .lh-mini__body { padding-top: var(--space-4); }
+@media (max-width: 960px) {
+  /* En rangée (image à gauche), la fiche met le padding gauche à 0 : le texte collait à l'image. */
+  .lh-mini__body { padding-left: var(--space-4); }
+}
 
 /* Le formulaire commence par les champs cachés de l'action serveur : la première section n'est pas :first-child. */
 .lh-form > .lh-form__section:first-of-type { margin-top: 0; padding-top: 0; border-top: 0; }
 
-/* Produits liés de la fiche : quatre colonnes comme les univers, sinon trois cartes de 408 px deviennent très hautes. */
-.lh-related .lh-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-@media (max-width: 1023px) {
-  .lh-related .lh-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .lh-related .lh-card:nth-child(n + 3) { display: none; }
-}
 
 /* Fil d'Ariane dans le bloc titre, à la place du surtitre : une ligne au-dessus du h1, tronquée au besoin.
    Sur mobile, seuls le premier et le dernier élément restent. */
@@ -126,25 +124,22 @@ img, svg { max-width: 100%; }
 .lh-card__name a::after { z-index: 1; }
 .lh-card__fav { z-index: 2; }
 
-/* Produit phare de l'accueil : l'illustration suit le défilement pendant qu'on lit la colonne de droite. */
-@media (min-width: 961px) {
-  .lh-spotlight { align-items: start; }
-  .lh-spotlight__art { position: sticky; top: 96px; }
-}
-
 /* Carrousel de produits de l'accueil : une rangée de cartes de la même largeur que la grille à 4 colonnes,
    défilement horizontal avec accroche, flèches à droite sous la rangée. */
 .lh-carousel { display: grid; gap: var(--space-6); }
 .lh-carousel__track {
-  display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 3 * var(--space-6)) / 4); column-gap: var(--space-6);
+  display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - (var(--cols, 4) - 1) * var(--space-6)) / var(--cols, 4)); column-gap: var(--space-6);
   overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: 0;
   padding-bottom: 4px; scrollbar-width: none;
 }
 .lh-carousel__track::-webkit-scrollbar { display: none; }
 .lh-carousel__track > * { scroll-snap-align: start; }
 .lh-carousel__track:focus-visible { outline: 2px solid var(--ink); outline-offset: 8px; border-radius: var(--radius-md); }
-.lh-carousel__nav { display: flex; justify-content: flex-end; gap: var(--space-2); }
-.lh-carousel__nav button:disabled { opacity: .35; cursor: default; }
+/* Flèches en surimpression sur la rangée, à la hauteur des images ; une flèche inutile disparaît. */
+.lh-carousel { position: relative; }
+.lh-carousel__nav { position: absolute; left: -10px; right: -10px; top: 30%; display: flex; justify-content: space-between; pointer-events: none; }
+.lh-carousel__nav button { pointer-events: auto; background: var(--lin); box-shadow: var(--shadow-soft); transition: opacity .25s; }
+.lh-carousel__nav button:disabled { opacity: 0; pointer-events: none; }
 @media (max-width: 1023px) {
   .lh-carousel__track { grid-auto-columns: calc((100% - var(--space-5)) / 2); column-gap: var(--space-5); }
 }
@@ -154,3 +149,101 @@ img, svg { max-width: 100%; }
 /* Glissement à la souris (voir ProductCarousel). */
 .lh-carousel__track { cursor: grab; user-select: none; }
 .lh-carousel__track img, .lh-carousel__track svg { -webkit-user-drag: none; user-select: none; }
+
+/* Section « Un système, pas un meuble » : en une colonne, l'écart de 56 px entre le titre et le texte
+   d'intro était celui des deux colonnes côte à côte. */
+@media (max-width: 960px) {
+  .lh-approach__head { gap: var(--space-5); }
+}
+
+/* Fil d'Ariane dans un en-tête d'article, qui est centré : centré lui aussi. */
+.lh-article__head .lh-crumbs { justify-content: center; }
+
+/* Titre du hero sur petit écran : les trois « lignes » forcées donnaient trois lignes même quand deux suffisent.
+   On laisse le texte couler (deux lignes), sans l'animation de montée ligne par ligne. */
+@media (max-width: 960px) {
+  .lh-hero h1 { font-size: clamp(40px, 11vw, 64px); }
+  .lh-hero h1 .line { display: inline; padding: 0; margin: 0; overflow: visible; }
+  .lh-hero h1 .line > span { display: inline; animation: none; }
+  /* Les lignes en inline n'ont plus d'espace entre elles : on le remet. */
+  .lh-hero h1 .line + .line::before { content: " "; white-space: pre; }
+}
+
+/* Tuiles d'univers en rangée (petit écran) : colonne d'illustration de largeur fixe et dessin centré,
+   pour que texte et image s'alignent pareil d'une tuile à l'autre. */
+@media (max-width: 600px) {
+  .lh-tiles .lh-tile { grid-template-columns: minmax(0, 1fr) 140px; }
+  .lh-tiles .lh-tile__art { place-items: center; }
+  .lh-tiles .lh-tile__eyebrow { display: block; max-width: 24ch; }
+}
+
+/* ---------- Espace compte ---------- */
+.lh-account { display: grid; grid-template-columns: 232px minmax(0, 1fr); gap: var(--space-10) 72px; align-items: start; padding: var(--space-10) var(--g) 0; }
+.lh-account__nav { position: sticky; top: 112px; display: grid; gap: 4px; }
+.lh-account__nav a { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: var(--radius-md); font: 500 15px/20px var(--font-sans); color: var(--ink-muted); transition: background-color .25s, color .25s; }
+.lh-account__nav a:hover { color: var(--ink); background: color-mix(in srgb, var(--lin-deep) 60%, transparent); }
+.lh-account__nav a[aria-current="page"] { background: var(--lin-deep); color: var(--ink); }
+.lh-account__nav svg.i { width: 18px; height: 18px; }
+.lh-account__logout { margin-top: var(--space-4); }
+.lh-account__head { margin-bottom: var(--space-6); }
+.lh-account__head .lh-title { font-size: 44px; }
+.lh-account__lead { margin: calc(-1 * var(--space-3)) 0 var(--space-8); max-width: 36em; font: 400 17px/27px var(--font-sans); color: var(--ink-muted); }
+.lh-account__section { margin-bottom: var(--space-8); display: grid; gap: var(--space-4); justify-items: start; }
+.lh-account__section h2, .lh-account__card h2 { margin: 0; font: 450 22px/1.2 var(--font-display); font-variation-settings: "SOFT" 100, "opsz" 36; }
+.lh-account__section-head { width: 100%; display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-4); }
+.lh-account__cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5); margin-bottom: var(--space-6); }
+.lh-account__card { display: grid; gap: var(--space-3); justify-items: start; padding: var(--space-6); border-radius: var(--radius-lg); background: var(--lin-deep); }
+.lh-account__card p { margin: 0; font: 400 15px/23px var(--font-sans); }
+.lh-account__card address { font-style: normal; font: 400 15px/23px var(--font-sans); display: grid; }
+.lh-account__card--form { display: block; }
+.lh-account__card--form h2 { margin-bottom: var(--space-5); }
+.lh-account__note { color: var(--ink-muted); }
+.lh-account__empty { margin: 0; font: 400 16px/24px var(--font-sans); color: var(--ink-muted); }
+.lh-orders { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); width: 100%; }
+.lh-order { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: var(--space-5); align-items: center; padding: var(--space-4) var(--space-5); border-radius: var(--radius-md); background: var(--lin-deep); transition: transform .35s var(--ease), box-shadow .35s; }
+.lh-order:hover { transform: translateY(-2px); box-shadow: var(--shadow-soft); }
+.lh-order__thumbs { display: flex; gap: 6px; }
+.lh-order__thumbs span { width: 48px; height: 48px; border-radius: var(--radius-sm); background: var(--sage-soft); overflow: hidden; }
+.lh-order__thumbs img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lh-order__body { display: grid; gap: 2px; justify-items: start; }
+.lh-order__name { margin: 2px 0 0; font: 450 18px/1.2 var(--font-display); font-variation-settings: "SOFT" 100, "opsz" 36; }
+.lh-order__name a::after { content: ""; position: absolute; inset: 0; }
+.lh-order__meta { margin: 0; font: 400 13px/18px var(--font-sans); color: var(--ink-muted); }
+.lh-order__status { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; background: var(--lin); font: 600 11px/16px var(--font-sans); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-muted); }
+.lh-order__status--ok { background: var(--sage-soft); color: var(--sage-deep); }
+.lh-order__status--wait { background: color-mix(in srgb, var(--ochre) 22%, var(--lin)); color: var(--ink); }
+.lh-order__status + .lh-order__status { margin-left: 6px; }
+.lh-order__total { font: 600 17px/1 var(--font-sans); font-variant-numeric: tabular-nums; }
+.lh-order-detail { display: grid; gap: var(--space-6); }
+.lh-order-detail__top { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap; }
+.lh-order-detail__top .lh-order__meta { margin-top: var(--space-3); font-size: 15px; line-height: 22px; }
+.lh-order-lines { list-style: none; margin: 0; padding: 0; width: 100%; display: grid; }
+.lh-order-lines li { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; gap: var(--space-4); align-items: center; padding: var(--space-4) 0; border-bottom: 1px solid var(--hairline); }
+.lh-order-lines__thumb { width: 64px; height: 64px; border-radius: var(--radius-sm); background: var(--sage-soft); overflow: hidden; }
+.lh-order-lines__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lh-order-lines li > div { display: grid; font: 400 14px/20px var(--font-sans); color: var(--ink-muted); }
+.lh-order-lines li > div strong { font-size: 16px; color: var(--ink); }
+.lh-order-lines li > b { font: 600 16px/1 var(--font-sans); font-variant-numeric: tabular-nums; }
+.lh-order-totals { width: 100%; max-width: 360px; margin: var(--space-2) 0 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px var(--space-6); font: 400 15px/22px var(--font-sans); color: var(--ink-muted); }
+.lh-order-totals dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
+.lh-order-totals .is-total { padding-top: 8px; border-top: 1px solid var(--hairline); font-weight: 600; font-size: 17px; color: var(--ink); }
+.lh-addr { position: relative; }
+.lh-addr__actions { display: flex; gap: var(--space-5); align-items: center; }
+.lh-addr__actions form { display: inline; }
+.lh-addr__remove { border: 0; background: none; padding: 0; cursor: pointer; font: inherit; color: var(--ink-muted); }
+.lh-signin { max-width: 640px; padding: var(--space-10) var(--g) 0; display: grid; gap: var(--space-5); justify-items: start; }
+.lh-signin .lh-head { margin-bottom: var(--space-2); }
+.lh-signin__note { margin: 0; font: 400 14px/21px var(--font-sans); color: var(--ink-muted); }
+@media (max-width: 960px) {
+  .lh-account { grid-template-columns: minmax(0, 1fr); gap: var(--space-6); padding-top: var(--space-8); }
+  .lh-account__nav { position: static; grid-auto-flow: column; grid-auto-columns: max-content; overflow-x: auto; gap: 6px; padding-bottom: 4px; scrollbar-width: none; }
+  .lh-account__nav a { white-space: nowrap; }
+  .lh-account__logout { margin: 0; }
+  .lh-account__head .lh-title { font-size: 36px; }
+  .lh-account__cards { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 600px) {
+  .lh-order { grid-template-columns: minmax(0, 1fr) auto; }
+  .lh-order__thumbs { display: none; }
+  .lh-account__card { padding: var(--space-5); }
+}

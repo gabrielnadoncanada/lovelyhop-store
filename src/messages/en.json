@@ -530,5 +530,140 @@
     "reviewText": "{count, plural, =0 {Review needed} one {# bracketed value to fill in} other {# bracketed values to fill in}} before launch. The page is not indexed while “review: true” remains in its file.",
     "related": "Also useful",
     "faqTitle": "Frequently asked questions"
+  },
+  "account": {
+    "metaTitle": "My account | Lovelyhop",
+    "title": "My account",
+    "nav": {
+      "overview": "Overview",
+      "orders": "Orders",
+      "addresses": "Addresses",
+      "profile": "Profile",
+      "logout": "Sign out"
+    },
+    "hello": "Hello{name}",
+    "signIn": {
+      "title": "Your",
+      "em": "Lovelyhop space.",
+      "lead": "Find your orders, addresses and details. You sign in with a code sent to your email, no password needed.",
+      "cta": "Sign in or create an account",
+      "error": "Sign-in did not go through. Please try again.",
+      "note": "You go through Shopify's secure sign-in page, then come back here."
+    },
+    "overview": {
+      "ordersTitle": "Latest orders",
+      "allOrders": "All orders",
+      "shop": "Browse the shop",
+      "addressTitle": "Default address",
+      "noAddress": "No address saved yet.",
+      "manageAddresses": "Manage addresses",
+      "profileTitle": "Your details",
+      "editProfile": "Edit"
+    },
+    "orders": {
+      "title": "Your orders",
+      "lead": "All your orders, newest first.",
+      "empty": "No orders yet.",
+      "items": "{count, plural, one {# item} other {# items}}",
+      "orderedOn": "Placed on {date}",
+      "statusPage": "Order tracking"
+    },
+    "order": {
+      "title": "Order {name}",
+      "placed": "Placed on {date}",
+      "cancelled": "Cancelled on {date}",
+      "items": "Items",
+      "subtotal": "Subtotal",
+      "shipping": "Shipping",
+      "tax": "Taxes",
+      "total": "Total",
+      "shippingAddress": "Shipping address",
+      "billingAddress": "Billing address",
+      "fulfillment": "Shipment",
+      "tracking": "Tracking {company} {number}",
+      "eta": "Expected delivery on {date}",
+      "notFound": "We could not find this order.",
+      "back": "All orders"
+    },
+    "status": {
+      "financial": {
+        "PAID": "Paid",
+        "PENDING": "Payment pending",
+        "AUTHORIZED": "Payment authorized",
+        "PARTIALLY_PAID": "Partially paid",
+        "PARTIALLY_REFUNDED": "Partially refunded",
+        "REFUNDED": "Refunded",
+        "VOIDED": "Voided",
+        "EXPIRED": "Expired"
+      },
+      "fulfillment": {
+        "FULFILLED": "Shipped",
+        "UNFULFILLED": "Being prepared",
+        "PARTIALLY_FULFILLED": "Partially shipped",
+        "IN_PROGRESS": "In progress",
+        "ON_HOLD": "On hold",
+        "OPEN": "Open",
+        "PENDING_FULFILLMENT": "Being prepared",
+        "RESTOCKED": "Returned",
+        "SCHEDULED": "Scheduled"
+      }
+    },
+    "addresses": {
+      "title": "Your addresses",
+      "lead": "The addresses offered at checkout. The first one is used by default.",
+      "empty": "No address saved yet.",
+      "add": "Add an address",
+      "edit": "Edit",
+      "remove": "Delete",
+      "default": "Default",
+      "makeDefault": "Use as default address",
+      "formTitleNew": "New address",
+      "formTitleEdit": "Edit address",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "company": "Company or daycare (optional)",
+      "phone": "Phone (optional)",
+      "address1": "Address",
+      "address2": "Apartment, suite (optional)",
+      "city": "City",
+      "province": "Province",
+      "postal": "Postal code",
+      "country": "Country",
+      "save": "Save",
+      "saving": "Saving…",
+      "cancel": "Cancel",
+      "provinces": {
+        "QC": "Quebec",
+        "ON": "Ontario",
+        "BC": "British Columbia",
+        "AB": "Alberta",
+        "MB": "Manitoba",
+        "SK": "Saskatchewan",
+        "NS": "Nova Scotia",
+        "NB": "New Brunswick",
+        "NL": "Newfoundland and Labrador",
+        "PE": "Prince Edward Island",
+        "NT": "Northwest Territories",
+        "NU": "Nunavut",
+        "YT": "Yukon"
+      }
+    },
+    "profile": {
+      "title": "Your profile",
+      "lead": "The name shown on your orders and emails.",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "save": "Save",
+      "saving": "Saving…",
+      "saved": "Profile updated.",
+      "email": "Email",
+      "emailNote": "It is used to sign in. To change it, go through the sign-in page.",
+      "logout": "Sign out",
+      "logoutNote": "Ends your session on this site and on the sign-in page."
+    },
+    "errors": {
+      "generic": "Something went wrong. Please try again in a moment.",
+      "required": "Required"
+    }
   }
 }

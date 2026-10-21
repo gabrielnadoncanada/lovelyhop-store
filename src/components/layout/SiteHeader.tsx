@@ -82,6 +82,7 @@ export function SiteHeader() {
         </nav>
         <div className="lh-nav__tools">
           <a className="lh-nav__lang" href={altHref} lang={other} hrefLang={other} aria-label={t("langSwitch")}>{t("langShort")}</a>
+          <Link className="lh-nav__icon lh-nav__acct" href="/account" aria-label={t("account")} onClick={close}><Icon name="user" className="" /></Link>
           <button className="lh-nav__icon" type="button" aria-label={t("search")} aria-expanded={search} onClick={() => { setMega(null); setSearch((s) => !s); }}>
             <Icon name="search" className="" />
           </button>
@@ -238,7 +239,7 @@ function MobileNav({ locale, altHref, other, onClose }: { locale: Locale; altHre
           <Link href="/shipping" onClick={onClose}><Icon name="truck" />{tf("shipping")}</Link>
           <Link href="/contact" onClick={onClose}><Icon name="mail" />{tf("contact")}</Link>
           <a href={altHref} lang={other} hrefLang={other}><Icon name="globe" />{t("langName")}</a>
-          {process.env.NEXT_PUBLIC_ACCOUNT_URL && <a href={process.env.NEXT_PUBLIC_ACCOUNT_URL}><Icon name="user" />{t("account")}</a>}
+          <Link href="/account" onClick={onClose}><Icon name="user" />{t("account")}</Link>
         </div>
       </div>
     </div>,

@@ -2,7 +2,6 @@
 
 import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
 import { useCart } from "@/components/cart/CartProvider";
 import { Icon } from "@/components/ui/icons";
 import { formatMoney } from "@/lib/format";
@@ -112,12 +111,6 @@ export function BuyBox({ crumbs }: { crumbs: ReactNode }) {
         <button className="lh-btn lh-btn--primary lh-btn--lg lh-buy__add" type="button" onClick={buy} disabled={pending || !product.availableForSale}>
           <Icon name="bag" />{tc("addToCart")}
         </button>
-      </div>
-
-      <div className="lh-pro-box">
-        <span className="lh-pro-box__ico"><Icon name="home" /></span>
-        <p><strong>{t("proBoxTitle")}</strong>{t("proBoxText")}</p>
-        <Link className="lh-link" href="/daycares">{t("proBoxLink")}</Link>
       </div>
 
       <ul className="lh-assure">

@@ -530,5 +530,140 @@
     "reviewText": "{count, plural, =0 {Relecture à faire} one {# valeur entre crochets à compléter} other {# valeurs entre crochets à compléter}} avant la mise en ligne. La page n'est pas indexée tant que « review: true » reste dans son fichier.",
     "related": "Aussi utile",
     "faqTitle": "Questions fréquentes"
+  },
+  "account": {
+    "metaTitle": "Mon compte | Lovelyhop",
+    "title": "Mon compte",
+    "nav": {
+      "overview": "Aperçu",
+      "orders": "Commandes",
+      "addresses": "Adresses",
+      "profile": "Profil",
+      "logout": "Se déconnecter"
+    },
+    "hello": "Bonjour{name}",
+    "signIn": {
+      "title": "Votre espace",
+      "em": "Lovelyhop.",
+      "lead": "Retrouvez vos commandes, vos adresses et vos informations. La connexion se fait avec un code envoyé à votre courriel, sans mot de passe.",
+      "cta": "Se connecter ou créer un compte",
+      "error": "La connexion n'a pas abouti. Réessayez.",
+      "note": "Vous passez par la page de connexion sécurisée de Shopify, puis vous revenez ici."
+    },
+    "overview": {
+      "ordersTitle": "Dernières commandes",
+      "allOrders": "Toutes les commandes",
+      "shop": "Découvrir la boutique",
+      "addressTitle": "Adresse par défaut",
+      "noAddress": "Aucune adresse enregistrée.",
+      "manageAddresses": "Gérer les adresses",
+      "profileTitle": "Vos informations",
+      "editProfile": "Modifier"
+    },
+    "orders": {
+      "title": "Vos commandes",
+      "lead": "Toutes vos commandes, de la plus récente à la plus ancienne.",
+      "empty": "Aucune commande pour l'instant.",
+      "items": "{count, plural, one {# article} other {# articles}}",
+      "orderedOn": "Passée le {date}",
+      "statusPage": "Suivi de la commande"
+    },
+    "order": {
+      "title": "Commande {name}",
+      "placed": "Passée le {date}",
+      "cancelled": "Annulée le {date}",
+      "items": "Articles",
+      "subtotal": "Sous-total",
+      "shipping": "Livraison",
+      "tax": "Taxes",
+      "total": "Total",
+      "shippingAddress": "Adresse de livraison",
+      "billingAddress": "Adresse de facturation",
+      "fulfillment": "Expédition",
+      "tracking": "Suivi {company} {number}",
+      "eta": "Livraison prévue le {date}",
+      "notFound": "Cette commande est introuvable.",
+      "back": "Toutes les commandes"
+    },
+    "status": {
+      "financial": {
+        "PAID": "Payée",
+        "PENDING": "Paiement en attente",
+        "AUTHORIZED": "Paiement autorisé",
+        "PARTIALLY_PAID": "Partiellement payée",
+        "PARTIALLY_REFUNDED": "Partiellement remboursée",
+        "REFUNDED": "Remboursée",
+        "VOIDED": "Annulée",
+        "EXPIRED": "Expirée"
+      },
+      "fulfillment": {
+        "FULFILLED": "Expédiée",
+        "UNFULFILLED": "En préparation",
+        "PARTIALLY_FULFILLED": "Partiellement expédiée",
+        "IN_PROGRESS": "En cours",
+        "ON_HOLD": "En attente",
+        "OPEN": "Ouverte",
+        "PENDING_FULFILLMENT": "En préparation",
+        "RESTOCKED": "Retournée",
+        "SCHEDULED": "Planifiée"
+      }
+    },
+    "addresses": {
+      "title": "Vos adresses",
+      "lead": "Les adresses proposées à la caisse. La première sert par défaut.",
+      "empty": "Aucune adresse enregistrée pour l'instant.",
+      "add": "Ajouter une adresse",
+      "edit": "Modifier",
+      "remove": "Supprimer",
+      "default": "Par défaut",
+      "makeDefault": "Utiliser comme adresse par défaut",
+      "formTitleNew": "Nouvelle adresse",
+      "formTitleEdit": "Modifier l'adresse",
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "company": "Entreprise ou CPE (facultatif)",
+      "phone": "Téléphone (facultatif)",
+      "address1": "Adresse",
+      "address2": "Appartement, bureau (facultatif)",
+      "city": "Ville",
+      "province": "Province",
+      "postal": "Code postal",
+      "country": "Pays",
+      "save": "Enregistrer",
+      "saving": "Enregistrement…",
+      "cancel": "Annuler",
+      "provinces": {
+        "QC": "Québec",
+        "ON": "Ontario",
+        "BC": "Colombie-Britannique",
+        "AB": "Alberta",
+        "MB": "Manitoba",
+        "SK": "Saskatchewan",
+        "NS": "Nouvelle-Écosse",
+        "NB": "Nouveau-Brunswick",
+        "NL": "Terre-Neuve-et-Labrador",
+        "PE": "Île-du-Prince-Édouard",
+        "NT": "Territoires du Nord-Ouest",
+        "NU": "Nunavut",
+        "YT": "Yukon"
+      }
+    },
+    "profile": {
+      "title": "Votre profil",
+      "lead": "Le nom qui apparaît sur vos commandes et vos courriels.",
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "save": "Enregistrer",
+      "saving": "Enregistrement…",
+      "saved": "Profil mis à jour.",
+      "email": "Courriel",
+      "emailNote": "Il sert à vous connecter. Pour le changer, passez par la page de connexion.",
+      "logout": "Se déconnecter",
+      "logoutNote": "Ferme votre session sur ce site et sur la page de connexion."
+    },
+    "errors": {
+      "generic": "Une erreur est survenue. Réessayez dans un instant.",
+      "required": "Champ requis"
+    }
   }
 }

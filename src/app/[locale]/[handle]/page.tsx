@@ -18,6 +18,7 @@ import { Gallery } from "@/components/product/Gallery";
 import { BuyBar, BuyBox, PurchaseProvider } from "@/components/product/Purchase";
 import { TrackProductView } from "@/components/layout/Analytics";
 import { ProductCard } from "@/components/product/ProductCard";
+import { ProductCarousel } from "@/components/product/ProductCarousel";
 import { AddToCartButton } from "@/components/product/AddToCartButton";
 import { ProductArt } from "@/components/art/byKey";
 import { ArtCroissance, ArtDimensions, ArtPetiteTable, ArtTableDeJeu, TablePlateaux } from "@/components/art";
@@ -72,7 +73,7 @@ export default async function ProductPage({ params }: PageProps<"/[locale]/[hand
   ]);
   const guides = articlesForProduct(product.handle, locale).slice(0, 3);
   const tb = await getTranslations("blog");
-  const related = (collection?.products ?? []).filter((p) => p.handle !== product.handle).slice(0, 4);
+  const related = (collection?.products ?? []).filter((p) => p.handle !== product.handle);
   const colHref = univers ? { pathname: "/collections/[handle]" as const, params: { handle: UNIVERS_HANDLES[univers][locale] } } : null;
 
   const hrefs = productHrefs(product);
@@ -240,9 +241,9 @@ export default async function ProductPage({ params }: PageProps<"/[locale]/[hand
                 <div><span className="lh-eyebrow">{t("guidesEyebrow")}</span><h2 className="lh-title">{t("guidesTitle")} <em>{t("guidesEm")}</em></h2></div>
                 <Link className="lh-link" href="/blog">{tb("all")}<Icon name="arrow" /></Link>
               </div>
-              <div className="lh-guides">
+              <ProductCarousel label={t("guidesEyebrow")} columns={3}>
                 {guides.map((g) => <ArticleCard key={g.handle} a={toCard(g, (n) => tb("readingTime", { minutes: n }))} />)}
-              </div>
+              </ProductCarousel>
             </section>
           )}
 
@@ -252,7 +253,7 @@ export default async function ProductPage({ params }: PageProps<"/[locale]/[hand
                 <div><span className="lh-eyebrow">{t("relatedEyebrow")}</span><h2 className="lh-title">{t("relatedTitle")} <em>{t("relatedEm")}</em></h2></div>
                 {colHref && <Link className="lh-link" href={colHref}>{tc("seeAll")}<Icon name="arrow" /></Link>}
               </div>
-              <div className="lh-grid">{related.map((p) => <ProductCard key={p.id} product={p} />)}</div>
+              <ProductCarousel label={t("relatedEyebrow")}>{related.map((p) => <ProductCard key={p.id} product={p} />)}</ProductCarousel>
             </section>
           )}
 

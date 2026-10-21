@@ -9,7 +9,7 @@ import { Icon } from "@/components/ui/icons";
  * Carrousel de cartes produit : une rangée qui défile horizontalement (scroll-snap), avec deux flèches.
  * Les cartes sont rendues côté serveur et passées en enfants ; ici on ne gère que le défilement.
  */
-export function ProductCarousel({ children, label }: { children: ReactNode; label: string }) {
+export function ProductCarousel({ children, label, columns = 4 }: { children: ReactNode; label: string; columns?: 3 | 4 }) {
   const t = useTranslations("common");
   const track = useRef<HTMLDivElement>(null);
   const [edges, setEdges] = useState({ start: true, end: false });
@@ -63,7 +63,7 @@ export function ProductCarousel({ children, label }: { children: ReactNode; labe
   };
 
   return (
-    <div className="lh-carousel">
+    <div className="lh-carousel" style={{ "--cols": columns } as React.CSSProperties}>
       <div
         className="lh-carousel__track" ref={track} role="region" aria-label={label} tabIndex={0}
         onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={endDrag} onPointerCancel={endDrag} onPointerLeave={endDrag} onClickCapture={onClickCapture}

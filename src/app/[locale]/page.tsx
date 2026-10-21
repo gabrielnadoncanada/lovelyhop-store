@@ -13,7 +13,6 @@ import { absoluteUrl, sameRoute } from "@/lib/seo/urls";
 import { Announce } from "@/components/layout/PageTop";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { HeroSection } from "@/components/home/HeroSection";
-import { Spotlight } from "@/components/home/Spotlight";
 import { ProductCard } from "@/components/product/ProductCard";
 import { ProductCarousel } from "@/components/product/ProductCarousel";
 import { ProductArt } from "@/components/art/byKey";
@@ -118,7 +117,6 @@ export default async function HomePage() {
           <UniversTiles />
         </section>
 
-        <Spotlight product={featured} />
 
         {creer && (
           <section className="lh-sec" id="produits">
@@ -182,9 +180,9 @@ export default async function HomePage() {
             <div><span className="lh-eyebrow">{t("home.guidesEyebrow")}</span><h2 className="lh-title">{t("home.guidesTitle")} <em>{t("home.guidesEm")}</em></h2></div>
             <Link className="lh-link" href="/blog">{t("home.guidesLink")}<Icon name="arrow" /></Link>
           </div>
-          <div className="lh-guides">
-            {articles(locale).slice(0, 3).map((g) => <ArticleCard key={g.handle} a={toCard(g, (n) => t("blog.readingTime", { minutes: n }))} />)}
-          </div>
+          <ProductCarousel label={t("home.guidesEyebrow")} columns={3}>
+            {articles(locale).slice(0, 6).map((g) => <ArticleCard key={g.handle} a={toCard(g, (n) => t("blog.readingTime", { minutes: n }))} />)}
+          </ProductCarousel>
         </section>
 
         <Newsletter />
