@@ -58,8 +58,9 @@ img, svg { max-width: 100%; }
 /* Pied du menu mobile : univers, guides, langue, compte ; passe à la ligne sur les petits écrans. */
 .lh-mnav__foot { flex-wrap: wrap; justify-content: flex-start; column-gap: var(--space-5); row-gap: 0; }
 
-/* Accueil : pas de pastille au-dessus du titre, et la scène remonte (centrée sur le texte au lieu d'être collée au bandeau). */
+/* Accueil : pas de pastille au-dessus du titre. La scène reste posée sur le bandeau du bas,
+   mais elle est plus grande sur les écrans larges : son sommet remonte au niveau du titre. */
 .lh-hero h1 { margin-top: 0; }
 @media (min-width: 961px) {
-  .lh-hero .stage { align-self: center; margin-bottom: 48px; }
+  .lh-hero .stage { width: min(100%, 700px); }
 }
