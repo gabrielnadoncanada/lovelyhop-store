@@ -24,7 +24,7 @@ function entries(hrefs: LocalizedHref, extra: Omit<Entry, "url" | "alternates"> 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const { products, collections } = await getCatalogIndex();
 
-  const pages = (["/", "/collections", "/blog", "/daycares"] as const).flatMap((h) => entries(sameRoute(h)));
+  const pages = (["/", "/collections", "/blog", "/daycares", "/contact"] as const).flatMap((h) => entries(sameRoute(h)));
 
   const univers = collections.flatMap((c) =>
     entries({

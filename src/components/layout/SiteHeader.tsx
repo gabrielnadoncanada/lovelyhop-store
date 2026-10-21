@@ -6,23 +6,27 @@ import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { useCart } from "@/components/cart/CartProvider";
 import { useAlternates } from "@/components/layout/Alternates";
-import { ArtTableSensorielle } from "@/components/art";
 import { Icon, UniversIcon } from "@/components/ui/icons";
 import { SearchPanel } from "@/components/layout/SearchPanel";
-import { FEATURED_HANDLE, UNIVERS_HANDLES } from "@/lib/constants";
+import { FEATURED_HANDLE, NAV_PRODUCTS, UNIVERS_HANDLES } from "@/lib/constants";
 import type { Locale } from "@/lib/types";
 
-type U = "creer" | "imaginer" | "ranger";
-const MEGA: U[] = ["creer", "imaginer", "ranger"];
+/** Univers annoncés dans le menu mais sans produit pour l'instant. */
+const SOON = ["imaginer", "ranger", "bouger"] as const;
+/** Panneau ouvert sous la barre : la boutique, les ressources, ou rien. */
+type Panel = "shop" | "resources" | null;
 
-/** En-tête du site (composant lh-nav du design system) avec méga menu, recherche et menu mobile. */
+/**
+ * En-tête du site (composant lh-nav du design system) : un seul méga menu « Boutique », un lien direct
+ * vers le produit phare, les garderies et les guides, puis langue, recherche, panier et menu mobile.
+ */
 export function SiteHeader() {
   const t = useTranslations("nav");
   const locale = useLocale() as Locale;
   const other: Locale = locale === "fr" ? "en" : "fr";
   const alt = useAlternates();
   const { cart, setOpen, bump } = useCart();
-  const [mega, setMega] = useState<U | null>(null);
+  const [mega, setMega] = useState<Panel>(null);
   const [search, setSearch] = useState(false);
   const [mnav, setMnav] = useState(false);
   const root = useRef<HTMLDivElement>(null);
@@ -37,9 +41,9 @@ export function SiteHeader() {
     return () => { document.removeEventListener("keydown", onKey); document.removeEventListener("mousedown", onClick); };
   }, []);
 
-  const hover = (u: U | null) => {
+  const hover = (panel: Panel) => {
     if (hoverTimer.current) clearTimeout(hoverTimer.current);
-    hoverTimer.current = setTimeout(() => setMega(u), u ? 150 : 250);
+    hoverTimer.current = setTimeout(() => setMega(panel), panel ? 150 : 250);
   };
   const close = () => { setMega(null); setSearch(false); setMnav(false); };
   const altHref = alt[other] ?? (other === "en" ? "/en" : "/");
@@ -54,19 +58,26 @@ export function SiteHeader() {
           <img className="lh-night" src="/brand/lovelyhop-logo-soir.svg" alt="" aria-hidden="true" width={220} height={58} />
         </Link>
         <nav className="lh-nav__links" aria-label={t("label")}>
-          {MEGA.map((u) => (
-            <Link
-              key={u}
-              href={{ pathname: "/collections/[handle]", params: { handle: UNIVERS_HANDLES[u][locale] } }}
-              aria-expanded={mega === u}
-              aria-controls={`mega-${u}`}
-              onMouseEnter={() => hover(u)}
-              onClick={(e) => { e.preventDefault(); setSearch(false); setMega((m) => (m === u ? null : u)); }}
-            >
-              {t(`univers.${u}`)}<Icon name="chev" />
-            </Link>
-          ))}
+          <Link
+            href="/collections"
+            aria-expanded={mega === "shop"}
+            aria-controls="mega-boutique"
+            onMouseEnter={() => hover("shop")}
+            onClick={(e) => { e.preventDefault(); setSearch(false); setMega("shop"); }}
+          >
+            {t("shop")}<Icon name="chev" />
+          </Link>
+          <Link href={{ pathname: "/[handle]", params: { handle: FEATURED_HANDLE[locale] } }} onMouseEnter={() => hover(null)} onClick={close}>{t("featuredNav")}</Link>
           <Link href="/daycares" onMouseEnter={() => hover(null)} onClick={close}>{t("univers.cpe")}</Link>
+          <Link
+            href="/blog"
+            aria-expanded={mega === "resources"}
+            aria-controls="mega-ressources"
+            onMouseEnter={() => hover("resources")}
+            onClick={(e) => { e.preventDefault(); setSearch(false); setMega("resources"); }}
+          >
+            {t("resources")}<Icon name="chev" />
+          </Link>
         </nav>
         <div className="lh-nav__tools">
           <a className="lh-nav__lang" href={altHref} lang={other} hrefLang={other} aria-label={t("langSwitch")}>{t("langShort")}</a>
@@ -86,7 +97,7 @@ export function SiteHeader() {
 
       {mega && (
         <div className="lh-mega-wrap" onMouseEnter={() => hover(mega)}>
-          <MegaMenu active={mega} locale={locale} onNavigate={close} />
+          {mega === "shop" ? <MegaMenu locale={locale} onNavigate={close} /> : <ResourcesMenu onNavigate={close} />}
         </div>
       )}
       {search && (
@@ -99,29 +110,56 @@ export function SiteHeader() {
   );
 }
 
-function MegaMenu({ active, locale, onNavigate }: { active: U; locale: Locale; onNavigate: () => void }) {
+/** Liens vers les fiches de « Créer et découvrir », les seuls produits en ligne pour l'instant. */
+function CreerLinks({ locale, onNavigate }: { locale: Locale; onNavigate: () => void }) {
+  const t = useTranslations("nav");
+  const labels = t.raw("sub.creer") as string[];
+  return (
+    <ul>
+      {NAV_PRODUCTS.creer.map((h, i) => (
+        <li key={h.fr}><Link href={{ pathname: "/[handle]", params: { handle: h[locale] } }} onClick={onNavigate}>{labels[i]}</Link></li>
+      ))}
+    </ul>
+  );
+}
+
+/** Titre d'univers avec, s'il y a lieu, la pastille « Bientôt ». */
+function UniversTitle({ univers, soon }: { univers: "creer" | "imaginer" | "ranger" | "bouger"; soon?: boolean }) {
+  const t = useTranslations("nav");
+  return (
+    <h3>
+      <span className="lh-mega__ico"><UniversIcon univers={univers} /></span>{t(`univers.${univers}`)}
+      {soon && <span className="lh-mega__soon">{t("soon")}</span>}
+    </h3>
+  );
+}
+
+function MegaMenu({ locale, onNavigate }: { locale: Locale; onNavigate: () => void }) {
   const t = useTranslations("nav");
   const tc = useTranslations("common");
+  const univers = (u: keyof typeof UNIVERS_HANDLES) => ({ pathname: "/collections/[handle]" as const, params: { handle: UNIVERS_HANDLES[u][locale] } });
+  const teaser: React.CSSProperties = { margin: "0 0 var(--space-4)", font: "400 14px/20px var(--font-sans)", color: "var(--ink-muted)" };
   return (
-    <div className="lh-mega" id={`mega-${active}`}>
-      {MEGA.map((u) => (
-        <div className="lh-mega__col" key={u}>
-          <h3><span className="lh-mega__ico"><UniversIcon univers={u} /></span>{t(`univers.${u}`)}</h3>
-          <ul>
-            {(t.raw(`sub.${u}`) as string[]).map((s) => (
-              <li key={s}><Link href={{ pathname: "/collections/[handle]", params: { handle: UNIVERS_HANDLES[u][locale] } }} onClick={onNavigate}>{s}</Link></li>
-            ))}
-          </ul>
-          <Link className="lh-link" href={{ pathname: "/collections/[handle]", params: { handle: UNIVERS_HANDLES[u][locale] } }} onClick={onNavigate}>{tc("seeAll")}</Link>
-        </div>
-      ))}
-      <div className="lh-mega__feature">
-        <div className="lh-mega__feature-art"><ArtTableSensorielle /></div>
-        <div className="lh-mega__feature-body">
-          <span className="lh-eyebrow">{t("featured")}</span>
-          <strong>{t("featuredName")}</strong>
-          <Link className="lh-link" href={{ pathname: "/[handle]", params: { handle: FEATURED_HANDLE[locale] } }} onClick={onNavigate}>{t("featuredLink")}</Link>
-        </div>
+    <div className="lh-mega" id="mega-boutique">
+      <div className="lh-mega__col">
+        <UniversTitle univers="creer" />
+        <CreerLinks locale={locale} onNavigate={onNavigate} />
+        <Link className="lh-link" href={univers("creer")} onClick={onNavigate}>{tc("seeAll")}</Link>
+      </div>
+      <div className="lh-mega__col">
+        <UniversTitle univers="imaginer" soon />
+        <p style={teaser}>{t("teaser.imaginer")}</p>
+        <Link className="lh-link" href={univers("imaginer")} onClick={onNavigate}>{t("seeUnivers")}</Link>
+      </div>
+      <div className="lh-mega__col">
+        <UniversTitle univers="ranger" soon />
+        <p style={teaser}>{t("teaser.ranger")}</p>
+        <Link className="lh-link" href={univers("ranger")} onClick={onNavigate}>{t("seeUnivers")}</Link>
+      </div>
+      <div className="lh-mega__col">
+        <UniversTitle univers="bouger" soon />
+        <p style={teaser}>{t("teaser.bouger")}</p>
+        <Link className="lh-link" href={univers("bouger")} onClick={onNavigate}>{t("seeUnivers")}</Link>
       </div>
       <div className="lh-mega__foot">
         <p><strong>{t("megaFootTitle")}</strong>{t("megaFootText")}</p>
@@ -131,8 +169,31 @@ function MegaMenu({ active, locale, onNavigate }: { active: U; locale: Locale; o
   );
 }
 
+/** Panneau « Ressources » : les mêmes liens que la colonne Ressources du pied de page. */
+function ResourcesMenu({ onNavigate }: { onNavigate: () => void }) {
+  const t = useTranslations("nav");
+  const tf = useTranslations("footer");
+  const links = [
+    { href: "/blog" as const, label: tf("guides") },
+    { href: "/faq" as const, label: tf("faq") },
+    { href: "/shipping" as const, label: tf("shipping") },
+    { href: "/contact" as const, label: tf("contact") },
+  ];
+  return (
+    <div className="lh-mega" id="mega-ressources" style={{ gridTemplateColumns: "minmax(0, 1fr)", maxWidth: 420 }}>
+      <div className="lh-mega__col">
+        <h3>{t("resources")}</h3>
+        <ul>
+          {links.map((l) => <li key={l.href}><Link href={l.href} onClick={onNavigate}>{l.label}</Link></li>)}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
 function MobileNav({ locale, altHref, other, onClose }: { locale: Locale; altHref: string; other: Locale; onClose: () => void }) {
   const t = useTranslations("nav");
+  const tf = useTranslations("footer");
   const panel = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const prev = document.body.style.overflow;
@@ -140,6 +201,7 @@ function MobileNav({ locale, altHref, other, onClose }: { locale: Locale; altHre
     panel.current?.querySelector<HTMLElement>("button")?.focus();
     return () => { document.body.style.overflow = prev; };
   }, []);
+  const groupTitle: React.CSSProperties = { display: "flex", alignItems: "center", gap: 12, minHeight: 60, font: "450 20px/1.2 var(--font-display)", fontVariationSettings: "'SOFT' 100" };
   return createPortal(
     <div className="lh lh-overlay lh-overlay--right">
       <div className="lh-scrim" onClick={onClose} />
@@ -155,21 +217,17 @@ function MobileNav({ locale, altHref, other, onClose }: { locale: Locale; altHre
             <input className="lh-input" name="q" type="search" aria-label={t("search")} placeholder={locale === "fr" ? "Table sensorielle, bibliothèque…" : "Sensory table, bookshelf…"} />
           </form>
           <div>
-            {MEGA.map((u, i) => (
-              <details className="lh-mnav__group" key={u} open={i === 0}>
-                <summary><span className="lh-mega__ico"><UniversIcon univers={u} /></span>{t(`univers.${u}`)}<Icon name="chev" /></summary>
-                <ul>
-                  {(t.raw(`sub.${u}`) as string[]).map((s) => (
-                    <li key={s}><Link href={{ pathname: "/collections/[handle]", params: { handle: UNIVERS_HANDLES[u][locale] } }} onClick={onClose}>{s}</Link></li>
-                  ))}
-                </ul>
-              </details>
+            <details className="lh-mnav__group" open>
+              <summary><span className="lh-mega__ico"><UniversIcon univers="creer" /></span>{t("univers.creer")}<Icon name="chev" /></summary>
+              <CreerLinks locale={locale} onNavigate={onClose} />
+            </details>
+            {SOON.map((u) => (
+              <div className="lh-mnav__group" key={u}>
+                <span style={groupTitle}>
+                  <span className="lh-mega__ico"><UniversIcon univers={u} /></span>{t(`univers.${u}`)} <span className="lh-mega__soon">{t("soon")}</span>
+                </span>
+              </div>
             ))}
-            <div className="lh-mnav__group">
-              <span style={{ display: "flex", alignItems: "center", gap: 12, minHeight: 60, font: "450 20px/1.2 var(--font-display)", fontVariationSettings: "'SOFT' 100" }}>
-                <span className="lh-mega__ico"><UniversIcon univers="bouger" /></span>{t("univers.bouger")} <span className="lh-mega__soon">{locale === "fr" ? "Bientôt" : "Soon"}</span>
-              </span>
-            </div>
           </div>
           <Link className="lh-mnav__pro" href="/daycares" onClick={onClose}>
             <span><strong>{t("proTitle")}</strong><span>{t("proText")}</span></span>
@@ -179,6 +237,9 @@ function MobileNav({ locale, altHref, other, onClose }: { locale: Locale; altHre
         <div className="lh-mnav__foot">
           <Link href="/collections" onClick={onClose}><Icon name="layers" />{t("universIndex")}</Link>
           <Link href="/blog" onClick={onClose}><Icon name="heart" />{t("guides")}</Link>
+          <Link href="/faq" onClick={onClose}><Icon name="shield" />{tf("faq")}</Link>
+          <Link href="/shipping" onClick={onClose}><Icon name="truck" />{tf("shipping")}</Link>
+          <Link href="/contact" onClick={onClose}><Icon name="mail" />{tf("contact")}</Link>
           <a href={altHref} lang={other} hrefLang={other}><Icon name="globe" />{t("langName")}</a>
           {process.env.NEXT_PUBLIC_ACCOUNT_URL && <a href={process.env.NEXT_PUBLIC_ACCOUNT_URL}><Icon name="user" />{t("account")}</a>}
         </div>

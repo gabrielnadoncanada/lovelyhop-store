@@ -3,7 +3,7 @@
 import { addLines, getCart, updateLine } from "@/lib/cart";
 import { searchProducts } from "@/lib/catalog";
 import { formatMoney } from "@/lib/format";
-import { isAdminConfigured, upsertQuoteLead } from "@/lib/shopify/admin";
+import { CONTACT_TAG, isAdminConfigured, upsertQuoteLead } from "@/lib/shopify/admin";
 import type { ArtKey } from "@/lib/types";
 import type { Cart, Locale } from "@/lib/types";
 import { routing } from "@/i18n/routing";
@@ -90,6 +90,52 @@ export async function submitQuote(_prev: FormState, form: FormData): Promise<For
   if (!delivered) {
     if (isAdminConfigured || (key && to)) return failed;
     console.info("[soumission CPE]\n" + lines);
+  }
+  return { status: "ok" };
+}
+
+/**
+ * Message du formulaire « Nous joindre » : même chemin que les soumissions CPE (client Shopify étiqueté
+ * « contact-site » + courriel interne par Flow, ou Resend), avec le message dans la note du client.
+ */
+export async function submitContact(_prev: FormState, form: FormData): Promise<FormState> {
+  const locale = safeLocale(String(form.get("locale") ?? "fr"));
+  const fr = locale === "fr";
+  const get = (k: string) => String(form.get(k) ?? "").trim();
+  const errors: Record<string, string> = {};
+  if (!get("name")) errors.name = fr ? "Indiquez votre nom." : "Enter your name.";
+  if (!isEmail(get("email"))) errors.email = fr ? "Ce courriel semble incomplet." : "This email looks incomplete.";
+  if (get("message").length < 10) errors.message = fr ? "Écrivez-nous quelques mots." : "Write us a few words.";
+  if (Object.keys(errors).length) return { status: "error", errors };
+
+  const lines = [`Sujet : ${get("subject") || "—"}`, `Contact : ${get("name")} · ${get("email")}`, `Message : ${get("message")}`].join("\n");
+  const failed = { status: "error" as const, message: fr ? "L'envoi n'a pas fonctionné. Réessayez ou écrivez-nous directement." : "Sending failed. Try again or email us directly." };
+  let delivered = false;
+
+  if (isAdminConfigured) {
+    try {
+      await upsertQuoteLead({ email: get("email"), name: get("name"), locale, note: lines, tag: CONTACT_TAG });
+      delivered = true;
+    } catch (e) {
+      console.error("[contact] client Shopify :", e);
+    }
+  }
+
+  const key = process.env.RESEND_API_KEY;
+  const to = process.env.QUOTE_TO_EMAIL;
+  if (key && to) {
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ from: process.env.QUOTE_FROM_EMAIL ?? "Lovelyhop <soumissions@lovelyhop.com>", to: [to], reply_to: get("email"), subject: `Message du site — ${get("name")}`, text: lines }),
+    });
+    if (res.ok) delivered = true;
+    else console.error("[contact] Resend :", res.status, await res.text());
+  }
+
+  if (!delivered) {
+    if (isAdminConfigured || (key && to)) return failed;
+    console.info("[contact]\n" + lines);
   }
   return { status: "ok" };
 }

@@ -53,6 +53,8 @@ img, svg { max-width: 100%; }
   .lh-nav__links { display: none; }
   .lh-nav__menu { display: grid; }
   .lh-nav__tools { gap: 6px; }
+  /* La langue se change depuis le pied du menu mobile : pas de pastille FR/EN dans la barre. */
+  .lh-nav__lang { display: none; }
 }
 
 /* Pied du menu mobile : univers, guides, langue, compte ; passe à la ligne sur les petits écrans. */

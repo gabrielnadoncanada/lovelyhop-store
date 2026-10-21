@@ -50,27 +50,25 @@
     "proText": "Soumission par lot, pièces de rechange",
     "sub": {
       "creer": [
-        "Tables sensorielles",
-        "Tables lumineuses",
-        "Panneaux d'activités",
-        "Tables d'art",
-        "Chevalets"
-      ],
-      "imaginer": [
-        "Maisons de poupée",
-        "Cuisines de jeu",
-        "Établis",
-        "Épiceries"
-      ],
-      "ranger": [
-        "Bibliothèques Montessori",
-        "Rangements à jouets",
-        "Coffres-bancs",
-        "Penderies"
+        "Table sensorielle évolutive",
+        "Table lumineuse",
+        "Panneau d'activités modulable",
+        "Table d'art avec rangement",
+        "Table d'activité transformable"
       ]
     },
     "universIndex": "Univers",
-    "guides": "Guides"
+    "guides": "Guides",
+    "shop": "Boutique",
+    "resources": "Ressources",
+    "featuredNav": "Table sensorielle",
+    "soon": "Bientôt",
+    "seeUnivers": "Voir l'univers",
+    "teaser": {
+      "imaginer": "Maisons de poupée, cuisines et établis pour inventer des histoires. Les premières fiches arrivent cet hiver.",
+      "ranger": "Bibliothèques Montessori et rangements à hauteur d'enfant. Les premières fiches arrivent cet hiver.",
+      "bouger": "Triangles Pikler et modules de motricité, après les essais de sécurité."
+    }
   },
   "search": {
     "label": "Recherche",
@@ -222,7 +220,7 @@
     "brand": "Des meubles de jeu en bois pour bouger, créer, imaginer et ranger. Conçus au Québec pour les enfants de 1 à 6 ans.",
     "univers": "Univers",
     "pro": "Garderies et CPE",
-    "help": "Aide",
+    "help": "Ressources",
     "guides": "Guides d'usage",
     "proFurniture": "Mobilier CPE",
     "quote": "Demander une soumission",
@@ -398,6 +396,28 @@
     "marketingHelp": "Mesurer nos annonces Meta et Google.",
     "save": "Enregistrer mes choix",
     "region": "Témoins"
+  },
+  "contact": {
+    "metaTitle": "Nous joindre | Lovelyhop",
+    "metaDescription": "Une question sur un meuble, une commande ou une livraison ? Écrivez-nous, on répond en un jour ouvrable.",
+    "eyebrow": "Nous joindre",
+    "title": "Une question ?",
+    "em": "On est là.",
+    "lead": "Un meuble, une commande, une livraison ou une idée de plateau : écrivez-nous, on répond en un jour ouvrable.",
+    "emailAlt": "Vous préférez le courriel ?",
+    "cpeText": "Vous équipez une garderie ou un CPE ?",
+    "cpeLink": "Demandez plutôt une soumission",
+    "name": "Votre nom",
+    "email": "Courriel",
+    "subject": "Sujet",
+    "subjects": ["Question sur un meuble", "Commande ou livraison", "Pièce de remplacement", "Autre"],
+    "message": "Votre message",
+    "messagePh": "Dites-nous ce qu'on peut faire pour vous…",
+    "submit": "Envoyer",
+    "sending": "Envoi…",
+    "note": "Réponse en un jour ouvrable. Vos coordonnées servent seulement à vous répondre.",
+    "okTitle": "Message envoyé",
+    "okText": "Merci. On vous répond en un jour ouvrable."
   },
   "daycares": {
     "metaTitle": "Mobilier en bois pour garderies et CPE au Québec | Lovelyhop",

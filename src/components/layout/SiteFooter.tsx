@@ -33,7 +33,7 @@ export async function SiteFooter() {
           <ul>
             <li><Link href={col("cpe")}>{t("proFurniture")}</Link></li>
             <li><Link href="/daycares">{t("quote")}</Link></li>
-            <li><Link href="/daycares">{t("contact")}</Link></li>
+            <li><Link href="/contact">{t("contact")}</Link></li>
           </ul>
         </div>
         <div>

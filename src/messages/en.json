@@ -50,27 +50,25 @@
     "proText": "Volume quotes, spare parts",
     "sub": {
       "creer": [
-        "Sensory tables",
-        "Light tables",
-        "Activity boards",
-        "Art tables",
-        "Easels"
-      ],
-      "imaginer": [
-        "Dollhouses",
-        "Play kitchens",
-        "Workbenches",
-        "Play markets"
-      ],
-      "ranger": [
-        "Montessori bookshelves",
-        "Toy storage",
-        "Toy benches",
-        "Wardrobes"
+        "Expandable sensory table",
+        "Light table",
+        "Modular activity board",
+        "Art table with storage",
+        "Convertible activity table"
       ]
     },
     "universIndex": "Worlds",
-    "guides": "Guides"
+    "guides": "Guides",
+    "shop": "Shop",
+    "resources": "Resources",
+    "featuredNav": "Sensory table",
+    "soon": "Soon",
+    "seeUnivers": "See the collection",
+    "teaser": {
+      "imaginer": "Dollhouses, play kitchens and workbenches for open-ended stories. First products arrive this winter.",
+      "ranger": "Montessori bookshelves and child-height storage. First products arrive this winter.",
+      "bouger": "Pikler triangles and movement modules, after safety testing."
+    }
   },
   "search": {
     "label": "Search",
@@ -222,7 +220,7 @@
     "brand": "Wooden play furniture to move, create, imagine and tidy up. Designed in Quebec for children ages 1 to 6.",
     "univers": "Worlds",
     "pro": "Daycares",
-    "help": "Help",
+    "help": "Resources",
     "guides": "Play guides",
     "proFurniture": "Daycare furniture",
     "quote": "Request a quote",
@@ -398,6 +396,28 @@
     "marketingHelp": "Measure our Meta and Google ads.",
     "save": "Save my choices",
     "region": "Cookies"
+  },
+  "contact": {
+    "metaTitle": "Contact us | Lovelyhop",
+    "metaDescription": "A question about a piece, an order or a delivery? Write to us, we reply within one business day.",
+    "eyebrow": "Contact us",
+    "title": "A question?",
+    "em": "We're here.",
+    "lead": "A piece of furniture, an order, a delivery or a tray idea: write to us, we reply within one business day.",
+    "emailAlt": "Prefer email?",
+    "cpeText": "Furnishing a daycare?",
+    "cpeLink": "Request a quote instead",
+    "name": "Your name",
+    "email": "Email",
+    "subject": "Subject",
+    "subjects": ["Question about a product", "Order or delivery", "Replacement part", "Other"],
+    "message": "Your message",
+    "messagePh": "Tell us what we can do for you…",
+    "submit": "Send",
+    "sending": "Sending…",
+    "note": "Reply within one business day. Your details are used only to reply to you.",
+    "okTitle": "Message sent",
+    "okText": "Thank you. We reply within one business day."
   },
   "daycares": {
     "metaTitle": "Wooden daycare furniture designed in Quebec | Lovelyhop",

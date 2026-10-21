@@ -56,7 +56,10 @@ export const QUOTE_TAG = "soumission-cpe";
 /** Longueur gardée dans la note du client (les demandes récentes d'abord). */
 const NOTE_MAX = 4000;
 
-export type QuoteLead = { email: string; name: string; locale: string; note: string };
+/** Étiquette fixe des messages du formulaire « Nous joindre ». */
+export const CONTACT_TAG = "contact-site";
+
+export type QuoteLead = { email: string; name: string; locale: string; note: string; tag?: string };
 
 type Found = { customers: { nodes: { id: string; note: string | null; tags: string[] }[] } };
 type Created = { customerCreate: { customer: { id: string } | null; userErrors: { field: string[] | null; message: string }[] } };
@@ -71,7 +74,8 @@ const fail = (errors: { message: string }[]) => new Error(errors.map((e) => e.me
  */
 export async function upsertQuoteLead(lead: QuoteLead): Promise<{ id: string; created: boolean }> {
   const stamp = new Date().toISOString().replace(/[-:]/g, "").slice(0, 13).replace("T", "-");
-  const tags = [QUOTE_TAG, `soumission-${stamp}`];
+  const tag = lead.tag ?? QUOTE_TAG;
+  const tags = [tag, `${tag === QUOTE_TAG ? "soumission" : tag}-${stamp}`];
   const [firstName, ...rest] = lead.name.split(/\s+/);
   const header = `Soumission CPE · ${new Date().toISOString().slice(0, 16).replace("T", " ")} UTC`;
   const note = `${header}\n${lead.note}`;

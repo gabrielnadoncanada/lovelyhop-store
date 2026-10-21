@@ -1,18 +1,14 @@
 import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
-import { getCollection } from "@/lib/catalog";
-import { UNIVERS_HANDLES } from "@/lib/constants";
 import type { Locale } from "@/lib/types";
 import { PageAlternates } from "@/components/seo/PageAlternates";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Crumbs, crumbsForSchema, type CrumbItem } from "@/components/seo/Crumbs";
 import { pageMetadata } from "@/lib/seo/metadata";
-import { breadcrumb, graph, itemList, webPage } from "@/lib/seo/schema";
+import { breadcrumb, graph, webPage } from "@/lib/seo/schema";
 import { absoluteUrl, sameRoute } from "@/lib/seo/urls";
 import { PageTop } from "@/components/layout/PageTop";
 import { QuoteForm } from "@/components/forms/QuoteForm";
-import { ProductArt } from "@/components/art/byKey";
 import { Icon } from "@/components/ui/icons";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -27,15 +23,11 @@ export default async function DaycaresPage() {
   const t = await getTranslations("daycares");
   const th = await getTranslations("home");
   const tp = await getTranslations("product");
-  const cpe = await getCollection(UNIVERS_HANDLES.cpe[locale], locale);
   const url = absoluteUrl("/daycares", locale);
   const crumbs: CrumbItem[] = [{ name: tp("crumbsHome"), href: "/" }, { name: t("eyebrow") }];
   const jsonLd = graph(
     webPage({ url, name: t("metaTitle"), description: t("metaDescription"), locale, breadcrumb: true }),
     breadcrumb(url, crumbsForSchema(crumbs, locale)),
-    cpe?.products.length
-      ? itemList(url, cpe.title, cpe.products.map((p) => ({ url: absoluteUrl({ pathname: "/[handle]", params: { handle: p.handle } }, locale), name: p.title, image: p.images[0]?.url })))
-      : null,
   );
   return (
     <>
@@ -60,17 +52,6 @@ export default async function DaycaresPage() {
           <div className="lh-detail">
             <div>
               <div className="lh-head"><span className="lh-eyebrow">{t("furniture")}</span><h2 className="lh-title">{t("formTitle")}</h2></div>
-              <ul className="lh-pro__list" style={{ ["--ink-inverse" as string]: "var(--ink)", ["--ink-inverse-muted" as string]: "var(--ink-muted)" }}>
-                {(cpe?.products ?? []).map((p) => (
-                  <li key={p.id}>
-                    <Link href={{ pathname: "/[handle]", params: { handle: p.handle } }}>
-                      <span className="lh-pro__thumb"><ProductArt art={p.art} /></span>
-                      <span><span className="lh-pro__name">{p.title}</span><span className="lh-pro__desc">{p.description}</span></span>
-                      <span className="lh-pro__go"><Icon name="arrow" /></span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
             </div>
             <QuoteForm />
           </div>
