@@ -12,6 +12,8 @@ import type { Cart, Locale } from "@/lib/types";
  */
 
 const COOKIE = "lh_cart";
+/** Le panier de démonstration a son propre cookie : un ancien panier démo ne doit jamais être envoyé à Shopify. */
+const DEMO_COOKIE = "lh_cart_demo";
 const cookieOptions = { httpOnly: true, sameSite: "lax" as const, secure: process.env.NODE_ENV === "production", path: "/", maxAge: 60 * 60 * 24 * 30 };
 type DemoLine = { v: string; q: number };
 
@@ -33,19 +35,39 @@ function demoCart(lines: DemoLine[], locale: Locale): Cart {
 }
 
 async function readDemo(): Promise<DemoLine[]> {
-  const raw = (await cookies()).get(COOKIE)?.value;
+  const raw = (await cookies()).get(DEMO_COOKIE)?.value;
   try { return raw ? (JSON.parse(raw) as DemoLine[]) : []; } catch { return []; }
 }
 async function writeDemo(lines: DemoLine[]) {
-  (await cookies()).set(COOKIE, JSON.stringify(lines.filter((l) => l.q > 0)), cookieOptions);
+  (await cookies()).set(DEMO_COOKIE, JSON.stringify(lines.filter((l) => l.q > 0)), cookieOptions);
+}
+
+/** Identifiant de panier Shopify valide, ou null (cookie absent, ancien format, valeur abîmée). */
+async function shopifyCartId(): Promise<string | null> {
+  const id = (await cookies()).get(COOKIE)?.value;
+  return id && id.startsWith("gid://shopify/Cart/") ? id : null;
+}
+
+/** Oublie le panier (expiré, déjà payé ou invalide). Sans effet pendant un rendu, où les cookies sont en lecture seule. */
+async function forgetCart() {
+  try { (await cookies()).delete(COOKIE); } catch { /* rendu serveur : rien à faire */ }
 }
 
 export async function getCart(locale: Locale): Promise<Cart> {
   if (!isShopifyConfigured) return demoCart(await readDemo(), locale);
-  const id = (await cookies()).get(COOKIE)?.value;
-  if (!id) return empty(false);
-  const data = await storefront<{ cart: RawCart | null }>(CART_QUERY, { id, language: shopifyLanguage(locale) });
-  return data.cart ? mapCart(data.cart) : empty(false);
+  const id = await shopifyCartId();
+  if (!id) {
+    if ((await cookies()).get(COOKIE)) await forgetCart();
+    return empty(false);
+  }
+  try {
+    const data = await storefront<{ cart: RawCart | null }>(CART_QUERY, { id, language: shopifyLanguage(locale) });
+    if (data.cart) return mapCart(data.cart);
+  } catch (e) {
+    console.error("Panier Shopify illisible, on repart d'un panier vide", e);
+  }
+  await forgetCart();
+  return empty(false);
 }
 
 export async function addLines(lines: { variantId: string; quantity: number }[], locale: Locale): Promise<Cart> {
@@ -60,11 +82,16 @@ export async function addLines(lines: { variantId: string; quantity: number }[],
   }
   const input = lines.map((l) => ({ merchandiseId: l.variantId, quantity: l.quantity }));
   const jar = await cookies();
-  const id = jar.get(COOKIE)?.value;
+  const id = await shopifyCartId();
   const language = shopifyLanguage(locale);
   if (id) {
-    const data = await storefront<{ cartLinesAdd: { cart: RawCart | null } }>(CART_ADD, { id, lines: input, language });
-    if (data.cartLinesAdd.cart) return mapCart(data.cartLinesAdd.cart);
+    try {
+      const data = await storefront<{ cartLinesAdd: { cart: RawCart | null } }>(CART_ADD, { id, lines: input, language });
+      if (data.cartLinesAdd.cart) return mapCart(data.cartLinesAdd.cart);
+    } catch (e) {
+      // Panier expiré ou déjà converti en commande : on en crée un nouveau.
+      console.error("Ajout au panier Shopify refusé, nouveau panier", e);
+    }
   }
   const created = await storefront<{ cartCreate: { cart: RawCart } }>(CART_CREATE, { lines: input, language });
   jar.set(COOKIE, created.cartCreate.cart.id, cookieOptions);
@@ -77,7 +104,7 @@ export async function updateLine(lineId: string, quantity: number, locale: Local
     await writeDemo(current);
     return demoCart(current.filter((l) => l.q > 0), locale);
   }
-  const id = (await cookies()).get(COOKIE)?.value;
+  const id = await shopifyCartId();
   if (!id) return empty(false);
   const language = shopifyLanguage(locale);
   if (quantity <= 0) {
