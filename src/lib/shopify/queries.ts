@@ -33,10 +33,12 @@ export const PRODUCT_HANDLE_QUERY = `
     product(id: $id) { handle }
   }`;
 
-export const PRODUCTS_BY_HANDLES_QUERY = `
-  query Products($query: String!, $language: LanguageCode, $country: CountryCode) @inContext(language: $language, country: $country) {
-    products(first: 50, query: $query) { nodes { ${PRODUCT_FIELDS} } }
-  }`;
+/** Plusieurs produits par handle, un alias par produit (p0, p1…), dans l'ordre demandé. */
+export function productsByHandlesQuery(n: number) {
+  const vars = Array.from({ length: n }, (_, i) => `$h${i}: String!`).join(", ");
+  const fields = Array.from({ length: n }, (_, i) => `p${i}: product(handle: $h${i}) { ${PRODUCT_FIELDS} }`).join("\n");
+  return `query Products(${vars}, $language: LanguageCode, $country: CountryCode) @inContext(language: $language, country: $country) {\n${fields}\n}`;
+}
 
 export const ALL_PRODUCTS_QUERY = `
   query AllProducts($language: LanguageCode, $country: CountryCode, $cursor: String) @inContext(language: $language, country: $country) {

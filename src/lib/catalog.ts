@@ -5,7 +5,7 @@ import { isShopifyConfigured, shopifyLanguage, storefront } from "@/lib/shopify/
 import { mapProduct, type RawProduct } from "@/lib/shopify/map";
 import {
   ALL_PRODUCTS_QUERY, COLLECTION_HANDLE_QUERY, COLLECTION_QUERY, PRODUCT_HANDLE_QUERY, PRODUCT_QUERY,
-  PRODUCTS_BY_HANDLES_QUERY, SEARCH_QUERY,
+  productsByHandlesQuery, SEARCH_QUERY,
 } from "@/lib/shopify/queries";
 import type { Collection, Locale, Product } from "@/lib/types";
 import { routing } from "@/i18n/routing";
@@ -39,10 +39,13 @@ export async function getProducts(handles: string[], locale: Locale): Promise<Pr
   cacheLife("hours");
   if (!handles.length) return [];
   if (!isShopifyConfigured) return demo.products(handles, locale);
-  const query = handles.map((h) => `handle:${h}`).join(" OR ");
-  const data = await storefront<{ products: { nodes: RawProduct[] } }>(PRODUCTS_BY_HANDLES_QUERY, { query, language: shopifyLanguage(locale) });
-  const byHandle = new Map(data.products.nodes.map((p) => [p.handle, mapProduct(p)]));
-  return handles.map((h) => byHandle.get(h)).filter((p): p is Product => !!p);
+  // Un alias par produit : la recherche Storefront n'accepte pas de filtre « handle: » fiable,
+  // et product(handle:) résout aussi le handle de l'autre langue (fiche FR demandée en anglais).
+  const data = await storefront<Record<string, RawProduct | null>>(productsByHandlesQuery(handles.length), {
+    ...Object.fromEntries(handles.map((h, i) => [`h${i}`, h])),
+    language: shopifyLanguage(locale),
+  });
+  return handles.map((_, i) => data[`p${i}`]).filter((p): p is RawProduct => !!p).map(mapProduct);
 }
 
 export async function getCollection(handle: string, locale: Locale): Promise<Collection | null> {
