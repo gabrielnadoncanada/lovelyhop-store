@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useCart } from "@/components/cart/CartProvider";
 import { Icon } from "@/components/ui/icons";
@@ -129,8 +129,21 @@ export function BuyBar() {
   const locale = useLocale() as Locale;
   const { product, variantId, buy, pending } = usePurchase();
   const v = product.variants.find((x) => x.id === variantId) ?? product.variants[0];
+  // Affichée seulement quand le bouton principal est sorti par le haut de l'écran.
+  const [shown, setShown] = useState(false);
+  useEffect(() => {
+    const cta = document.querySelector(".lh-buy__cta");
+    if (!cta) return;
+    let raf = 0;
+    const check = () => { raf = 0; setShown(cta.getBoundingClientRect().bottom < 0); };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(check); };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); if (raf) cancelAnimationFrame(raf); };
+  }, []);
   return (
-    <div className="lh-buybar" role="region" aria-label={t("buyBar")}>
+    <div className={shown ? "lh-buybar is-shown" : "lh-buybar"} role="region" aria-label={t("buyBar")} aria-hidden={!shown}>
       <div><span className="lh-buybar__name">{product.title}</span><span className="lh-buybar__price">{v?.title ? `${v.title} · ` : ""}{formatMoney(v?.price ?? product.minPrice, locale)}</span></div>
       <button className="lh-btn lh-btn--primary" type="button" onClick={buy} disabled={pending || !product.availableForSale}>{tc("addToCart")}</button>
     </div>

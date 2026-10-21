@@ -74,7 +74,7 @@ export default async function HomePage() {
             </h1>
             <p className="lead">{t("hero.lead")}</p>
             <div className="ctas">
-              <Link className="lh-btn lh-btn--primary lh-btn--lg" href={featuredHref}>{t("hero.cta")}<span className="lh-btn__arrow"><Icon name="arrow" /></span></Link>
+              <Link className="lh-btn lh-btn--primary lh-btn--lg" href="/collections">{t("hero.cta")}<span className="lh-btn__arrow"><Icon name="arrow" /></span></Link>
               <Link className="lh-link" href="/daycares">{t("hero.ctaPro")}</Link>
             </div>
           </div>

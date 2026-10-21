@@ -102,18 +102,20 @@ export function SearchPalette({ onClose }: { onClose: () => void }) {
           {items.map((it, i) => (
             <Link
               key={it.key} id={`lh-palette-${i}`} data-index={i} role="option" aria-selected={i === active}
-              className={i === active ? "lh-palette__item is-active" : "lh-palette__item"} href={it.href}
+              className={`lh-palette__item${it.icon ? " lh-palette__item--link" : ""}${i === active ? " is-active" : ""}`} href={it.href}
               onClick={onClose} onMouseMove={() => setActive(i)}
             >
               <span className="lh-palette__thumb">{it.icon ? <Icon name={it.icon} /> : <ProductArt art={it.art ?? null} />}</span>
               <span><span className="lh-palette__name">{highlight(it.title)}</span>{it.meta && <span className="lh-palette__meta">{it.meta}</span>}</span>
               {it.price && <span className="lh-palette__price">{it.price}</span>}
+              <span className="lh-palette__go" aria-hidden="true"><Icon name="arrow" /></span>
             </Link>
           ))}
           {showAll && (
             <Link id={`lh-palette-${items.length}`} data-index={items.length} role="option" aria-selected={active === items.length} className={active === items.length ? "lh-palette__item lh-palette__item--more is-active" : "lh-palette__item lh-palette__item--more"} href={{ pathname: "/search", query: { q: query } }} onClick={onClose} onMouseMove={() => setActive(items.length)}>
               <span className="lh-palette__thumb"><Icon name="arrow" /></span>
               <span className="lh-palette__name">{t("seeAll")}</span>
+              <span className="lh-palette__go" aria-hidden="true"><Icon name="arrow" /></span>
             </Link>
           )}
         </div>
