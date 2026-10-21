@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/check-articles.mjs && next build",
+    "build": "node scripts/check-articles.mjs && node scripts/shopify-webhooks.mjs && next build",
+    "shopify:webhooks": "node scripts/shopify-webhooks.mjs",
     "start": "next start",
     "lint": "eslint",
     "check:articles": "node scripts/check-articles.mjs"
