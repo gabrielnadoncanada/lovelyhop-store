@@ -302,6 +302,7 @@ img, svg { max-width: 100%; }
 
 /* Hero en une colonne (tablette et mobile) : texte et boutons centrés au-dessus de la scène,
    plutôt qu'un bloc collé à gauche avec du vide à droite. */
+/* (voir aussi la règle du titre sur deux lignes plus haut) */
 @media (max-width: 1023px) {
   .lh-hero .copy { margin: 0 auto; text-align: center; }
   .lh-hero .copy p { margin-left: auto; margin-right: auto; }
