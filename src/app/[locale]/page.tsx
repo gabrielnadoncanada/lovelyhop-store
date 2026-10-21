@@ -15,6 +15,7 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { HeroSection } from "@/components/home/HeroSection";
 import { Spotlight } from "@/components/home/Spotlight";
 import { ProductCard } from "@/components/product/ProductCard";
+import { ProductCarousel } from "@/components/product/ProductCarousel";
 import { ProductArt } from "@/components/art/byKey";
 import { Newsletter } from "@/components/forms/Newsletter";
 import { UniversTiles } from "@/components/catalog/UniversTiles";
@@ -125,9 +126,9 @@ export default async function HomePage() {
               <div><span className="lh-eyebrow">{t("home.gridEyebrow")}</span><h2 className="lh-title">{t("home.gridTitle")} <em>{t("home.gridEm")}</em></h2></div>
               <Link className="lh-link" href={col("creer")}>{t("home.gridLink")}<Icon name="arrow" /></Link>
             </div>
-            <div className="lh-grid">
-              {creer.products.slice(0, 4).map((p) => <ProductCard key={p.id} product={p} />)}
-            </div>
+            <ProductCarousel label={t("home.gridEyebrow")}>
+              {creer.products.map((p) => <ProductCard key={p.id} product={p} />)}
+            </ProductCarousel>
           </section>
         )}
 

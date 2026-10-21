@@ -125,3 +125,32 @@ img, svg { max-width: 100%; }
    passait au-dessus et avalait le clic. Le lien monte au niveau 1, le cœur et l'ajout rapide restent au-dessus. */
 .lh-card__name a::after { z-index: 1; }
 .lh-card__fav { z-index: 2; }
+
+/* Produit phare de l'accueil : l'illustration suit le défilement pendant qu'on lit la colonne de droite. */
+@media (min-width: 961px) {
+  .lh-spotlight { align-items: start; }
+  .lh-spotlight__art { position: sticky; top: 96px; }
+}
+
+/* Carrousel de produits de l'accueil : une rangée de cartes de la même largeur que la grille à 4 colonnes,
+   défilement horizontal avec accroche, flèches à droite sous la rangée. */
+.lh-carousel { display: grid; gap: var(--space-6); }
+.lh-carousel__track {
+  display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 3 * var(--space-6)) / 4); column-gap: var(--space-6);
+  overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: 0;
+  padding-bottom: 4px; scrollbar-width: none;
+}
+.lh-carousel__track::-webkit-scrollbar { display: none; }
+.lh-carousel__track > * { scroll-snap-align: start; }
+.lh-carousel__track:focus-visible { outline: 2px solid var(--ink); outline-offset: 8px; border-radius: var(--radius-md); }
+.lh-carousel__nav { display: flex; justify-content: flex-end; gap: var(--space-2); }
+.lh-carousel__nav button:disabled { opacity: .35; cursor: default; }
+@media (max-width: 1023px) {
+  .lh-carousel__track { grid-auto-columns: calc((100% - var(--space-5)) / 2); column-gap: var(--space-5); }
+}
+@media (max-width: 600px) {
+  .lh-carousel__track { grid-auto-columns: 72%; column-gap: var(--space-3); }
+}
+/* Glissement à la souris (voir ProductCarousel). */
+.lh-carousel__track { cursor: grab; user-select: none; }
+.lh-carousel__track img, .lh-carousel__track svg { -webkit-user-drag: none; user-select: none; }

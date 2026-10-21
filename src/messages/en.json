@@ -18,7 +18,9 @@
       "phare": "Bestseller",
       "nouveau": "New",
       "bientot": "Soon"
-    }
+    },
+    "prev": "Previous",
+    "next": "Next"
   },
   "announce": "Designed in Quebec · Shipping across Canada",
   "nav": {

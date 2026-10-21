@@ -18,7 +18,9 @@
       "phare": "Produit phare",
       "nouveau": "Nouveauté",
       "bientot": "Bientôt"
-    }
+    },
+    "prev": "Précédent",
+    "next": "Suivant"
   },
   "announce": "Conçus au Québec · Livraison partout au Canada",
   "nav": {
