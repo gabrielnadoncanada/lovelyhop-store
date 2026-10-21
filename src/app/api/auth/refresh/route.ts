@@ -1,8 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { refreshSession, safeReturn } from "@/lib/shopify/customer";
 
-export const dynamic = "force-dynamic";
-
 /**
  * Rafraîchit le jeton d'accès puis revient sur la page demandée. Les pages du compte y renvoient quand le jeton
  * arrive à échéance : un composant serveur ne peut pas réécrire le cookie lui-même.

@@ -3,8 +3,6 @@ import { beginLogin, isCustomerAccountConfigured, safeReturn } from "@/lib/shopi
 import { routing } from "@/i18n/routing";
 import type { Locale } from "@/lib/types";
 
-export const dynamic = "force-dynamic";
-
 /** Départ de la connexion : pose le cookie PKCE et envoie vers la page de connexion Shopify. ?return= chemin de retour. */
 export async function GET(req: NextRequest) {
   if (!isCustomerAccountConfigured) return NextResponse.json({ error: "Comptes clients non configurés" }, { status: 503 });
