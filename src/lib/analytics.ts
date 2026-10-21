@@ -13,6 +13,8 @@ const HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST ?? "https://us.i.posthog.com";
 type PostHog = typeof import("posthog-js").default;
 let client: PostHog | null = null;
 let loading: Promise<PostHog | null> | null = null;
+/** Événements émis avant le démarrage (ex. vue produit sur la page où l'accord est donné) ; vidés au démarrage. */
+const queue: { event: string; properties?: Record<string, unknown> }[] = [];
 
 export const isAnalyticsConfigured = Boolean(KEY);
 
@@ -31,6 +33,7 @@ export function startAnalytics(): Promise<PostHog | null> {
     });
     posthog.register({ site_env: window.location.hostname === "lovelyhop.com" ? "production" : "development", site_locale: document.documentElement.lang });
     client = posthog;
+    for (const q of queue.splice(0)) posthog.capture(q.event, q.properties);
     return posthog;
   });
   return loading;
@@ -40,12 +43,14 @@ export function startAnalytics(): Promise<PostHog | null> {
 export function applyConsent(choice: ConsentChoice | null) {
   if (choice?.analytics) {
     startAnalytics().then((p) => p?.has_opted_out_capturing() && p.opt_in_capturing());
-  } else if (client) {
-    client.opt_out_capturing();
+  } else {
+    queue.length = 0;
+    client?.opt_out_capturing();
   }
 }
 
-/** Événement métier ; silencieux tant que l'accord n'est pas donné. */
+/** Événement métier. Avant l'accord, il attend (au plus 20 en mémoire) et part au démarrage ; refusé = oublié. */
 export function track(event: string, properties?: Record<string, unknown>) {
-  client?.capture(event, properties);
+  if (client) client.capture(event, properties);
+  else if (KEY && queue.length < 20) queue.push({ event, properties });
 }
