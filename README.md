@@ -34,6 +34,11 @@ Les fiches sont à la racine, comme dans l'arborescence SEO. Le handle anglais v
 
 ## Brancher Shopify
 
+**Déjà fait dans la boutique (wdg9k3-4f.myshopify.com) :** anglais activé et publié ; définitions de métachamps `lovelyhop.*` (accès Storefront) ; les 13 produits du catalogue de démo créés **en brouillon** (prix 0 $ = « [prix] » sur le site), avec métachamps et contenu de la fiche ; les 5 collections avec leurs handles ; toutes les traductions anglaises (titres, descriptions, handles, métachamps, option « Ensemble »).
+
+Reste à faire : installer le canal Headless et copier le jeton Storefront (étape 1), mettre les prix et les photos, puis passer les produits à « Actif » et les publier sur le canal Headless. Un produit en brouillon n'apparaît pas sur le site.
+
+
 1. **Canal Headless** : Shopify admin › Applications et canaux de vente › installer *Headless*, créer un storefront, copier le jeton public de l'API Storefront dans `SHOPIFY_STOREFRONT_ACCESS_TOKEN`.
 2. **Langues et marché** : Paramètres › Langues : français (par défaut) et anglais ; marché Canada. Traduire produits, collections et métachamps avec l'app *Translate & Adapt*, y compris les **handles** anglais.
 3. **Collections** (handles français) : `creer-et-decouvrir`, `imaginer`, `ranger-et-lire`, `bouger`, `garderies-cpe` (voir `src/lib/constants.ts`).

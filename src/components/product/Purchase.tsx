@@ -37,7 +37,7 @@ export function PurchaseProvider({ product, addons, children }: { product: Produ
       if (!v) return;
       const extra = addons.filter((a) => chosen.includes(a.handle) && a.variants[0]).map((a) => ({ variantId: a.variants[0].id, quantity: qty }));
       const n = extra.length;
-      const name = `${product.title} · ${v.title}${n ? ` + ${n}` : ""}${qty > 1 ? ` (× ${qty})` : ""}`;
+      const name = `${product.title}${v.title ? ` · ${v.title}` : ""}${n ? ` + ${n}` : ""}${qty > 1 ? ` (× ${qty})` : ""}`;
       add([{ variantId: v.id, quantity: qty }, ...extra], { name, art: product.art });
     },
   }), [product, addons, variantId, chosen, qty, pending, add]);
@@ -138,7 +138,7 @@ export function BuyBar() {
   const v = product.variants.find((x) => x.id === variantId) ?? product.variants[0];
   return (
     <div className="lh-buybar" role="region" aria-label={t("buyBar")}>
-      <div><span className="lh-buybar__name">{product.title}</span><span className="lh-buybar__price">{v?.title} · {formatMoney(v?.price ?? product.minPrice, locale)}</span></div>
+      <div><span className="lh-buybar__name">{product.title}</span><span className="lh-buybar__price">{v?.title ? `${v.title} · ` : ""}{formatMoney(v?.price ?? product.minPrice, locale)}</span></div>
       <button className="lh-btn lh-btn--primary" type="button" onClick={buy} disabled={pending || !product.availableForSale}>{tc("addToCart")}</button>
     </div>
   );
