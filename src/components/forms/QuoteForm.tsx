@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { submitQuote, type FormState } from "@/app/actions";
 import { Icon } from "@/components/ui/icons";
+import { TrackOnce } from "@/components/layout/Analytics";
 
 /** Demande de soumission CPE (composant QuoteForm). */
 export function QuoteForm() {
@@ -18,6 +19,7 @@ export function QuoteForm() {
   if (state.status === "ok") {
     return (
       <div className="lh-notice lh-notice--success" role="status">
+        <TrackOnce event="quote_submitted" properties={{ locale }} />
         <span className="lh-notice__icon"><Icon name="check" /></span>
         <div><span className="lh-notice__title">{t("okTitle")}</span>{t("okText")}</div>
       </div>

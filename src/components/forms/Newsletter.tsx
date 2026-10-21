@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { subscribeNewsletter, type FormState } from "@/app/actions";
 import { Icon } from "@/components/ui/icons";
+import { TrackOnce } from "@/components/layout/Analytics";
 
 export function Newsletter() {
   const t = useTranslations("news");
@@ -28,6 +29,7 @@ export function Newsletter() {
             </div>
           </div>
           <span className="lh-news__legal" id="nl-legal" aria-live="polite">{state.message ?? t("legal")}</span>
+          {state.status === "ok" && <TrackOnce event="newsletter_subscribed" properties={{ locale }} />}
         </form>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <div className="lh-news__arc" aria-hidden="true"><img src="/brand/arc-en-ciel.svg" alt="" width={300} height={160} /></div>

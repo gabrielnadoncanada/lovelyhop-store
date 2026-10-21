@@ -10,6 +10,7 @@ import { Icon } from "@/components/ui/icons";
 import { formatMoney } from "@/lib/format";
 import { FEATURED_HANDLE } from "@/lib/constants";
 import type { Locale } from "@/lib/types";
+import { track } from "@/lib/analytics";
 
 /** Panier latéral (composant CartDrawer du design system). Le paiement se fait sur le checkout Shopify. */
 export function CartDrawer() {
@@ -78,7 +79,7 @@ export function CartDrawer() {
             {error && <div className="lh-notice lh-notice--danger" role="alert"><span className="lh-notice__icon"><Icon name="error" /></span><div>{t("error")}</div></div>}
             <div className="lh-drawer__row"><span>{t("subtotal")}</span><strong>{formatMoney(cart?.subtotal, locale)}</strong></div>
             {cart?.checkoutUrl ? (
-              <a className="lh-btn lh-btn--primary lh-btn--block lh-btn--lg" style={{ justifyContent: "space-between" }} href={cart.checkoutUrl}>
+              <a className="lh-btn lh-btn--primary lh-btn--block lh-btn--lg" style={{ justifyContent: "space-between" }} href={cart.checkoutUrl} onClick={() => track("checkout_started", { items: cart.totalQuantity, subtotal: cart.subtotal ? Number(cart.subtotal.amount) : null })}>
                 {t("checkout")}<span className="lh-btn__arrow"><Icon name="arrow" /></span>
               </a>
             ) : (

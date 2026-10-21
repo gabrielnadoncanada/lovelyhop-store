@@ -7,6 +7,7 @@ import { CartDrawer } from "@/components/cart/CartDrawer";
 import { CartToast } from "@/components/cart/Toast";
 import { AlternatesProvider } from "@/components/layout/Alternates";
 import { Consent } from "@/components/layout/Consent";
+import { Analytics } from "@/components/layout/Analytics";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { isShopifyConfigured } from "@/lib/shopify/client";
 import { SITE_URL } from "@/lib/constants";
@@ -47,6 +48,7 @@ export default async function LocaleLayout({ children }: LayoutProps<"/[locale]"
               <CartDrawer />
               <CartToast />
               <Consent />
+              <Analytics />
               {!isShopifyConfigured && <span className="lh-demo-flag" title="SHOPIFY_STORE_DOMAIN / SHOPIFY_STOREFRONT_ACCESS_TOKEN">{t("demo")}</span>}
             </CartProvider>
           </AlternatesProvider>

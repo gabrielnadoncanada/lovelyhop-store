@@ -93,6 +93,10 @@ Tout passe par `src/lib/seo/` pour qu'aucune page n'oublie un morceau :
 - `/sitemap.xml` (hreflang + images produits, dates réelles seulement), `/robots.txt` (ouvert aux moteurs IA), `/llms.txt` et `/llms-full.txt` (résumé Markdown pour les moteurs de réponse IA, généré depuis le catalogue et les guides).
 - La recherche interne est en `noindex`.
 
+## Mesure d'audience (PostHog)
+
+`src/lib/analytics.ts` charge `posthog-js` **seulement après un accord « analytique »** dans le bandeau de témoins (témoin `lh_consent`), et le met en pause si l'accord est retiré. Projet PostHog « Lovelyhop » (us.posthog.com), jeton public dans `NEXT_PUBLIC_POSTHOG_KEY`. Les pages vues et l'autocapture sont automatiques ; les événements métier sont `product_viewed`, `add_to_cart`, `checkout_started`, `quote_submitted` et `newsletter_subscribed`. Chaque événement porte `site_env` (`production` ou `development`) et `site_locale`. La commande elle-même se passe sur le domaine Shopify : la conversion d'achat viendra des Customer Events de Shopify ou d'un webhook de commande.
+
 ## Design system
 
 `src/styles/lovelyhop.css` est une **copie** de `components/bundle.css` du design system LovelyHop (artefact Claude). Ne pas la modifier ici : changer le design system, puis recopier le fichier.
@@ -125,7 +129,7 @@ src/
 ## À brancher ensuite
 
 - **Infolettre** : `subscribeNewsletter` (dans `src/app/actions.ts`) valide le courriel mais ne l'envoie nulle part ; à relier à Shopify Email, Klaviyo ou autre.
-- **Mesure d'audience** : le bandeau de témoins (Loi 25) émet l'événement `lh:consent` ; charger PostHog ou les pixels seulement quand `analytics` / `marketing` est vrai.
+- **Pixels marketing** : le bandeau de témoins (Loi 25) émet l'événement `lh:consent` ; charger le pixel Meta ou Google seulement quand `marketing` est vrai (voir `src/lib/analytics.ts` pour le modèle utilisé avec PostHog).
 - **Valeurs entre crochets** (`[prix]`, `[L] cm`, `[politique de retour]`…) : à remplacer dans Shopify, jamais à inventer.
 - **Pages légales** : compléter les valeurs entre crochets, faire valider, puis retirer `review: true` (voir « Pages d'information »).
 - Courriel public et réseaux sociaux de la marque (`src/lib/seo/site.ts`) pour compléter le JSON-LD `Organization`.

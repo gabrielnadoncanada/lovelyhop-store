@@ -16,6 +16,7 @@ import { absoluteUrl, type LocalizedHref } from "@/lib/seo/urls";
 import { PageTop } from "@/components/layout/PageTop";
 import { Gallery } from "@/components/product/Gallery";
 import { BuyBar, BuyBox, PurchaseProvider } from "@/components/product/Purchase";
+import { TrackProductView } from "@/components/layout/Analytics";
 import { ProductCard } from "@/components/product/ProductCard";
 import { AddToCartButton } from "@/components/product/AddToCartButton";
 import { ProductArt } from "@/components/art/byKey";
@@ -97,6 +98,7 @@ export default async function ProductPage({ params }: PageProps<"/[locale]/[hand
       <PageTop />
       <main id="contenu" className="lh-pdp">
         <Crumbs items={crumbs} />
+        <TrackProductView handle={product.handle} title={product.title} univers={product.univers} price={product.minPrice?.amount ?? null} />
 
         <PurchaseProvider product={product} addons={addons}>
           <section className="lh-pdp__main" aria-label={product.title}>

@@ -3,6 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { useLocale } from "next-intl";
 import { addToCart, loadCart, setLineQuantity } from "@/app/actions";
+import { track } from "@/lib/analytics";
 import type { ArtKey, Cart } from "@/lib/types";
 
 type Toast = { name: string; art: ArtKey | null } | null;
@@ -54,6 +55,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     start(async () => {
       try {
         setCart(await addToCart(lines, locale));
+        track("add_to_cart", { name: t.name, variant_ids: lines.map((l) => l.variantId), quantity: lines.reduce((n, l) => n + l.quantity, 0) });
         setBump((b) => b + 1);
         setToast(t);
         if (timer.current) clearTimeout(timer.current);
