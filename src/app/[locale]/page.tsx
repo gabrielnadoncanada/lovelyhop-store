@@ -67,7 +67,6 @@ export default async function HomePage() {
         <SiteHeader />
         <div className="main" id="contenu" tabIndex={-1}>
           <div className="copy">
-            <span className="eyebrow"><svg viewBox="0 0 34 30" aria-hidden="true"><path d={HEART_PATH} /></svg>{t("hero.eyebrow")}</span>
             <h1>
               <span className="line"><span>{t("hero.title1")}</span></span>
               <span className="line"><span>{t("hero.title2")}</span></span>
