@@ -57,10 +57,10 @@ Reste à faire : installer le canal Headless et copier le jeton Storefront (éta
 
 6. **Webhooks** : Paramètres › Notifications › Webhooks › *Mise à jour de produit*, *Mise à jour de collection*, *Mise à jour du niveau de stock* → `https://<domaine>/api/revalidate` (JSON). La clé de signature va dans `SHOPIFY_WEBHOOK_SECRET`. Le cache du catalogue (étiquette `catalog`) se rafraîchit sans redéployer.
 7. **Caisse** : le bouton « Passer à la caisse » envoie vers le checkout Shopify (`cart.checkoutUrl`) ; taxes du Québec, paiements, livraison et courriels de commande restent dans Shopify.
-8. **Soumissions CPE** : chaque demande du formulaire devient un **client** Shopify (étiquette `soumission-cpe`, demande dans la note, étiquette datée `soumission-AAAAMMJJ-HHMM` à chaque envoi). Il faut une app personnalisée (Paramètres › Applications et canaux de vente › Développer des applications) avec les droits `read_customers` et `write_customers` ; son jeton va dans `SHOPIFY_ADMIN_ACCESS_TOKEN`. Le courriel part ensuite de **Shopify Flow** (app gratuite) :
+8. **Soumissions CPE** : chaque demande du formulaire devient un **client** Shopify (étiquette `soumission-cpe`, demande dans la note, étiquette datée `soumission-AAAAMMJJ-HHMM` à chaque envoi). L'app **Lovelyhop site CPE** (Dev Dashboard, dev.shopify.com) a les droits `read_customers` et `write_customers` et est installée sur la boutique ; son ID client et son secret client (page Aperçu de l'app) vont dans `SHOPIFY_ADMIN_CLIENT_ID` et `SHOPIFY_ADMIN_CLIENT_SECRET`. Le site obtient le jeton Admin lui-même (client credentials grant, renouvelé chaque 24 h). Le courriel part ensuite de **Shopify Flow** (app gratuite) :
    - Workflow 1 — déclencheur *Client créé*, condition *Étiquettes du client contient `soumission-cpe`*, action *Envoyer un courriel interne* à `info@lovelyhop.com` avec `{{ customer.displayName }}`, `{{ customer.email }}` et `{{ customer.note }}` dans le corps.
    - Workflow 2 (demandes répétées d'un même courriel) — déclencheur *Étiquettes de client ajoutées*, condition *l'étiquette ajoutée commence par `soumission-2`*, même action.
-   - Sans jeton Admin, le site retombe sur Resend (`RESEND_API_KEY`, `QUOTE_TO_EMAIL`) ; sans l'un ni l'autre, la demande est seulement journalisée.
+   - Sans ces identifiants, le site retombe sur Resend (`RESEND_API_KEY`, `QUOTE_TO_EMAIL`) ; sans l'un ni l'autre, la demande est seulement journalisée.
 
 ## Guides (blogue)
 

@@ -2,23 +2,46 @@ import "server-only";
 
 /**
  * API Admin de Shopify, utilisée seulement côté serveur pour enregistrer les demandes de
- * soumission CPE comme clients. Jeton d'une app personnalisée (Paramètres › Applications ›
- * Développer des applications) avec les droits read_customers et write_customers.
+ * soumission CPE comme clients. Deux façons de s'authentifier :
+ * - SHOPIFY_ADMIN_CLIENT_ID + SHOPIFY_ADMIN_CLIENT_SECRET : app créée dans le Dev Dashboard
+ *   (« Lovelyhop site CPE », droits read_customers et write_customers), installée sur la boutique.
+ *   Le jeton est demandé par « client credentials grant » et gardé en mémoire jusqu'à son expiration (24 h).
+ * - SHOPIFY_ADMIN_ACCESS_TOKEN : jeton fixe d'une ancienne app personnalisée, si on en a un.
  */
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN;
-const token = process.env.SHOPIFY_ADMIN_ACCESS_TOKEN;
+const staticToken = process.env.SHOPIFY_ADMIN_ACCESS_TOKEN;
+const clientId = process.env.SHOPIFY_ADMIN_CLIENT_ID;
+const clientSecret = process.env.SHOPIFY_ADMIN_CLIENT_SECRET;
 const version = process.env.SHOPIFY_API_VERSION ?? "2026-10";
 
-export const isAdminConfigured = Boolean(domain && token);
+export const isAdminConfigured = Boolean(domain && (staticToken || (clientId && clientSecret)));
+
+let cached: { token: string; expiresAt: number } | null = null;
+
+/** Jeton d'accès Admin : fixe, ou obtenu par client credentials et renouvelé 10 minutes avant l'expiration. */
+async function accessToken(): Promise<string> {
+  if (staticToken) return staticToken;
+  if (cached && cached.expiresAt > Date.now()) return cached.token;
+  const res = await fetch(`https://${domain}/admin/oauth/access_token`, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({ grant_type: "client_credentials", client_id: clientId!, client_secret: clientSecret! }),
+    cache: "no-store",
+  });
+  if (!res.ok) throw new Error(`Shopify OAuth ${res.status} : ${await res.text()}`);
+  const json = (await res.json()) as { access_token: string; expires_in: number };
+  cached = { token: json.access_token, expiresAt: Date.now() + (json.expires_in - 600) * 1000 };
+  return cached.token;
+}
 
 type GraphQLResponse<T> = { data?: T; errors?: { message: string }[] };
 
 async function admin<T>(query: string, variables: Record<string, unknown> = {}): Promise<T> {
-  if (!isAdminConfigured) throw new Error("SHOPIFY_ADMIN_ACCESS_TOKEN manquant (voir .env.example).");
+  if (!isAdminConfigured) throw new Error("API Admin Shopify non configurée (voir .env.example).");
   const res = await fetch(`https://${domain}/admin/api/${version}/graphql.json`, {
     method: "POST",
-    headers: { "Content-Type": "application/json", "X-Shopify-Access-Token": token! },
+    headers: { "Content-Type": "application/json", "X-Shopify-Access-Token": await accessToken() },
     body: JSON.stringify({ query, variables }),
     cache: "no-store",
   });
