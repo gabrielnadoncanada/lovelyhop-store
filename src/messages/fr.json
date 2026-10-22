@@ -385,7 +385,9 @@
     "added": "Ajouté au panier",
     "view": "Voir",
     "demo": "Mode démonstration : la caisse s'active dès que la boutique Shopify est branchée.",
-    "error": "Le panier n'a pas pu être mis à jour. Réessayez."
+    "error": "Le panier n'a pas pu être mis à jour. Réessayez.",
+    "secure": "Paiement sécurisé par Shopify",
+    "shippingNote": "Livraison partout au Canada"
   },
   "consent": {
     "title": "Vos choix de témoins",

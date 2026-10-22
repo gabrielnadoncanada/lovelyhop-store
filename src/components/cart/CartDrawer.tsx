@@ -87,6 +87,7 @@ export function CartDrawer() {
                 {t("checkout")}<span className="lh-btn__arrow"><Icon name="arrow" /></span>
               </button>
             )}
+            <ul className="lh-drawer__assure"><li><Icon name="shield" />{t("secure")}</li><li><Icon name="truck" />{t("shippingNote")}</li></ul>
             <span className="lh-help" style={{ justifyContent: "center", textAlign: "center" }}>{cart?.demo ? t("demo") : t("taxes")}</span>
           </div>
         )}

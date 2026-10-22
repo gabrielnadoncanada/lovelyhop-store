@@ -385,7 +385,9 @@
     "added": "Added to cart",
     "view": "View",
     "demo": "Demo mode: checkout turns on as soon as the Shopify store is connected.",
-    "error": "The cart could not be updated. Please try again."
+    "error": "The cart could not be updated. Please try again.",
+    "secure": "Secure checkout by Shopify",
+    "shippingNote": "Shipping across Canada"
   },
   "consent": {
     "title": "Your cookie choices",

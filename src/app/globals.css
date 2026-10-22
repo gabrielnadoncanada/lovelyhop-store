@@ -340,3 +340,30 @@ img, svg { max-width: 100%; }
 .lh-buybar > div { min-width: 0; }
 .lh-buybar__name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .lh-buybar .lh-btn { flex: none; white-space: nowrap; }
+
+/* Fiche produit : la colonne d'achat est en deux blocs placés par zones de grille. En bureau, galerie à gauche
+   sur deux rangées ; en une colonne, le titre et le prix passent avant la galerie, les options et le bouton après. */
+.lh-pdp__main { grid-template-areas: "gallery head" "gallery body"; grid-template-rows: auto 1fr; row-gap: 0; }
+.lh-pdp__main > .lh-gallery { grid-area: gallery; }
+.lh-buy--head { grid-area: head; }
+.lh-buy--body { grid-area: body; padding-top: var(--space-2); }
+@media (max-width: 960px) {
+  .lh-pdp__main { grid-template-areas: "head" "gallery" "body"; grid-template-rows: auto; row-gap: var(--space-6); }
+  .lh-buy--head { padding-top: 0; }
+  .lh-buy--body { padding-top: 0; }
+}
+
+/* Tiroir panier : deux repères de confiance sous le bouton de caisse. */
+.lh-drawer__assure { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px var(--space-5); font: 500 12px/18px var(--font-sans); color: var(--ink-muted); }
+.lh-drawer__assure li { display: inline-flex; align-items: center; gap: 6px; }
+.lh-drawer__assure svg.i { width: 15px; height: 15px; color: var(--sage-deep); }
+
+/* Bannière de témoins sur téléphone : plus compacte (elle couvrait plus du tiers de l'écran). */
+@media (max-width: 600px) {
+  .lh-consent { padding: var(--space-4); gap: var(--space-3); }
+  .lh-consent__title { font-size: 18px; }
+  .lh-consent p { font-size: 13px; line-height: 19px; }
+  .lh-consent__actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .lh-consent__actions .lh-btn { height: 42px; padding: 0 12px; font-size: 14px; justify-content: center; }
+  .lh-consent__actions .lh-link { grid-column: 1 / -1; justify-self: center; margin: 2px 0 0; }
+}

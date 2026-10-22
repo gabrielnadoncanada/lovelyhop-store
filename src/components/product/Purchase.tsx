@@ -59,8 +59,10 @@ export function BuyBox({ crumbs }: { crumbs: ReactNode }) {
   const variant = product.variants.find((v) => v.id === variantId) ?? product.variants[0];
   const assure = t.raw("assure") as [string, string][];
   const assureIcons = ["truck", "tool", "cycle", "heart"] as const;
+  // Deux blocs : sur téléphone, l'en-tête (titre, prix) passe avant la galerie, le corps (options, bouton) après.
   return (
-    <div className="lh-buy">
+    <>
+    <div className="lh-buy lh-buy--head">
       {crumbs}
       <h1 className="lh-buy__title"><Title text={product.title} /></h1>
       <p className="lh-buy__lead">{product.details?.lead ?? product.description}</p>
@@ -71,7 +73,8 @@ export function BuyBox({ crumbs }: { crumbs: ReactNode }) {
           : <span className="lh-stock lh-stock--out">{t("soldOut")}</span>}
       </div>
       {product.details?.shipping && <p className="lh-buy__ship">{product.details.shipping}</p>}
-
+    </div>
+    <div className="lh-buy lh-buy--body">
       {product.variants.length > 1 && (
         <fieldset className="lh-opt">
           <legend className="lh-opt__head"><span className="lh-eyebrow">{t("set")}</span><span className="lh-opt__value">{variant?.title}</span></legend>
@@ -120,6 +123,7 @@ export function BuyBox({ crumbs }: { crumbs: ReactNode }) {
         ))}
       </ul>
     </div>
+    </>
   );
 }
 
