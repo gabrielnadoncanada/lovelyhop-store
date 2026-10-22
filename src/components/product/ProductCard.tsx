@@ -29,6 +29,10 @@ export async function ProductCard({ product }: { product: Product }) {
         <div className="lh-card__add">
           <AddToCartButton className="lh-btn lh-btn--primary lh-btn--block lh-btn--sm" variantId={product.variants[0]?.id ?? null} name={product.title} art={product.art} disabled={!product.availableForSale} />
         </div>
+        {/* Au toucher, pas de survol : un bouton rond d'ajout rapide reste visible dans le coin de l'image. */}
+        <div className="lh-card__quick">
+          <AddToCartButton className="lh-card__quick-btn" variantId={product.variants[0]?.id ?? null} name={product.title} art={product.art} label={t("addToCart")} iconOnly disabled={!product.availableForSale} />
+        </div>
       </div>
       <div className="lh-card__body">
         <span className="lh-card__age">{product.age}</span>
