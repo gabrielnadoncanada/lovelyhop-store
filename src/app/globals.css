@@ -368,18 +368,16 @@ img, svg { max-width: 100%; }
   .lh-consent__actions .lh-link { grid-column: 1 / -1; justify-self: center; margin: 2px 0 0; }
 }
 
-/* Cartes produit au toucher : ajout rapide rond, visible en permanence, car le bouton au survol est masqué sous 1024 px. */
-.lh-card__quick { display: none; position: absolute; right: 12px; bottom: 12px; z-index: 3; }
+/* Cartes produit au toucher : le bouton au survol est masqué sous 1024 px, un bouton rond d'ajout rapide
+   prend place à droite du prix, hors de l'image. Le cœur des favoris, sans fonction, disparaît au toucher. */
+.lh-card__buy { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
+.lh-card__quick { display: none; position: relative; z-index: 3; }
 .lh-card__quick-btn { width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; display: grid; place-items: center; background: var(--clay); color: var(--on-clay); box-shadow: var(--shadow-soft); cursor: pointer; transition: transform .3s var(--ease), opacity .2s; }
 .lh-card__quick-btn:active { transform: scale(.94); }
 .lh-card__quick-btn:disabled { opacity: .45; cursor: default; }
 .lh-card__quick-btn svg.i { width: 20px; height: 20px; }
 @media (max-width: 1023px) {
   .lh-card__quick { display: block; }
-  .lh-card__badges { right: 64px; }
-  .lh-card__badges .lh-badge { white-space: nowrap; }
-}
-/* Cartes étroites (deux colonnes) : le badge monte en haut à gauche pour laisser la place au bouton. */
-@media (max-width: 600px) {
-  .lh-card__badges { top: 10px; bottom: auto; right: auto; }
+  .lh-card__fav { display: none; }
+  .lh-card__buy { margin-top: 2px; }
 }

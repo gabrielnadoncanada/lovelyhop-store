@@ -29,10 +29,6 @@ export async function ProductCard({ product }: { product: Product }) {
         <div className="lh-card__add">
           <AddToCartButton className="lh-btn lh-btn--primary lh-btn--block lh-btn--sm" variantId={product.variants[0]?.id ?? null} name={product.title} art={product.art} disabled={!product.availableForSale} />
         </div>
-        {/* Au toucher, pas de survol : un bouton rond d'ajout rapide reste visible dans le coin de l'image. */}
-        <div className="lh-card__quick">
-          <AddToCartButton className="lh-card__quick-btn" variantId={product.variants[0]?.id ?? null} name={product.title} art={product.art} label={t("addToCart")} iconOnly disabled={!product.availableForSale} />
-        </div>
       </div>
       <div className="lh-card__body">
         <span className="lh-card__age">{product.age}</span>
@@ -41,7 +37,13 @@ export async function ProductCard({ product }: { product: Product }) {
           <span className="lh-card__material">{product.material}</span>
           <div className="lh-swatches lh-swatches--sm"><span className="lh-swatch lh-dot-wood" /></div>
         </div>
-        <span className="lh-price"><span className="lh-price__now">{formatMoney(product.minPrice, locale)}</span></span>
+        <div className="lh-card__buy">
+          <span className="lh-price"><span className="lh-price__now">{formatMoney(product.minPrice, locale)}</span></span>
+          {/* Au toucher, pas de survol : un bouton rond d'ajout rapide à côté du prix, hors de l'image. */}
+          <div className="lh-card__quick">
+            <AddToCartButton className="lh-card__quick-btn" variantId={product.variants[0]?.id ?? null} name={product.title} art={product.art} label={t("addToCart")} iconOnly disabled={!product.availableForSale} />
+          </div>
+        </div>
       </div>
     </article>
   );
