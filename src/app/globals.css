@@ -386,3 +386,19 @@ img, svg { max-width: 100%; }
   /* L'illustration est un peu plus centrée dans l'arche basse. */
   .lh-card__art { bottom: 20%; }
 }
+
+/* Menu mobile en trois blocs : Boutique (index, univers ouvert, univers à venir), carte CPE, Ressources en rangées.
+   Le pied ne garde que Mon compte et la langue. */
+.lh-mnav__section { display: grid; }
+.lh-mnav__label { margin: 0 0 4px; font: 600 11px/16px var(--font-sans); letter-spacing: .14em; text-transform: uppercase; color: var(--sage-deep); }
+.lh-mnav__row { display: flex; align-items: center; gap: var(--space-3); min-height: 56px; border-bottom: 1px solid var(--hairline); font: 450 18px/1.2 var(--font-display); font-variation-settings: "SOFT" 100, "opsz" 36; color: var(--ink); }
+.lh-mnav__row > svg.i:last-child { margin-left: auto; width: 18px; height: 18px; color: var(--ink-muted); }
+.lh-mnav__ico { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--lin-deep); color: var(--sage-deep); flex: none; }
+.lh-mnav__ico svg.i { width: 18px; height: 18px; }
+.lh-mnav__row--soon { color: var(--ink-muted); }
+.lh-mnav__row--soon .lh-mega__ico { opacity: .7; }
+.lh-mnav__section .lh-mnav__group { border-bottom: 1px solid var(--hairline); }
+.lh-mnav__section .lh-mnav__group summary { min-height: 56px; font-size: 18px; }
+.lh-mnav__body { gap: var(--space-6); }
+.lh-mnav__foot { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+.lh-mnav__foot a { justify-content: center; min-height: 48px; border-radius: var(--radius-full); background: var(--lin-deep); font: 500 14px/20px var(--font-sans); }

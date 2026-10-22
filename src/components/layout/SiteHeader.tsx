@@ -198,7 +198,6 @@ function MobileNav({ locale, altHref, other, onClose }: { locale: Locale; altHre
     panel.current?.querySelector<HTMLElement>("button")?.focus();
     return () => { document.body.style.overflow = prev; };
   }, []);
-  const groupTitle: React.CSSProperties = { display: "flex", alignItems: "center", gap: 12, minHeight: 60, font: "450 20px/1.2 var(--font-display)", fontVariationSettings: "'SOFT' 100" };
   return createPortal(
     <div className="lh lh-overlay lh-overlay--right">
       <div className="lh-scrim" onClick={onClose} />
@@ -213,32 +212,40 @@ function MobileNav({ locale, altHref, other, onClose }: { locale: Locale; altHre
             <Icon name="search" />
             <input className="lh-input" name="q" type="search" aria-label={t("search")} placeholder={locale === "fr" ? "Table sensorielle, bibliothèque…" : "Sensory table, bookshelf…"} />
           </form>
-          <div>
+
+          {/* 1. Boutique : l'index des univers, l'univers ouvert avec ses fiches, les univers à venir. */}
+          <section className="lh-mnav__section" aria-labelledby="mnav-shop">
+            <h3 className="lh-mnav__label" id="mnav-shop">{t("shop")}</h3>
+            <Link className="lh-mnav__row" href="/collections" onClick={onClose}><span className="lh-mnav__ico"><Icon name="layers" /></span>{t("universIndex")}<Icon name="chevRight" /></Link>
             <details className="lh-mnav__group" open>
               <summary><span className="lh-mega__ico"><UniversIcon univers="creer" /></span>{t("univers.creer")}<Icon name="chev" /></summary>
               <CreerLinks locale={locale} onNavigate={onClose} />
             </details>
             {SOON.map((u) => (
-              <div className="lh-mnav__group" key={u}>
-                <span style={groupTitle}>
-                  <span className="lh-mega__ico"><UniversIcon univers={u} /></span>{t(`univers.${u}`)} <span className="lh-mega__soon">{t("soon")}</span>
-                </span>
-              </div>
+              <Link className="lh-mnav__row lh-mnav__row--soon" href={{ pathname: "/collections/[handle]", params: { handle: UNIVERS_HANDLES[u][locale] } }} onClick={onClose} key={u}>
+                <span className="lh-mega__ico"><UniversIcon univers={u} /></span>{t(`univers.${u}`)} <span className="lh-mega__soon">{t("soon")}</span>
+              </Link>
             ))}
-          </div>
+          </section>
+
+          {/* 2. Garderies et CPE : l'appel principal pour les pros. */}
           <Link className="lh-mnav__pro" href="/daycares" onClick={onClose}>
             <span><strong>{t("proTitle")}</strong><span>{t("proText")}</span></span>
             <span className="lh-icon-btn"><Icon name="arrow" /></span>
           </Link>
+
+          {/* 3. Ressources : des rangées pleine largeur, pas un pied de page entassé. */}
+          <section className="lh-mnav__section" aria-labelledby="mnav-help">
+            <h3 className="lh-mnav__label" id="mnav-help">{tf("help")}</h3>
+            <Link className="lh-mnav__row" href="/blog" onClick={onClose}><span className="lh-mnav__ico"><Icon name="heart" /></span>{t("guides")}<Icon name="chevRight" /></Link>
+            <Link className="lh-mnav__row" href="/faq" onClick={onClose}><span className="lh-mnav__ico"><Icon name="shield" /></span>{tf("faq")}<Icon name="chevRight" /></Link>
+            <Link className="lh-mnav__row" href="/shipping" onClick={onClose}><span className="lh-mnav__ico"><Icon name="truck" /></span>{tf("shipping")}<Icon name="chevRight" /></Link>
+            <Link className="lh-mnav__row" href="/contact" onClick={onClose}><span className="lh-mnav__ico"><Icon name="mail" /></span>{tf("contact")}<Icon name="chevRight" /></Link>
+          </section>
         </div>
         <div className="lh-mnav__foot">
-          <Link href="/collections" onClick={onClose}><Icon name="layers" />{t("universIndex")}</Link>
-          <Link href="/blog" onClick={onClose}><Icon name="heart" />{t("guides")}</Link>
-          <Link href="/faq" onClick={onClose}><Icon name="shield" />{tf("faq")}</Link>
-          <Link href="/shipping" onClick={onClose}><Icon name="truck" />{tf("shipping")}</Link>
-          <Link href="/contact" onClick={onClose}><Icon name="mail" />{tf("contact")}</Link>
-          <a href={altHref} lang={other} hrefLang={other}><Icon name="globe" />{t("langName")}</a>
           <Link href="/account" onClick={onClose}><Icon name="user" />{t("account")}</Link>
+          <a href={altHref} lang={other} hrefLang={other}><Icon name="globe" />{t("langName")}</a>
         </div>
       </div>
     </div>,
