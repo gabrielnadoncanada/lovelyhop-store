@@ -380,4 +380,9 @@ img, svg { max-width: 100%; }
   .lh-card__quick { display: block; }
   .lh-card__fav { display: none; }
   .lh-card__buy { margin-top: 2px; }
+  /* Le badge monte en haut à gauche : en bas, il couvrait les pieds des meubles sur les images basses. */
+  .lh-card__badges { top: 10px; bottom: auto; left: 10px; }
+  .lh-card__badges .lh-badge { white-space: nowrap; }
+  /* L'illustration est un peu plus centrée dans l'arche basse. */
+  .lh-card__art { bottom: 20%; }
 }
